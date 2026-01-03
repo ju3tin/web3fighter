@@ -185,7 +185,7 @@ export default function TekkenGame() {
         <div className="absolute inset-0 flex items-center justify-center bg-black/80 backdrop-blur-sm">
           <div className="text-center space-y-8">
             <h1 className="text-7xl font-bold text-white tracking-wider mb-4">
-              <span className="text-red-500">TEKKEN</span> FIGHTER
+              <span className="text-red-500">WEB3</span> FIGHTER
             </h1>
             <p className="text-xl text-white/60 mb-8">Best of 3 Rounds</p>
             <Button
