@@ -31,7 +31,7 @@ export function GameScene({ player1Position, player2Position }: GameSceneProps) 
       <Arena />
 
       {/* Fighters */}
-      <Fighter position={player1Position} color="#ff0000" name="Player 1" isPlayer1={true} modelPath="/models/ninja2.glb"  />
+      <Fighter1 position={player1Position} color="#ff0000" name="Player 1" isPlayer1={true} modelPath="/models/ninja2.glb"  />
       <Fighter1 position={player2Position} color="#0066ff" name="Player 2" isPlayer1={false} modelPath="/models/urbanninja.glb" />
 
       {/* Ground Shadows */}
