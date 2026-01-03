@@ -13,7 +13,7 @@ interface Character {
 const characters: Character[] = [
   { id: 'ryu', name: 'Ryu', portrait: '/characters/ryu-portrait.jpg' },
   { id: 'ken', name: 'Ken', portrait: '/characters/ken-portrait.jpg' },
-  { id: 'chunli', name: 'Chun-Li', portrait: '/characters/chunli-portrait.jpg' },
+  { id: 'chunli', name: 'Chun-Li', portrait: '/characters/ChunLi.png' },
   { id: 'guile', name: 'Guile', portrait: '/characters/guile-portrait.jpg' },
   { id: 'zangief', name: 'Zangief', portrait: '/characters/zangief-portrait.jpg' },
   { id: 'blanka', name: 'Blanka', portrait: '/characters/blanka-portrait.jpg' },
