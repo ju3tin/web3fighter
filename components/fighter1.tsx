@@ -13,7 +13,7 @@ interface FighterProps {
 
 type AnimationState = "idle" | "punch" | "kick" | "block" | "hit" | "walk"
 
-export function Fighter({ position, color, name, isPlayer1 = true }: FighterProps) {
+export function Fighter1({ position, color, name, isPlayer1 = true }: FighterProps) {
   const groupRef = useRef<THREE.Group>(null)
   const leftArmRef = useRef<THREE.Mesh>(null)
   const rightArmRef = useRef<THREE.Mesh>(null)
