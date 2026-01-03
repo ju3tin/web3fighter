@@ -1,11 +1,14 @@
-export async function GET(request: Request) {
-  // For example, fetch data from your DB here
-  const users = [
-    { id: 1, name: 'Alice' },
-    { id: 2, name: 'Bob' }
-  ];
-  return new Response(JSON.stringify(users), {
-    status: 200,
-    headers: { 'Content-Type': 'application/json' }
-  });
+// pages/api/user1.js
+export default function handler(req, res) {
+  if (req.method === 'GET') {
+    const users = [
+      { id: 1, name: 'Alice' },
+      { id: 2, name: 'Bob' }
+    ];
+    
+    res.status(200).json(users);
+  } else {
+    res.setHeader('Allow', ['GET']);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
+  }
 }
