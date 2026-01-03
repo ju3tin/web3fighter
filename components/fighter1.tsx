@@ -8,7 +8,7 @@ interface FighterProps {
   position: [number, number, number]
   color: string
   name: string
-  isPlayer1?: boolean
+  isPlayer1: true
 }
 
 type AnimationState = "idle" | "punch" | "kick" | "block" | "hit" | "walk"
