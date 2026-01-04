@@ -1,12 +1,23 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Image from 'next/image';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls, useGLTF } from '@react-three/drei';
 
 interface Character {
   id: string;
   name: string;
   portrait: string;
+  // add a model field pointing to the .glb file (url or public path)
+  model?: string;
+}
+
+function Model({ url }: { url: string }) {
+  // useGLTF will load the .glb and give you the scene
+  // If you have TypeScript complaints about gltf types, you can cast to any
+  const gltf = useGLTF(url) as any;
+  return <primitive object={gltf.scene} />;
 }
 
 export default function CharacterSelector() {
@@ -93,13 +104,38 @@ export default function CharacterSelector() {
       {selectedCharacter && (
         <div className="mt-12 flex flex-col items-center">
           <h2 className="text-3xl mb-4">Selected: {selectedCharacter.name}</h2>
-          <Image
-            src={selectedCharacter.portrait}
-            alt={selectedCharacter.name}
-            width={300}
-            height={400}
-            className="rounded-lg shadow-2xl"
-          />
+
+          {/* If character has a model url, render a 3D canvas, otherwise fallback to portrait image */}
+          {selectedCharacter.model ? (
+            <div className="rounded-lg shadow-2xl overflow-hidden bg-gray-800">
+              <div style={{ width: 300, height: 400 }}>
+                <Canvas camera={{ position: [0, 1.2, 3], fov: 50 }}>
+                  <ambientLight intensity={0.8} />
+                  <directionalLight position={[5, 5, 5]} intensity={1} />
+                  <Suspense
+                    fallback={
+                      <mesh>
+                        <boxGeometry args={[1, 1, 1]} />
+                        <meshStandardMaterial color="gray" />
+                      </mesh>
+                    }
+                  >
+                    <Model url={selectedCharacter.model} />
+                    <OrbitControls enablePan={false} autoRotate={false} />
+                  </Suspense>
+                </Canvas>
+              </div>
+            </div>
+          ) : (
+            <Image
+              src={selectedCharacter.portrait}
+              alt={selectedCharacter.name}
+              width={300}
+              height={400}
+              className="rounded-lg shadow-2xl"
+            />
+          )}
+
           <button
             onClick={handleConfirm}
             className="mt-8 px-12 py-4 bg-red-600 hover:bg-red-700 text-2xl font-bold rounded-lg transition"
