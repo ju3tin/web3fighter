@@ -1,4 +1,4 @@
-// pages/api/user1.js
+// pages/api/characters.js
 export default function handler(req, res) {
   if (req.method === 'GET') {
     const characters = [
