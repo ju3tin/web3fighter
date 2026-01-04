@@ -4,7 +4,7 @@ export default function handler(req, res) {
     const characters = [
   { id: 'xiaoyu', name: 'Xiaoyu', portrait: '/characters/xiaoyu.png' },
   { id: 'julia', name: 'Julia', portrait: '/characters/julia.png' },
-  { id: 'ryu', name: 'Ryu', portrait: '/characters/ryu.png' },
+  { id: 'ryu', name: 'Ryu', portrait: '/characters/ryu.png', model: '/models/ryu.glb' },
   { id: 'ken', name: 'Ken', portrait: '/characters/ken.png', model: '/models/ninja2.glb' },
   { id: 'chunli', name: 'Chun-Li', portrait: '/characters/ChunLi.png', model: '/models/chun_li.glb' },
   { id: 'guile', name: 'Guile', portrait: '/characters/Guile.png', model: '/models/urbanninja.glb' },
