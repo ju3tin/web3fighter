@@ -2,8 +2,8 @@
 export default function handler(req, res) {
   if (req.method === 'GET') {
     const characters = [
-  { id: 1, name: 'Alice' },
-  { id: 2, name: 'Bob' },
+  { id: 'alice', name: 'Alice', portrait: '/characters/ryu.png' },
+  { id: 'bob', name: 'Bob', portrait: '/characters/ryu.png' },
   { id: 'ryu', name: 'Ryu', portrait: '/characters/ryu.png' },
   { id: 'ken', name: 'Ken', portrait: '/characters/ken.png' },
   { id: 'chunli', name: 'Chun-Li', portrait: '/characters/ChunLi.png' },
