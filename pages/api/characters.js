@@ -7,7 +7,7 @@ export default function handler(req, res) {
   { id: 'ryu', name: 'Ryu', portrait: '/characters/ryu.png' },
   { id: 'ken', name: 'Ken', portrait: '/characters/ken.png', model: '/models/ninja2.glb' },
   { id: 'chunli', name: 'Chun-Li', portrait: '/characters/ChunLi.png', model: '/models/chun_li.glb' },
-  { id: 'guile', name: 'Guile', portrait: '/characters/Guile.png' },
+  { id: 'guile', name: 'Guile', portrait: '/characters/Guile.png', model: '/models/ninja1.glb' },
   { id: 'anna', name: 'Anna', portrait: '/characters/anna.png' },
   { id: 'blanka', name: 'Blanka', portrait: '/characters/Super_Blanka.png' },
     ];
