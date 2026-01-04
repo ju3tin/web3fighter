@@ -8,7 +8,7 @@ export default function handler(req, res) {
   { id: 'ken', name: 'Ken', portrait: '/characters/ken.png' },
   { id: 'chunli', name: 'Chun-Li', portrait: '/characters/ChunLi.png' },
   { id: 'guile', name: 'Guile', portrait: '/characters/Guile.png' },
-  { id: 'zangief', name: 'Anna', portrait: '/characters/Super_Zangief.png' },
+  { id: 'anna', name: 'Anna', portrait: '/characters/Super_Zangief.png' },
   { id: 'blanka', name: 'Blanka', portrait: '/characters/Super_Blanka.png' },
     ];
     
