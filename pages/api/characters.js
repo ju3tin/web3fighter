@@ -1,4 +1,4 @@
-// pages/api/characters.js
+  // pages/api/characters.js
 export default function handler(req, res) {
   if (req.method === 'GET') {
     const characters = [
@@ -6,7 +6,7 @@ export default function handler(req, res) {
   { id: 'julia', name: 'Julia', portrait: '/characters/julia.png' },
   { id: 'ryu', name: 'Ryu', portrait: '/characters/ryu.png' },
   { id: 'ken', name: 'Ken', portrait: '/characters/ken.png' },
-  { id: 'chunli', name: 'Chun-Li', portrait: '/characters/ChunLi.png' },
+  { id: 'chunli', name: 'Chun-Li', portrait: '/characters/ChunLi.png', model: '/models/chun_li.glb' },
   { id: 'guile', name: 'Guile', portrait: '/characters/Guile.png' },
   { id: 'anna', name: 'Anna', portrait: '/characters/anna.png' },
   { id: 'blanka', name: 'Blanka', portrait: '/characters/Super_Blanka.png' },
