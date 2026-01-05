@@ -6,6 +6,8 @@ import { GameScene } from "@/components/game-scene"
 import { GameUI } from "@/components/game-ui"
 import { GameController } from "@/components/game-controller"
 import { Button } from "@/components/ui/button"
+import { useSearchParams } from "next/navigation";
+
 
 type GameState = "playing" | "paused" | "round-end" | "game-over"
 
@@ -20,6 +22,8 @@ export default function TekkenGame() {
   const [currentRound, setCurrentRound] = useState(1)
   const [gameTime, setGameTime] = useState(99)
   const [winner, setWinner] = useState<string | null>(null)
+  const searchParams = useSearchParams();
+  const p1 = searchParams.get("p1");
 
   // Game timer countdown
   useEffect(() => {
