@@ -51,7 +51,7 @@ export default function TekkenGame() {
  //   const p1 = searchParams?.get("p1") || null;
  //    console.log(p1) || null; // logs the value
   }, [gameState, player1Health, player2Health])
-// const p1 = searchParams?.get("p1") || null;
+ const p1 = searchParams?.get("p1") || null;
  
   
   // Check for knockout
