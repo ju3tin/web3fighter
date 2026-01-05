@@ -1,13 +1,13 @@
 "use client"
 
-import { Canvas } from "@react-three/fiber"
-import { useState, useCallback, useEffect } from "react"
-import { GameScene } from "@/components/game-scene"
-import { GameUI } from "@/components/game-ui"
-import { GameController } from "@/components/game-controller"
-import { Button } from "@/components/ui/button"
-import { useSearchParams } from "next/navigation";
+import { Canvas } from "@react-three/fiber";
+import { useState, useCallback, useEffect } from "react";
+import { GameScene } from "@/components/game-scene";
+import { GameUI } from "@/components/game-ui";
+import { GameController } from "@/components/game-controller";
+import { Button } from "@/components/ui/button";
 import { Suspense } from "react";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
 
 type GameState = "playing" | "paused" | "round-end" | "game-over"
