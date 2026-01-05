@@ -29,6 +29,24 @@ export default function TekkenGame() {
 
 
   // 
+
+   useEffect(() => {
+    async function fetchCharacters() {
+      try {
+        const res = await fetch('/api/characters');
+        if (!res.ok) throw new Error('Failed to load characters');
+        const data: Character[] = await res.json();
+        setCharacters(data);
+      } catch (err) {
+        setError('Could not load characters. Please try again later.');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchCharacters();
+  }, []);
  
   // Game timer countdown
   useEffect(() => {
