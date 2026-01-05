@@ -27,6 +27,8 @@ export default function TekkenGame() {
 
   // Game timer countdown
   useEffect(() => {
+     console.log(p1); // logs the value
+
     if (gameState !== "playing") return
 
     const timer = setInterval(() => {
