@@ -23,7 +23,7 @@ export default function TekkenGame() {
   const [currentRound, setCurrentRound] = useState(1)
   const [gameTime, setGameTime] = useState(99)
   const [winner, setWinner] = useState<string | null>(null)
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
   // const p1 = searchParams.get("p1");
   const [searchParams, setSearchParams] = useState<URLSearchParams | null>(null);
 
