@@ -136,13 +136,14 @@ export default function CharacterSelector() {
               className="rounded-lg shadow-2xl"
             />
           )}
-
+<Link href={`/game?p1=${selectedCharacter.id}`}>
           <button
             onClick={handleConfirm}
             className="mt-8 px-12 py-4 bg-red-600 hover:bg-red-700 text-2xl font-bold rounded-lg transition"
           >
             FIGHT!
           </button>
+</Link>
         </div>
       )}
     </div>
