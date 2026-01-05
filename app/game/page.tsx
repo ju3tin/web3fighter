@@ -48,9 +48,9 @@ export default function TekkenGame() {
     }, 1000)
 
     return () => clearInterval(timer);
-    const p1 = searchParams?.get("p1") || null;
-     console.log(p1) || null; // logs the value
-  }, [gameState, player1Health, player2Health, p1])
+ //   const p1 = searchParams?.get("p1") || null;
+ //    console.log(p1) || null; // logs the value
+  }, [gameState, player1Health, player2Health])
 // const p1 = searchParams?.get("p1") || null;
  
   
