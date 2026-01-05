@@ -7,6 +7,7 @@ import { GameUI } from "@/components/game-ui"
 import { GameController } from "@/components/game-controller"
 import { Button } from "@/components/ui/button"
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
 
 type GameState = "playing" | "paused" | "round-end" | "game-over"
@@ -162,6 +163,7 @@ export default function TekkenGame() {
   )
 
   return (
+      <Suspense fallback={<div>Loading...</div>}>
     <div className="w-full h-screen bg-black overflow-hidden relative">
       <Canvas shadows camera={{ position: [0, 2, 8], fov: 50 }} gl={{ antialias: true }}>
         <GameScene player1Position={player1Position} player2Position={player2Position} />
@@ -230,5 +232,6 @@ export default function TekkenGame() {
         </div>
       )}
     </div>
+      </Suspense>
   )
 }
