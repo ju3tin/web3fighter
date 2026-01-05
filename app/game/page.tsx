@@ -26,10 +26,12 @@ export default function TekkenGame() {
   const searchParams = useSearchParams();
   const p1 = searchParams.get("p1");
 
+
+    console.log(p1); // logs the value
+ 
   // Game timer countdown
   useEffect(() => {
-     console.log(p1); // logs the value
-  //  return null;
+    //  return null;
     if (gameState !== "playing") return
 
     const timer = setInterval(() => {
@@ -44,7 +46,7 @@ export default function TekkenGame() {
     }, 1000)
 
     return () => clearInterval(timer)
-  }, [gameState, player1Health, player2Health, p1])
+  }, [gameState, player1Health, player2Health])
 
   // Check for knockout
   useEffect(() => {
