@@ -49,8 +49,9 @@ export default function TekkenGame() {
 
     return () => clearInterval(timer)
   }, [gameState, player1Health, player2Health])
-const p1 = searchParams?.get("p1") || null;
-  console.log(p1); // logs the value
+// const p1 = searchParams?.get("p1") || null;
+  console.log(p1) || null; // logs the value
+  
   // Check for knockout
   useEffect(() => {
     if (gameState !== "playing") return
