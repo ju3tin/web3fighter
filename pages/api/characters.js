@@ -2,7 +2,7 @@
 export default function handler(req, res) {
   if (req.method === 'GET') {
     const characters = [
-  { id: 'xiaoyu', name: 'Xiaoyu', portrait: '/characters/xiaoyu.png' },
+  { id: 'xiaoyu', name: 'Xiaoyu', portrait: '/characters/xiaoyu.png', model: '/models/black_girl_avatar.glb' },
   { id: 'julia', name: 'Julia', portrait: '/characters/julia.png' },
   { id: 'ryu', name: 'Ryu', portrait: '/characters/ryu.png', model: '/models/ryu.glb' },
   { id: 'ken', name: 'Ken', portrait: '/characters/ken.png', model: '/models/ninja2.glb' },
