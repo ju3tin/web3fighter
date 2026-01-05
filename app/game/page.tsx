@@ -174,7 +174,7 @@ export default function TekkenGame() {
       <Suspense fallback={<div>Loading...</div>}>
     <div className="w-full h-screen bg-black overflow-hidden relative">
       <Canvas shadows camera={{ position: [0, 2, 8], fov: 50 }} gl={{ antialias: true }}>
-        <GameScene player1Position={player1Position} player2Position={player2Position} />
+        <GameScene player1Position={player1Position} p1={p1} player2Position={player2Position} />
       </Canvas>
 
       {gameState === "playing" && (
