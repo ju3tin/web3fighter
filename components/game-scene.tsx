@@ -8,9 +8,10 @@ import { GameCamera } from "./game-camera"
 interface GameSceneProps {
   player1Position: [number, number, number]
   player2Position: [number, number, number]
+  p1: string
 }
 
-export function GameScene({ player1Position, player2Position }: GameSceneProps) {
+export function GameScene({ player1Position, player2Position, p1 }: GameSceneProps) {
   return (
     <>
       {/* Lighting */}
