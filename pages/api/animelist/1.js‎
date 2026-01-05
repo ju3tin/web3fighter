@@ -1,4 +1,4 @@
-  // pages/animelist‎/1.js
+// pages/animelist‎/1.js
 export default function handler(req, res) {
   if (req.method === 'GET') {
     const characters = [
