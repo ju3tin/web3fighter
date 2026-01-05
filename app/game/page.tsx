@@ -7,7 +7,7 @@ import { GameUI } from "@/components/game-ui"
 import { GameController } from "@/components/game-controller"
 import { Button } from "@/components/ui/button"
 
-type GameState = "menu" | "playing" | "paused" | "round-end" | "game-over"
+type GameState = "playing" | "paused" | "round-end" | "game-over"
 
 export default function TekkenGame() {
   const [gameState, setGameState] = useState<GameState>("playing")
@@ -180,28 +180,7 @@ export default function TekkenGame() {
         </>
       )}
 
-      {/* Main Menu */}
-      {gameState === "menu" && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black/80 backdrop-blur-sm">
-          <div className="text-center space-y-8">
-            <h1 className="text-7xl font-bold text-white tracking-wider mb-4">
-              <span className="text-red-500">WEB3</span> FIGHTER
-            </h1>
-            <p className="text-xl text-white/60 mb-8">Best of 3 Rounds</p>
-            <Button
-              onClick={startGame}
-              size="lg"
-              className="text-2xl px-12 py-8 bg-red-500 hover:bg-red-600 text-white font-bold tracking-wider"
-            >
-              START FIGHT
-            </Button>
-            <div className="mt-12 text-white/40 text-sm space-y-2">
-              <p>Player 1: WASD + J/K/L | Player 2: Arrows + 1/2/3</p>
-            </div>
-          </div>
-        </div>
-      )}
-
+    
       {/* Round End Screen */}
       {gameState === "round-end" && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/80 backdrop-blur-sm">
