@@ -24,10 +24,11 @@ export default function TekkenGame() {
   const [gameTime, setGameTime] = useState(99)
   const [winner, setWinner] = useState<string | null>(null)
   const searchParams = useSearchParams();
-  const p1 = searchParams.get("p1");
+  // const p1 = searchParams.get("p1");
+  const [searchParams, setSearchParams] = useState<URLSearchParams | null>(null);
 
 
-    console.log(p1); // logs the value
+  // console.log(p1); // logs the value
  
   // Game timer countdown
   useEffect(() => {
