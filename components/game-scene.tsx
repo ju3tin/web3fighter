@@ -9,9 +9,10 @@ interface GameSceneProps {
   player1Position: [number, number, number]
   player2Position: [number, number, number]
   p1: string
+  model: string
 }
 
-export function GameScene({ player1Position, player2Position, p1 }: GameSceneProps) {
+export function GameScene({ player1Position, player2Position, p1, model }: GameSceneProps) {
   console.log(p1+' dude its cool')
   return (
     <>
@@ -33,7 +34,7 @@ export function GameScene({ player1Position, player2Position, p1 }: GameScenePro
       <Arena />
 
       {/* Fighters */}
-      <Fighter1 position={player1Position} color="#ff0000" name={p1} isPlayer1={true} modelPath="/models/ninja2.glb"  />
+      <Fighter1 position={player1Position} color="#ff0000" name={p1} isPlayer1={true} modelPath={model}  />
       <Fighter1 position={player2Position} color="#0066ff" name="Player 2" isPlayer1={false} modelPath="/models/urbanninja.glb" />
 
       {/* Ground Shadows */}
