@@ -27,7 +27,7 @@ export function Fighter1({ position, color, name, isPlayer1 = true, modelPath, a
     groupRef
   );
   
-  const { actions, names } = useAnimations(animations, groupRef)
+  // const { actions, names } = useAnimations(animations, groupRef)
 
   // Clone scene to avoid sharing state between instances
   const clonedScene = scene.clone()
