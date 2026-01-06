@@ -52,7 +52,7 @@ export function GameUI({
         <div className="flex-1 max-w-md">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-3">
-              <span className="text-red-500 font-bold text-xl tracking-wider">{{character.name}}</span>
+              <span className="text-red-500 font-bold text-xl tracking-wider">{character.name}</span>
               <div className="flex gap-1">
                 {[...Array(2)].map((_, i) => (
                   <div
