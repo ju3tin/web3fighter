@@ -1,5 +1,7 @@
 "use client"
 
+import { useSearchParams } from "next/navigation";
+
 interface GameUIProps {
   player1Health: number
   player2Health: number
