@@ -31,7 +31,7 @@ export default function TekkenGame() {
 useEffect(() => {
     async function fetchCharacter() {
       try {
-        const res = await fetch(`/api/characters/${id}`);
+        const res = await fetch(`/api/characters/${p1}`);
         if (!res.ok) throw new Error('Not found');
 
         const data: Character = await res.json();
@@ -43,8 +43,8 @@ useEffect(() => {
       }
     }
 
-    if (id) fetchCharacter();
-  }, [id]);
+    if (p1) fetchCharacter();
+  }, [p1]);
 
   
   // 
