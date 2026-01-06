@@ -1,6 +1,7 @@
 "use client"
 
 import { useSearchParams } from "next/navigation";
+import { useState, useCallback, useEffect } from "react";
 
 interface GameUIProps {
   player1Health: number
