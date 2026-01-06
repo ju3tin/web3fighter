@@ -13,6 +13,7 @@ type GameState = "playing" | "paused" | "round-end" | "game-over";
 type Character = {
   id: string;
   model: string;
+  animelist: string;
 };
 
 type Props = {
