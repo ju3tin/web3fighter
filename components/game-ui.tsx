@@ -21,6 +21,26 @@ export function GameUI({
 }: GameUIProps) {
     const searchParams = useSearchParams();
   const p1 = searchParams.get("p1") ?? "jin";
+
+  useEffect(() => {
+    async function fetchCharacter() {
+      try {
+        const res = await fetch("/api/characters");
+        const data: Character[] = await res.json();
+
+        const result = data.find(
+          (item) => item.id === (selectedId ?? p1)
+        );
+
+        setCharacter(result ?? null);
+      } catch (err) {
+        console.error("Failed to load character", err);
+      }
+    }
+
+    fetchCharacter();
+  }, [p1, selectedId]);
+  
   return (
     <div className="absolute inset-0 pointer-events-none">
       {/* Top HUD */}
