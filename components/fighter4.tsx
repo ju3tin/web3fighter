@@ -10,9 +10,10 @@ interface FighterProps {
   name: string
   isPlayer1?: boolean
   modelPath: string // e.g. "/models/fighter.glb"
+  ‎animationPath: string
 }
 
-export function Fighter1({ position, color, name, isPlayer1 = true, modelPath }: FighterProps) {
+export function Fighter1({ position, color, name, isPlayer1 = true, modelPath, animationPath }: FighterProps) {
   const groupRef = useRef<THREE.Group>(null)
   
   // Load the GLB model
@@ -26,6 +27,7 @@ export function Fighter1({ position, color, name, isPlayer1 = true, modelPath }:
 
   // Apply color tint if provided
   useEffect(() => {
+    console.log('fuck this'+animationPath)
     if (color) {
       clonedScene.traverse((child) => {
         if ((child as THREE.Mesh).isMesh) {
