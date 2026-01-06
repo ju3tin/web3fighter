@@ -233,6 +233,7 @@ export default function TekkenGame({ selectedId }: Props) {
             player2Position={player2Position}
             p1={p1}
             model={character.model}
+            animelist={character.animelist}
           />
         )}
       </Canvas>
