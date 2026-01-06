@@ -204,7 +204,7 @@ useEffect(() => {
   return (
     <div className="relative w-full h-screen bg-black overflow-hidden">
       <Canvas shadows camera={{ position: [0, 2, 8], fov: 50 }} gl={{ antialias: true }}>
-        <GameScene player1Position={player1Position} player2Position={player2Position} p1={p1} model={character?.model} />
+        <GameScene player1Position={player1Position} player2Position={player2Position} p1={p1} model={character.model} />
       </Canvas>
 
       {/* UI and Controls only during active play */}
