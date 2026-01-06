@@ -25,6 +25,8 @@ export default function TekkenGame() {
   const [winner, setWinner] = useState<string | null>(null)
   // const searchParams = useSearchParams();
   // const p1 = searchParams.get("p1");
+  const [character, setCharacter] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [searchParams, setSearchParams] = useState<URLSearchParams | null>(null);
   const [error, setError] = useState<string | null>(null)
 
