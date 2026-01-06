@@ -35,7 +35,7 @@ export function GameScene({ player1Position, player2Position, p1, model, animeli
       <Arena />
 
       {/* Fighters */}
-      <Fighter1 position={player1Position} color="#ff0000" name={p1} isPlayer1={true} modelPath={model} animelist={animelist}  />
+      <Fighter1 position={player1Position} color="#ff0000" name={p1} isPlayer1={true} modelPath={model} animationPath={animelist}  />
       <Fighter1 position={player2Position} color="#0066ff" name="Player 2" isPlayer1={false} modelPath="/models/urbanninja.glb" />
 
       {/* Ground Shadows */}
