@@ -26,8 +26,27 @@ export default function TekkenGame() {
   // const searchParams = useSearchParams();
   // const p1 = searchParams.get("p1");
   const [searchParams, setSearchParams] = useState<URLSearchParams | null>(null);
+  const [error, setError] = useState<string | null>(null)
 
+useEffect(() => {
+    async function fetchCharacter() {
+      try {
+        const res = await fetch(`/api/characters/${id}`);
+        if (!res.ok) throw new Error('Not found');
 
+        const data: Character = await res.json();
+        setCharacter(data);
+      } catch {
+        setError('Character not found');
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    if (id) fetchCharacter();
+  }, [id]);
+
+  
   // 
 
    useEffect(() => {
