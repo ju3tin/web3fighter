@@ -1,111 +1,125 @@
-"use client"
+"use client";
 
-import { useRef, useEffect } from "react"
-import { useGLTF, useAnimations } from "@react-three/drei"
-import type * as THREE from "three"
+import { useRef, useEffect, useMemo } from "react";
+import { useGLTF, useAnimations } from "@react-three/drei";
+import * as THREE from "three";
 
 interface FighterProps {
-  position: [number, number, number]
-  color?: string // Optional: if you want to tint the model
-  name: string
-  isPlayer1?: boolean
-  modelPath: string // e.g. "/models/fighter.glb"
+  position: [number, number, number];
+  name: string;
+  isPlayer1?: boolean;
+  modelPath: string;        // e.g. "/models/fighter.glb"
+  animationPath: string;    // e.g. "/animation/1.glb"
 }
 
-export function Fighter1({ position, color, name, isPlayer1 = true, modelPath }: FighterProps) {
-  const groupRef = useRef<THREE.Group>(null)
-  
-  // Load the GLB model
-  const { scene, animations } = useGLTF(modelPath)
-  
-  // Get animation actions
-  const { actions, names } = useAnimations(animations, groupRef)
+export function Fighter1({
+  position,
+  name,
+  isPlayer1 = true,
+  modelPath,
+  animationPath,
+}: FighterProps) {
+  const groupRef = useRef<THREE.Group>(null);
 
-  // Clone scene to avoid sharing state between instances
-  const clonedScene = scene.clone()
+  /* ---------------- LOAD MODEL ---------------- */
 
-  // Apply color tint if provided
-  useEffect(() => {
-    if (color) {
-      clonedScene.traverse((child) => {
-        if ((child as THREE.Mesh).isMesh) {
-          ;(child as THREE.Mesh).material = (child as THREE.Mesh).material.clone()
-          ;((child as THREE.Mesh).material as THREE.MeshStandardMaterial).color.set(color)
-        }
-      })
-    }
-  }, [color, clonedScene])
+  const modelGltf = useGLTF(modelPath);
+  const clonedScene = useMemo(
+    () => modelGltf.scene.clone(true),
+    [modelGltf.scene]
+  );
 
-  // Face the correct direction (Player 2 faces opposite)
+  /* ---------------- LOAD ANIMATIONS ---------------- */
+
+  const animationGltf = useGLTF(animationPath);
+
+  const { actions, mixer } = useAnimations(
+    animationGltf.animations,
+    groupRef
+  );
+
+  /* ---------------- FACE DIRECTION ---------------- */
+
   useEffect(() => {
     if (groupRef.current) {
-      groupRef.current.rotation.y = isPlayer1 ? 0 : Math.PI
+      groupRef.current.rotation.y = isPlayer1 ? 0 : Math.PI;
     }
-  }, [isPlayer1])
+  }, [isPlayer1]);
 
-  // External animation control via custom events (same as before)
+  /* ---------------- ANIMATION CONTROL ---------------- */
+
   useEffect(() => {
-    const playAnimation = (animName: string, loop: boolean = false) => {
-      // Stop all others
-      Object.values(actions).forEach((action) => {
-        if (action.isRunning()) action.fadeOut(0.2)
-      })
+    if (!actions || !mixer) return;
 
-      const action = actions[animName]
-      if (action) {
-        action
-          .reset()
-          .fadeIn(0.2)
-          .setLoop(loop ? THREE.LoopRepeat : THREE.LoopOnce)
-          .play()
+    const fadeTo = (
+      name: string,
+      loop: THREE.AnimationActionLoopStyles
+    ) => {
+      Object.values(actions).forEach((a) => a?.fadeOut(0.2));
 
-        // For one-shot animations (punch, kick, hit), go back to idle when done
-        if (!loop) {
-          action.clampWhenFinished = true
-          const onFinished = () => {
-            action.fadeOut(0.2)
-            actions["Idle"]?.reset().fadeIn(0.2).play()
-            action.getMixer().removeEventListener("finished", onFinished)
-          }
-          action.getMixer().addEventListener("finished", onFinished)
-        }
-      } else {
-        console.warn(`Animation "${animName}" not found. Available:`, names)
-        // Fallback to idle
-        actions["Idle"]?.play()
+      const action = actions[name];
+      if (!action) {
+        console.warn(`Missing animation: ${name}`);
+        return;
       }
-    }
 
-    const handlePunch = () => playAnimation("Punch", false)
-    const handleKick = () => playAnimation("Kick", false)
-    const handleBlock = () => playAnimation("Block", true) // loop while blocking
-    const handleHit = () => playAnimation("Hit", false)
-    const handleWalk = () => playAnimation("Walk", true)
-    const handleIdle = () => playAnimation("Idle", true)
+      action.reset().fadeIn(0.2).setLoop(loop, Infinity).play();
+      return action;
+    };
 
-    window.addEventListener(`${name}-punch`, handlePunch)
-    window.addEventListener(`${name}-kick`, handleKick)
-    window.addEventListener(`${name}-block`, handleBlock)
-    window.addEventListener(`${name}-hit`, handleHit)
-    window.addEventListener(`${name}-walk`, handleWalk)
-    window.addEventListener(`${name}-idle`, handleIdle)
+    const playOnce = (name: string) => {
+      const action = fadeTo(name, THREE.LoopOnce);
+      if (!action) return;
 
-    // Start with idle
-    playAnimation("Idle", true)
+      action.clampWhenFinished = true;
+
+      const onFinish = () => {
+        fadeTo("Idle", THREE.LoopRepeat);
+        mixer.removeEventListener("finished", onFinish);
+      };
+
+      mixer.addEventListener("finished", onFinish);
+    };
+
+    /* ---- EVENTS ---- */
+
+    const onIdle = () => fadeTo("Idle", THREE.LoopRepeat);
+    const onWalk = () => fadeTo("Walk", THREE.LoopRepeat);
+    const onPunch = () => playOnce("Punch");
+    const onKick = () => playOnce("Kick");
+    const onHit = () => playOnce("Hit");
+    const onBlock = () => fadeTo("Block", THREE.LoopRepeat);
+
+    window.addEventListener(`${name}-idle`, onIdle);
+    window.addEventListener(`${name}-walk`, onWalk);
+    window.addEventListener(`${name}-punch`, onPunch);
+    window.addEventListener(`${name}-kick`, onKick);
+    window.addEventListener(`${name}-hit`, onHit);
+    window.addEventListener(`${name}-block`, onBlock);
+
+    // Start idle
+    fadeTo("Idle", THREE.LoopRepeat);
 
     return () => {
-      window.removeEventListener(`${name}-punch`, handlePunch)
-      window.removeEventListener(`${name}-kick`, handleKick)
-      window.removeEventListener(`${name}-block`, handleBlock)
-      window.removeEventListener(`${name}-hit`, handleHit)
-      window.removeEventListener(`${name}-walk`, handleWalk)
-      window.removeEventListener(`${name}-idle`, handleIdle)
-    }
-  }, [name, actions, names])
+      window.removeEventListener(`${name}-idle`, onIdle);
+      window.removeEventListener(`${name}-walk`, onWalk);
+      window.removeEventListener(`${name}-punch`, onPunch);
+      window.removeEventListener(`${name}-kick`, onKick);
+      window.removeEventListener(`${name}-hit`, onHit);
+      window.removeEventListener(`${name}-block`, onBlock);
+    };
+  }, [actions, mixer, name]);
+
+  /* ---------------- RENDER ---------------- */
 
   return (
     <group ref={groupRef} position={position} dispose={null}>
       <primitive object={clonedScene} />
     </group>
-  )
+  );
 }
+
+/* ---------------- PRELOAD ---------------- */
+
+useGLTF.preload("/models/fighter.glb");
+useGLTF.preload("/animation/1.glb");
