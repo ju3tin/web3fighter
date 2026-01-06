@@ -27,7 +27,7 @@ export function Fighter1({ position, color, name, isPlayer1 = true, modelPath, a
 
   // Apply color tint if provided
   useEffect(() => {
-    console.log('fuck this'+animationPath)
+ //   console.log('fuck this'+animationPath)
     if (color) {
       clonedScene.traverse((child) => {
         if ((child as THREE.Mesh).isMesh) {
