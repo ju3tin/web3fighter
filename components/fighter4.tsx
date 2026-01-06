@@ -9,8 +9,8 @@ interface FighterProps {
   color?: string // Optional: if you want to tint the model
   name: string
   isPlayer1?: boolean
-  modelPath: string // e.g. "/models/fighter.glb"
-  ‎animationPath: string
+  modelPath: string
+  animationPath: string
 }
 
 export function Fighter1({ position, color, name, isPlayer1 = true, modelPath, animationPath }: FighterProps) {
