@@ -32,7 +32,7 @@ export default function TekkenGame({ selectedId }) {
       const res = await fetch("/api/characters");
       const data = await res.json();
 
-      const result = data.find(item => p1 === selectedId);
+      const result = data.find(item => item.id === p1);
       setCharacter(result);
     }
 
