@@ -7,6 +7,7 @@ interface GameUIProps {
   currentRound: number
   player1Score: number
   player2Score: number
+  selectedId?: string
 }
 
 export function GameUI({
