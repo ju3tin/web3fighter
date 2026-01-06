@@ -19,6 +19,8 @@ export function GameUI({
   player2Score,
   selectedId 
 }: GameUIProps) {
+    const searchParams = useSearchParams();
+  const p1 = searchParams.get("p1") ?? "jin";
   return (
     <div className="absolute inset-0 pointer-events-none">
       {/* Top HUD */}
