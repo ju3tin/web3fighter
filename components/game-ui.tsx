@@ -16,6 +16,7 @@ export function GameUI({
   currentRound,
   player1Score,
   player2Score,
+  selectedId 
 }: GameUIProps) {
   return (
     <div className="absolute inset-0 pointer-events-none">
