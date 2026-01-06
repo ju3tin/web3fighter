@@ -39,7 +39,7 @@ export default function TekkenGame({ selectedId }) {
     fetchCharacter();
   }, [selectedId]);
   // Timer countdown
-//console.log(character.model+ 'this is the model 1')
+console.log(character.model+ 'this is the model 1')
   
   useEffect(() => {
     if (gameState !== "playing") return;
