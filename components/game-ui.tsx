@@ -1,16 +1,23 @@
-"use client"
+"use client";
 
 import { useSearchParams } from "next/navigation";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useEffect } from "react";
+
+// Define the Character type if not imported elsewhere
+interface Character {
+  id: string;
+  name: string;
+  // add other fields as needed
+}
 
 interface GameUIProps {
-  player1Health: number
-  player2Health: number
-  gameTime: number
-  currentRound: number
-  player1Score: number
-  player2Score: number
-  selectedId?: string
+  player1Health: number;
+  player2Health: number;
+  gameTime: number;
+  currentRound: number;
+  player1Score: number;
+  player2Score: number;
+  selectedId?: string;
 }
 
 export function GameUI({
@@ -20,30 +27,28 @@ export function GameUI({
   currentRound,
   player1Score,
   player2Score,
-  selectedId 
+  selectedId,
 }: GameUIProps) {
-    const searchParams = useSearchParams();
+  const searchParams = useSearchParams();
   const p1 = searchParams.get("p1") ?? "jin";
+
+  // Add the missing state!
+  const [character, setCharacter] = useState<Character | null>(null);
 
   useEffect(() => {
     async function fetchCharacter() {
       try {
         const res = await fetch("/api/characters");
         const data: Character[] = await res.json();
-
-        const result = data.find(
-          (item) => item.id === (selectedId ?? p1)
-        );
-
+        const result = data.find((item) => item.id === (selectedId ?? p1));
         setCharacter(result ?? null);
       } catch (err) {
         console.error("Failed to load character", err);
       }
     }
-
     fetchCharacter();
   }, [p1, selectedId]);
-  
+
   return (
     <div className="absolute inset-0 pointer-events-none">
       {/* Top HUD */}
@@ -52,12 +57,16 @@ export function GameUI({
         <div className="flex-1 max-w-md">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-3">
-              <span className="text-red-500 font-bold text-xl tracking-wider">{character?.name}</span>
+              <span className="text-red-500 font-bold text-xl tracking-wider">
+                {character?.name || "PLAYER 1"}
+              </span>
               <div className="flex gap-1">
                 {[...Array(2)].map((_, i) => (
                   <div
                     key={i}
-                    className={`w-3 h-3 rounded-full ${i < player1Score ? "bg-red-500" : "bg-red-500/20"}`}
+                    className={`w-3 h-3 rounded-full ${
+                      i < player1Score ? "bg-red-500" : "bg-red-500/20"
+                    }`}
                   />
                 ))}
               </div>
@@ -65,7 +74,10 @@ export function GameUI({
             <span className="text-red-500 font-mono text-lg">{player1Health}%</span>
           </div>
           <div className="h-8 bg-black/60 border-2 border-red-500 rounded-sm overflow-hidden">
-            <div className="h-full bg-red-500 transition-all duration-300" style={{ width: `${player1Health}%` }} />
+            <div
+              className="h-full bg-red-500 transition-all duration-300"
+              style={{ width: `${player1Health}%` }}
+            />
           </div>
         </div>
 
@@ -73,12 +85,16 @@ export function GameUI({
         <div className="flex flex-col items-center gap-2">
           <div className="bg-black/80 border-4 border-yellow-400 rounded-lg px-6 py-3">
             <span
-              className={`font-bold text-4xl font-mono ${gameTime <= 10 ? "text-red-500 animate-pulse" : "text-yellow-400"}`}
+              className={`font-bold text-4xl font-mono ${
+                gameTime <= 10 ? "text-red-500 animate-pulse" : "text-yellow-400"
+              }`}
             >
               {gameTime}
             </span>
           </div>
-          <div className="text-white font-bold text-sm tracking-widest">ROUND {currentRound}</div>
+          <div className="text-white font-bold text-sm tracking-widest">
+            ROUND {currentRound}
+          </div>
         </div>
 
         {/* Player 2 Health */}
@@ -90,11 +106,15 @@ export function GameUI({
                 {[...Array(2)].map((_, i) => (
                   <div
                     key={i}
-                    className={`w-3 h-3 rounded-full ${i < player2Score ? "bg-blue-500" : "bg-blue-500/20"}`}
+                    className={`w-3 h-3 rounded-full ${
+                      i < player2Score ? "bg-blue-500" : "bg-blue-500/20"
+                    }`}
                   />
                 ))}
               </div>
-              <span className="text-blue-500 font-bold text-xl tracking-wider">PLAYER 2</span>
+              <span className="text-blue-500 font-bold text-xl tracking-wider">
+                PLAYER 2
+              </span>
             </div>
           </div>
           <div className="h-8 bg-black/60 border-2 border-blue-500 rounded-sm overflow-hidden">
@@ -118,5 +138,5 @@ export function GameUI({
         </div>
       </div>
     </div>
-  )
+  );
 }
