@@ -14,7 +14,7 @@ interface GameSceneProps {
 }
 
 export function GameScene({ player1Position, player2Position, p1, model, animelist }: GameSceneProps) {
-  console.log(p1+' dude its cool')
+  console.log(p1+' dude its cool '+animelist)
   return (
     <>
       {/* Lighting */}
