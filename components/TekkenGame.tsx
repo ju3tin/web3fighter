@@ -10,9 +10,10 @@ import { useSearchParams } from "next/navigation";
 
 type GameState = "playing" | "paused" | "round-end" | "game-over";
 
-export default function TekkenGame() {
+export default function TekkenGame({ selectedId }) {
   const searchParams = useSearchParams();
   const p1 = searchParams.get("p1") ?? "jin"; // fallback character if no ?p1=
+  const [character, setCharacter] = useState(null);
 
   const [gameState, setGameState] = useState<GameState>("playing");
   const [player1Position, setPlayer1Position] = useState<[number, number, number]>([-2, 0, 0]);
@@ -25,6 +26,18 @@ export default function TekkenGame() {
   const [gameTime, setGameTime] = useState(99);
   const [winner, setWinner] = useState<string | null>(null);
 
+
+  useEffect(() => {
+    async function fetchCharacter() {
+      const res = await fetch("/api/characters");
+      const data = await res.json();
+
+      const result = data.find(item => item.id === selectedId);
+      setCharacter(result);
+    }
+
+    fetchCharacter();
+  }, [selectedId]);
   // Timer countdown
   useEffect(() => {
     if (gameState !== "playing") return;
