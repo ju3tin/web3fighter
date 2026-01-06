@@ -29,23 +29,26 @@ export default function TekkenGame() {
   const [error, setError] = useState<string | null>(null)
 
 useEffect(() => {
-    async function fetchCharacter() {
-      try {
-        const res = await fetch(`/api/characters/${p1}`);
-        if (!res.ok) throw new Error('Not found');
+  if (!p1) {
+    setLoading(false);
+    return;
+  }
 
-        const data: Character = await res.json();
-        setCharacter(data);
-      } catch {
-        setError('Character not found');
-      } finally {
-        setLoading(false);
-      }
+  async function fetchCharacter() {
+    try {
+      const res = await fetch(`/api/characters/${p1}`);
+      if (!res.ok) throw new Error("Not found");
+      const data = await res.json();
+      setCharacter(data);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
     }
+  }
 
-    if (p1) fetchCharacter();
-  }, [p1]);
-
+  fetchCharacter();
+}, [p1]);
   
   // 
 
