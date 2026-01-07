@@ -174,7 +174,6 @@ export default function TekkenGame() {
             </h1>
             <p className="text-xl text-white/60 mb-8">Best of 3 Rounds</p>
             <Button
-              onClick={}
               size="lg"
               className="text-2xl px-12 py-8 bg-red-500 hover:bg-red-600 text-white font-bold tracking-wider"
             >
