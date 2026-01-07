@@ -157,11 +157,25 @@ export default function TekkenGame() {
 
   return (
     <div className="w-full h-screen bg-black overflow-hidden relative">
-     
+      <Canvas shadows camera={{ position: [0, 2, 8], fov: 50 }} gl={{ antialias: true }}>
+      </Canvas>
 
       {gameState === "playing" && (
         <>
-       
+          <GameUI
+            player1Health={player1Health}
+            player2Health={player2Health}
+            gameTime={gameTime}
+            currentRound={currentRound}
+            player1Score={player1Score}
+            player2Score={player2Score}
+          />
+          <GameController
+            onPlayer1Move={handlePlayer1Move}
+            onPlayer2Move={handlePlayer2Move}
+            onPlayer1Action={handlePlayer1Action}
+            onPlayer2Action={handlePlayer2Action}
+          />
         </>
       )}
 
@@ -174,6 +188,7 @@ export default function TekkenGame() {
             </h1>
             <p className="text-xl text-white/60 mb-8">Best of 3 Rounds</p>
             <Button
+              onClick={startGame}
               size="lg"
               className="text-2xl px-12 py-8 bg-red-500 hover:bg-red-600 text-white font-bold tracking-wider"
             >
@@ -188,12 +203,45 @@ export default function TekkenGame() {
 
       {/* Round End Screen */}
       {gameState === "round-end" && (
-     
+        <div className="absolute inset-0 flex items-center justify-center bg-black/80 backdrop-blur-sm">
+          <div className="text-center space-y-8">
+            <h2 className="text-6xl font-bold text-yellow-400 tracking-wider mb-4 animate-pulse">
+              {winner?.toUpperCase()} WINS!
+            </h2>
+            <div className="text-3xl text-white mb-8">
+              <span className="text-red-500">{player1Score}</span> -{" "}
+              <span className="text-blue-500">{player2Score}</span>
+            </div>
+            <Button
+              onClick={nextRound}
+              size="lg"
+              className="text-2xl px-12 py-8 bg-yellow-400 hover:bg-yellow-500 text-black font-bold tracking-wider"
+            >
+              NEXT ROUND
+            </Button>
+          </div>
+        </div>
       )}
 
       {/* Game Over Screen */}
       {gameState === "game-over" && (
-       
+        <div className="absolute inset-0 flex items-center justify-center bg-black/90 backdrop-blur-sm">
+          <div className="text-center space-y-8">
+            <h2 className="text-8xl font-bold text-yellow-400 tracking-wider mb-4 animate-pulse">VICTORY!</h2>
+            <h3 className="text-5xl font-bold text-white mb-8">{winner?.toUpperCase()} WINS THE MATCH!</h3>
+            <div className="text-4xl text-white mb-12">
+              <span className="text-red-500">{player1Score}</span> -{" "}
+              <span className="text-blue-500">{player2Score}</span>
+            </div>
+            <Button
+              onClick={startGame}
+              size="lg"
+              className="text-2xl px-12 py-8 bg-red-500 hover:bg-red-600 text-white font-bold tracking-wider"
+            >
+              PLAY AGAIN
+            </Button>
+          </div>
+        </div>
       )}
     </div>
   )
