@@ -121,5 +121,4 @@ export function Fighter1({
 
 /* ---------------- PRELOAD ---------------- */
 
-useGLTF.preload("/models/fighter.glb");
-useGLTF.preload("/animation/1.glb");
+
