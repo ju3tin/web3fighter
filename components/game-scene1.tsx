@@ -1,0 +1,43 @@
+"use client"
+import { Environment, ContactShadows } from "@react-three/drei"
+import { Fighter } from "./fighter"
+import { Arena } from "./arena"
+import { GameCamera } from "./game-camera"
+
+interface GameSceneProps {
+  player1Position: [number, number, number]
+  player2Position: [number, number, number]
+}
+
+export function GameScene({ player1Position, player2Position }: GameSceneProps) {
+  return (
+    <>
+      {/* Lighting */}
+      <ambientLight intensity={0.5} />
+      <directionalLight
+        position={[5, 10, 5]}
+        intensity={1}
+        castShadow
+        shadow-mapSize-width={2048}
+        shadow-mapSize-height={2048}
+      />
+      <spotLight position={[-5, 10, -5]} intensity={0.5} angle={0.3} penumbra={1} />
+
+      {/* Game Camera */}
+      <GameCamera />
+
+      {/* Arena/Stage */}
+      <Arena />
+
+      {/* Fighters */}
+      <Fighter position={player1Position} color="#ff0000" name="Player 1" isPlayer1={true} />
+      <Fighter position={player2Position} color="#0066ff" name="Player 2" isPlayer1={false} />
+
+      {/* Ground Shadows */}
+      <ContactShadows position={[0, -0.01, 0]} opacity={0.5} scale={20} blur={2} far={4} />
+
+      {/* Environment for reflections */}
+      <Environment preset="sunset" />
+    </>
+  )
+}
