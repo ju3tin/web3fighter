@@ -2,7 +2,7 @@
 
 import { Canvas } from "@react-three/fiber"
 import { useState, useCallback, useEffect } from "react"
-import { GameScene } from "@/components/game-scene"
+import { GameScene } from "@/components/game-scene1"
 import { GameUI } from "@/components/game-ui"
 import { GameController } from "@/components/game-controller"
 import { Button } from "@/components/ui/button"
