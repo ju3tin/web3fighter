@@ -1,6 +1,6 @@
 // app/game/page.tsx
 import { Suspense } from "react";
-import TekkenGame from "@/components/TekkenGame";
+import TekkenGame from "@/components/TekkenGame1";
 
 // Optional but recommended for real-time games
 export const dynamic = "force-dynamic";
