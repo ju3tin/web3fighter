@@ -34,7 +34,12 @@ export function Fighter1({
     groupRef
   )
 
-
+useEffect(() => {
+    console.log(`Actions object for ${name}:`, actions)
+    // Or more readable:
+    console.log(`Playable animation names for ${name}:`, Object.keys(actions))
+  }, [actions, name])
+  
   /* ---------- COLOR ---------- */
   useEffect(() => {
     if (!color) return
