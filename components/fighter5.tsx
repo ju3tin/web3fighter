@@ -34,7 +34,9 @@ export function Fighter1({
     groupRef
   )
 
+ const { animations } = animationGltf
 
+  
 // ── Log the list of animation names to console ──
   useEffect(() => {
     if (animations?.length > 0) {
