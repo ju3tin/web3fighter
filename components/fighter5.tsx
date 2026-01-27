@@ -34,6 +34,25 @@ export function Fighter1({
     groupRef
   )
 
+
+// ── Log the list of animation names to console ──
+  useEffect(() => {
+    if (animations?.length > 0) {
+      console.log(`Available animations for ${name} (${animationPath || modelPath}):`)
+      animations.forEach((clip, index) => {
+        console.log(`  ${index + 1}. "${clip.name}"  (duration: ${clip.duration.toFixed(2)}s)`)
+      })
+    } else {
+      console.warn(`No animations found in ${animationPath || modelPath} for ${name}`)
+    }
+  }, [animations, name, modelPath, animationPath])
+
+  const { actions, mixer } = useAnimations(animations, groupRef)
+
+  // ... rest of your code (color, facing, animation control, render) remains the same
+}
+
+  
   /* ---------- COLOR ---------- */
   useEffect(() => {
     if (!color) return
