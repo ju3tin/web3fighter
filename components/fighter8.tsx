@@ -134,4 +134,4 @@ export function Fighter({
 }
 
 /* ---------- PRELOAD MODEL ---------- */
-useGLTF.preload("/models/fighter.glb")
+useGLTF.preload("/anime/1a.glb")
