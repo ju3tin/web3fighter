@@ -39,6 +39,12 @@ export function Fighter({
 }: FighterProps) {
   const groupRef = useRef<THREE.Group>(null)
 
+  // If you want preloading, it has to happen in component scope
+  // (modelPath is a prop, not a module-level variable).
+  useEffect(() => {
+    useGLTF.preload(modelPath)
+  }, [modelPath])
+
   /* ---------- LOAD MODEL ---------- */
   const { scene, animations } = useGLTF(modelPath)
   const { actions, mixer } = useAnimations(animations, groupRef)
