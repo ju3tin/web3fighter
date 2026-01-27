@@ -113,7 +113,7 @@ export function Fighter1({
   /* ---------------- RENDER ---------------- */
 
   return (
-    <group ref={groupRef} position={position} dispose={null}>
+    <group ref={groupRef} position={position}>
       <primitive object={clonedScene} />
     </group>
   );
