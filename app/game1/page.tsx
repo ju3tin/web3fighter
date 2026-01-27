@@ -184,7 +184,12 @@ export default function TekkenGame() {
 
   return (
     <div className="w-full h-screen bg-black overflow-hidden relative">
-      <Canvas shadows camera={{ position: [0, 2, 8], fov: 50 }} gl={{ antialias: true }}>
+      <Canvas
+        shadows
+        dpr={[1, 1.5]}
+        camera={{ position: [0, 2, 8], fov: 50 }}
+        gl={{ antialias: true, powerPreference: "high-performance" }}
+      >
         <GameScene player1Position={player1Position} player2Position={player2Position} />
       </Canvas>
 

@@ -253,7 +253,12 @@ export default function TekkenGame({ selectedId }: Props) {
 
   return (
     <div className="relative w-full h-screen bg-black overflow-hidden">
-      <Canvas shadows camera={{ position: [0, 2, 8], fov: 50 }}>
+      <Canvas
+        shadows
+        dpr={[1, 1.5]}
+        gl={{ powerPreference: "high-performance" }}
+        camera={{ position: [0, 2, 8], fov: 50 }}
+      >
         {character && (
           <GameScene
             player1Position={player1Position}
