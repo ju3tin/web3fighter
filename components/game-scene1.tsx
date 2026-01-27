@@ -18,8 +18,8 @@ export function GameScene({ player1Position, player2Position }: GameSceneProps) 
         position={[5, 10, 5]}
         intensity={1}
         castShadow
-        shadow-mapSize-width={2048}
-        shadow-mapSize-height={2048}
+        shadow-mapSize-width={1024}
+        shadow-mapSize-height={1024}
       />
       <spotLight position={[-5, 10, -5]} intensity={0.5} angle={0.3} penumbra={1} />
 
