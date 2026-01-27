@@ -16,8 +16,36 @@ export function GameController({
   onPlayer2Action,
 }: GameControllerProps) {
   const keysPressed = useRef<Set<string>>(new Set())
+  const p1Move = useRef<"left" | "right" | "forward" | "back" | "stop">("stop")
+  const p2Move = useRef<"left" | "right" | "forward" | "back" | "stop">("stop")
 
   useEffect(() => {
+    const p1MoveKeyToDir: Record<string, "left" | "right" | "forward" | "back"> = {
+      a: "left",
+      d: "right",
+      w: "forward",
+      s: "back",
+    }
+
+    const p2MoveKeyToDir: Record<string, "left" | "right" | "forward" | "back"> = {
+      arrowleft: "left",
+      arrowright: "right",
+      arrowup: "forward",
+      arrowdown: "back",
+    }
+
+    const computeFallbackMove = (
+      mapping: Record<string, "left" | "right" | "forward" | "back">,
+    ): "left" | "right" | "forward" | "back" | "stop" => {
+      // Priority order when the "active" key is released.
+      // (We don’t have key order history, so we pick a stable priority.)
+      const priority = Object.keys(mapping)
+      for (const k of priority) {
+        if (keysPressed.current.has(k)) return mapping[k]
+      }
+      return "stop"
+    }
+
     const handleKeyDown = (e: KeyboardEvent) => {
       const key = e.key.toLowerCase()
 
@@ -34,20 +62,10 @@ export function GameController({
       keysPressed.current.add(key)
 
       // Player 1 Controls (WASD + JKL)
-      if (key === "a") {
-        onPlayer1Move("left")
-        window.dispatchEvent(new Event("Player 1-walk"))
-      }
-      if (key === "d") {
-        onPlayer1Move("right")
-        window.dispatchEvent(new Event("Player 1-walk"))
-      }
-      if (key === "w") {
-        onPlayer1Move("forward")
-        window.dispatchEvent(new Event("Player 1-walk"))
-      }
-      if (key === "s") {
-        onPlayer1Move("back")
+      if (key in p1MoveKeyToDir) {
+        const dir = p1MoveKeyToDir[key]
+        p1Move.current = dir
+        onPlayer1Move(dir)
         window.dispatchEvent(new Event("Player 1-walk"))
       }
       if (key === "j") {
@@ -64,20 +82,10 @@ export function GameController({
       }
 
       // Player 2 Controls (Arrow Keys + 123)
-      if (key === "arrowleft") {
-        onPlayer2Move("left")
-        window.dispatchEvent(new Event("Player 2-walk"))
-      }
-      if (key === "arrowright") {
-        onPlayer2Move("right")
-        window.dispatchEvent(new Event("Player 2-walk"))
-      }
-      if (key === "arrowup") {
-        onPlayer2Move("forward")
-        window.dispatchEvent(new Event("Player 2-walk"))
-      }
-      if (key === "arrowdown") {
-        onPlayer2Move("back")
+      if (key in p2MoveKeyToDir) {
+        const dir = p2MoveKeyToDir[key]
+        p2Move.current = dir
+        onPlayer2Move(dir)
         window.dispatchEvent(new Event("Player 2-walk"))
       }
       if (key === "1") {
@@ -99,9 +107,14 @@ export function GameController({
       keysPressed.current.delete(key)
 
       // Player 1 stop moving
-      if (["a", "d", "w", "s"].includes(key)) {
-        onPlayer1Move("stop")
-        window.dispatchEvent(new Event("Player 1-idle"))
+      if (key in p1MoveKeyToDir) {
+        const releasedDir = p1MoveKeyToDir[key]
+        if (p1Move.current === releasedDir) {
+          const next = computeFallbackMove(p1MoveKeyToDir)
+          p1Move.current = next
+          onPlayer1Move(next)
+          window.dispatchEvent(new Event(next === "stop" ? "Player 1-idle" : "Player 1-walk"))
+        }
       }
 
       // Player 1 stop blocking
@@ -110,9 +123,14 @@ export function GameController({
       }
 
       // Player 2 stop moving
-      if (["arrowleft", "arrowright", "arrowup", "arrowdown"].includes(key)) {
-        onPlayer2Move("stop")
-        window.dispatchEvent(new Event("Player 2-idle"))
+      if (key in p2MoveKeyToDir) {
+        const releasedDir = p2MoveKeyToDir[key]
+        if (p2Move.current === releasedDir) {
+          const next = computeFallbackMove(p2MoveKeyToDir)
+          p2Move.current = next
+          onPlayer2Move(next)
+          window.dispatchEvent(new Event(next === "stop" ? "Player 2-idle" : "Player 2-walk"))
+        }
       }
 
       // Player 2 stop blocking

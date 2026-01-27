@@ -144,6 +144,3 @@ export function Fighter({
     </group>
   )
 }
-
-/* ---------- PRELOAD (important for Next.js) ---------- */
-useGLTF.preload(modelPath)

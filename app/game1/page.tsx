@@ -8,6 +8,7 @@ import { GameController } from "@/components/game-controller"
 import { Button } from "@/components/ui/button"
 
 type GameState = "menu" | "playing" | "paused" | "round-end" | "game-over"
+type Direction = "left" | "right" | "forward" | "back" | null
 
 export default function TekkenGame() {
   const [gameState, setGameState] = useState<GameState>("menu")
@@ -20,6 +21,43 @@ export default function TekkenGame() {
   const [currentRound, setCurrentRound] = useState(1)
   const [gameTime, setGameTime] = useState(99)
   const [winner, setWinner] = useState<string | null>(null)
+
+  // Held movement directions (set on keydown, cleared on keyup)
+  const [p1Dir, setP1Dir] = useState<Direction>(null)
+  const [p2Dir, setP2Dir] = useState<Direction>(null)
+
+  const movePlayer = (
+    setter: React.Dispatch<React.SetStateAction<[number, number, number]>>,
+    direction: Exclude<Direction, null>,
+  ) => {
+    setter(([x, y, z]) => {
+      const speed = 0.1
+      switch (direction) {
+        case "left":
+          return [Math.max(x - speed, -4.5), y, z]
+        case "right":
+          return [Math.min(x + speed, 4.5), y, z]
+        case "forward":
+          return [x, y, Math.max(z - speed, -2.5)]
+        case "back":
+          return [x, y, Math.min(z + speed, 2.5)]
+        default:
+          return [x, y, z]
+      }
+    })
+  }
+
+  // Continuous movement while a direction is held
+  useEffect(() => {
+    if (gameState !== "playing") return
+
+    const loop = setInterval(() => {
+      if (p1Dir) movePlayer(setPlayer1Position, p1Dir)
+      if (p2Dir) movePlayer(setPlayer2Position, p2Dir)
+    }, 16) // ~60fps
+
+    return () => clearInterval(loop)
+  }, [p1Dir, p2Dir, gameState])
 
   // Game timer countdown
   useEffect(() => {
@@ -61,6 +99,8 @@ export default function TekkenGame() {
     setPlayer1Score(0)
     setPlayer2Score(0)
     setWinner(null)
+    setP1Dir(null)
+    setP2Dir(null)
   }
 
   const endRound = (roundWinner: string) => {
@@ -84,6 +124,9 @@ export default function TekkenGame() {
       setWinner(roundWinner)
       setGameState("round-end")
     }
+
+    setP1Dir(null)
+    setP2Dir(null)
   }
 
   const nextRound = () => {
@@ -95,32 +138,16 @@ export default function TekkenGame() {
     setPlayer2Position([2, 0, 0])
     setWinner(null)
     setGameState("playing")
+    setP1Dir(null)
+    setP2Dir(null)
   }
 
   const handlePlayer1Move = useCallback((direction: "left" | "right" | "forward" | "back" | "stop") => {
-    if (direction === "stop") return
-    setPlayer1Position((prev) => {
-      const [x, y, z] = prev
-      const speed = 0.1
-      if (direction === "left") return [Math.max(x - speed, -4.5), y, z]
-      if (direction === "right") return [Math.min(x + speed, 4.5), y, z]
-      if (direction === "forward") return [x, y, Math.max(z - speed, -2.5)]
-      if (direction === "back") return [x, y, Math.min(z + speed, 2.5)]
-      return prev
-    })
+    setP1Dir(direction === "stop" ? null : direction)
   }, [])
 
   const handlePlayer2Move = useCallback((direction: "left" | "right" | "forward" | "back" | "stop") => {
-    if (direction === "stop") return
-    setPlayer2Position((prev) => {
-      const [x, y, z] = prev
-      const speed = 0.1
-      if (direction === "left") return [Math.max(x - speed, -4.5), y, z]
-      if (direction === "right") return [Math.min(x + speed, 4.5), y, z]
-      if (direction === "forward") return [x, y, Math.max(z - speed, -2.5)]
-      if (direction === "back") return [x, y, Math.min(z + speed, 2.5)]
-      return prev
-    })
+    setP2Dir(direction === "stop" ? null : direction)
   }, [])
 
   const handlePlayer1Action = useCallback(
