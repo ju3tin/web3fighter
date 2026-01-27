@@ -146,4 +146,4 @@ export function Fighter({
 }
 
 /* ---------- PRELOAD (important for Next.js) ---------- */
-useGLTF.preload("/models/fighter.glb")
+useGLTF.preload(modelPath)
