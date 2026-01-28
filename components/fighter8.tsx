@@ -143,4 +143,6 @@ export function Fighter({
 }
 
 /* ---------- PRELOAD MODEL ---------- */
-useGLTF.preload("/anime/1a.glb")
+// useGLTF.preload("/anime/1a.glb")
+// cant preload because it is a single file
+/* ---------------------------------------- */
