@@ -3,7 +3,7 @@ import { useFrame } from "@react-three/fiber"
 import { useGLTF, useAnimations } from "@react-three/drei"
 import * as THREE from "three"
 
-export type Direction = "left" | "right" | "forward" | "back" | null
+export type Direction = "left" | "right" | "forward" | "back" | "stop" | null
 export type FighterAction =
   | "Idle"
   | "walk"
@@ -11,7 +11,7 @@ export type FighterAction =
   | "kick"
   | "block"
   | "hit"
-
+  | "fightstance"
 interface FighterProps {
   name: string
   modelPath: string
@@ -37,6 +37,14 @@ export function Fighter({
 
   /* ---------- STATE ---------- */
   const [currentAction, setCurrentAction] = useState<FighterAction>("Idle")
+
+  /* ---------- DEBUG: LOG AVAILABLE ACTIONS ---------- */
+  useEffect(() => {
+    if (!actions) return
+    const actionNames = Object.keys(actions)
+    if (actionNames.length === 0) return
+    console.log(`[${name}] available animation actions:`, actionNames)
+  }, [actions, name])
 
   /* ---------- INITIAL SETUP ---------- */
   useEffect(() => {
@@ -64,6 +72,12 @@ export function Fighter({
       case "back":
         p.z += speed * delta
         break
+      case "stop":
+        p.x = p.x
+        p.z = p.z
+        break
+      default:
+        break
     }
   })
 
@@ -90,6 +104,9 @@ export function Fighter({
     }
 
     switch (action) {
+      case "fightstance":
+        play("fightstance", THREE.LoopRepeat)
+        break
       case "Idle":
         play("Idle", THREE.LoopRepeat)
         break
@@ -117,12 +134,12 @@ export function Fighter({
   useEffect(() => {
     if (actions && mixer && !currentAction) {
       // Default to Idle animation on initial load
-      actions["Idle"]
+      actions["fightstance"]
         ?.reset()
         .setLoop(THREE.LoopRepeat, Infinity)
         .fadeIn(0.15)
         .play()
-        setCurrentAction("Idle")
+        setCurrentAction("fightstance")
     }
   }, [actions, mixer, currentAction])
 
@@ -130,7 +147,7 @@ export function Fighter({
   useEffect(() => {
     if (!mixer) return
 
-    const onFinish = () => setCurrentAction("Idle")
+    const onFinish = () => setCurrentAction("fightstance")
     mixer.addEventListener("finished", onFinish)
     return () => mixer.removeEventListener("finished", onFinish)
   }, [mixer])

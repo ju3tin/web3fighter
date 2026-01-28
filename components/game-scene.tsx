@@ -1,7 +1,7 @@
 "use client"
 import { Environment, ContactShadows } from "@react-three/drei"
-import { Fighter1 } from "./fighter6"
-import { Arena } from "./arena"
+import { Fighter } from "./fighter8"
+import { Arena } from "./arena1"
 import { GameCamera } from "./game-camera"
 
 interface GameSceneProps {
@@ -33,21 +33,25 @@ export function GameScene({ player1Position, player2Position, p1, model, animeli
       <Arena />
 
       {/* Fighters */}
-      <Fighter1
+      <Fighter
         position={player1Position}
-        color="#ff0000"
+        //color="#ff0000"
         name="Player 1"
         isPlayer1={true}
         modelPath={model}
-        animationPath={animelist}
+        //animationPath={animelist}
+        direction="stop"
+        action="fightstance"
       />
-      <Fighter1
+      <Fighter
         position={player2Position}
-        color="#0066ff"
+        //color="#0066ff"
         name="Player 2"
         isPlayer1={false}
         modelPath="/anime/1a.glb"
-        animationPath="/anime/1a.glb"
+        //animationPath="/anime/1a.glb"
+        direction="stop"
+        action="fightstance"
       />
 
       {/* Ground Shadows */}

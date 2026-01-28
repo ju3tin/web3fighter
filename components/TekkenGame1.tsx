@@ -28,7 +28,7 @@ type Props = {
 
 export default function TekkenGame({ selectedId }: Props) {
   const searchParams = useSearchParams();
-  const p1 = searchParams.get("p1") ?? "jin";
+  const p1 = searchParams?.get("p1") ?? "jin";
 
   const [character, setCharacter] = useState<Character | null>(null);
   const [gameState, setGameState] = useState<GameState>("playing");
@@ -226,7 +226,7 @@ export default function TekkenGame({ selectedId }: Props) {
   };
 
   const handlePlayer1Action = useCallback(
-    (a) =>
+    (a: "punch" | "kick" | "block") =>
       attack(
         player1Position,
         player2Position,
@@ -238,7 +238,7 @@ export default function TekkenGame({ selectedId }: Props) {
   );
 
   const handlePlayer2Action = useCallback(
-    (a) =>
+    (a: "punch" | "kick" | "block") =>
       attack(
         player2Position,
         player1Position,

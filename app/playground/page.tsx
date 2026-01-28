@@ -7,12 +7,12 @@ import { Fighter, FighterAction, Direction } from "@/components/fighter8"
 import { Button } from "@/components/ui/button"
 
 export default function AnimationPlayground() {
-  const [action, setAction] = useState<FighterAction>("Idle")
+  const [action, setAction] = useState<FighterAction>("fightstance")
   const [direction, setDirection] = useState<Direction>(null)
 
   useEffect(() => {
     // Set action to "idle" when the page loads
-    setAction("kick")
+    setAction("fightstance")
   }, [setAction])
 
   return (
@@ -28,7 +28,7 @@ export default function AnimationPlayground() {
 
           <Fighter
             name="Player1"
-            modelPath="/anime/1a.glb"
+            modelPath="/anime/1ab.glb"
             position={[0, 0, 0]}
             isPlayer1
             direction={direction}
