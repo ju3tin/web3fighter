@@ -1,14 +1,19 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Canvas } from "@react-three/fiber"
 import { OrbitControls, Environment } from "@react-three/drei"
 import { Fighter, FighterAction, Direction } from "@/components/fighter8"
 import { Button } from "@/components/ui/button"
 
 export default function AnimationPlayground() {
-  const [action, setAction] = useState<FighterAction>("idle")
+  const [action, setAction] = useState<FighterAction>("Idle")
   const [direction, setDirection] = useState<Direction>(null)
+
+  useEffect(() => {
+    // Set action to "idle" when the page loads
+    setAction("kick")
+  }, [setAction])
 
   return (
     <div className="w-full h-screen bg-black flex">
@@ -37,7 +42,7 @@ export default function AnimationPlayground() {
         <h2 className="text-xl font-bold">Animation Controls</h2>
 
         <div className="grid grid-cols-2 gap-2">
-          <Button onClick={() => setAction("idle")}>Idle</Button>
+          <Button onClick={() => setAction("Idle")}>Idle</Button>
           <Button onClick={() => setAction("walk")}>Walk</Button>
           <Button onClick={() => setAction("punch")}>Punch</Button>
           <Button onClick={() => setAction("kick")}>Kick</Button>

@@ -1,5 +1,3 @@
-"use client"
-
 import { useRef, useEffect, useState } from "react"
 import { useFrame } from "@react-three/fiber"
 import { useGLTF, useAnimations } from "@react-three/drei"
@@ -7,7 +5,7 @@ import * as THREE from "three"
 
 export type Direction = "left" | "right" | "forward" | "back" | null
 export type FighterAction =
-  | "idle"
+  | "Idle"
   | "walk"
   | "punch"
   | "kick"
@@ -38,8 +36,7 @@ export function Fighter({
   const { actions, mixer } = useAnimations(animations, groupRef)
 
   /* ---------- STATE ---------- */
-  const [currentAction, setCurrentAction] =
-    useState<FighterAction>("idle")
+  const [currentAction, setCurrentAction] = useState<FighterAction>("Idle")
 
   /* ---------- INITIAL SETUP ---------- */
   useEffect(() => {
@@ -75,7 +72,7 @@ export function Fighter({
     if (!actions || !mixer) return
     if (currentAction === action) return
 
-    /* Fade out all animations */
+    // Fade out all animations
     Object.values(actions).forEach((a) => a?.fadeOut(0.15))
 
     const play = (
@@ -93,7 +90,7 @@ export function Fighter({
     }
 
     switch (action) {
-      case "idle":
+      case "Idle":
         play("Idle", THREE.LoopRepeat)
         break
       case "walk":
@@ -116,16 +113,28 @@ export function Fighter({
     setCurrentAction(action)
   }, [action, actions, mixer, currentAction])
 
-  /* ---------- RETURN TO IDLE AFTER ONE-SHOTS ---------- */
+  /* ---------- RENDER ---------- */
+  useEffect(() => {
+    if (actions && mixer && !currentAction) {
+      // Default to Idle animation on initial load
+      actions["Idle"]
+        ?.reset()
+        .setLoop(THREE.LoopRepeat, Infinity)
+        .fadeIn(0.15)
+        .play()
+        setCurrentAction("Idle")
+    }
+  }, [actions, mixer, currentAction])
+
+  /* ---------- RETURN TO Idle AFTER ONE-SHOTS ---------- */
   useEffect(() => {
     if (!mixer) return
 
-    const onFinish = () => setCurrentAction("idle")
+    const onFinish = () => setCurrentAction("Idle")
     mixer.addEventListener("finished", onFinish)
     return () => mixer.removeEventListener("finished", onFinish)
   }, [mixer])
 
-  /* ---------- RENDER ---------- */
   return (
     <group ref={groupRef}>
       <primitive object={scene} />
