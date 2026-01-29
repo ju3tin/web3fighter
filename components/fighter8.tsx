@@ -114,10 +114,10 @@ export function Fighter({
         play("Walk", THREE.LoopRepeat)
         break
       case "punch":
-        play("Punch", THREE.LoopOnce, true)
+        play("punch", THREE.LoopOnce, true)
         break
       case "kick":
-        play("Kick", THREE.LoopOnce, true)
+        play("kick", THREE.LoopOnce, true)
         break
       case "block":
         play("Block", THREE.LoopRepeat)

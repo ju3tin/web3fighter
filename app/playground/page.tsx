@@ -28,7 +28,7 @@ export default function AnimationPlayground() {
 
           <Fighter
             name="Player1"
-            modelPath="/anime/1ab.glb"
+            modelPath="/anime/1abc.glb"
             position={[0, 0, 0]}
             isPlayer1
             direction={direction}
