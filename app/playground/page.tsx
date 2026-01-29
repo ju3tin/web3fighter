@@ -48,9 +48,10 @@ export default function AnimationPlayground() {
           <Button onClick={() => setAction("kick")}>Kick</Button>
           <Button onClick={() => setAction("block")}>Block</Button>
           <Button onClick={() => setAction("hit")}>Hit</Button>
+          <Button onClick={() => setAction("fightstance")}>Fight Stance</Button>
         </div>
 
-        <hr className="border-zinc-700" />
+        <hr className="border-zi  nc-700" />
 
         <h3 className="font-semibold">Movement</h3>
         <div className="grid grid-cols-3 gap-2">
