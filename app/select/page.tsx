@@ -1,24 +1,88 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect, useRef, useMemo, Suspense } from 'react';
 import Image from 'next/image';
 import Link from 'next/link'
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, useGLTF } from '@react-three/drei';
+import { OrbitControls, useGLTF, useAnimations } from '@react-three/drei';
+import * as THREE from 'three';
 
 interface Character {
   id: string;
   name: string;
   portrait: string;
-  // add a model field pointing to the .glb file (url or public path)
   model?: string;
+  animelist?: string;
 }
 
-function Model({ url }: { url: string }) {
-  // useGLTF will load the .glb and give you the scene
-  // If you have TypeScript complaints about gltf types, you can cast to any
-  const gltf = useGLTF(url) as any;
-  return <primitive object={gltf.scene} />;
+const LOOP_DURATION = 2.5; // seconds to show each looping animation before switching
+
+function AnimatedPreview({ modelUrl, animationUrl }: { modelUrl: string; animationUrl?: string }) {
+  const groupRef = useRef<THREE.Group>(null);
+  const animSource = animationUrl ?? modelUrl;
+
+  const { scene } = useGLTF(modelUrl);
+  const clonedScene = useMemo(() => scene.clone(true), [scene]);
+
+  const animGltf = useGLTF(animSource);
+  const { actions, mixer } = useAnimations(animGltf.animations, groupRef);
+
+  const actionNames = useMemo(() => Object.keys(actions), [actions]);
+
+// Log once when animations become available
+useEffect(() => {
+  if (actionNames.length > 0) {
+    console.log(`%c🎮 Available animations for this character:`, "font-weight:bold; color:#8b5cf6");
+    console.table(
+      actionNames.map(name => ({
+        animation: name,
+        duration: actions[name]?.getClip().duration.toFixed(2) + "s",
+        loop: actions[name]?.loop === THREE.LoopRepeat   ? "Repeat ∞" :
+              actions[name]?.loop === THREE.LoopOnce     ? "Once"     :
+              actions[name]?.loop === THREE.LoopPingPong ? "PingPong" : "Other",
+      }))
+    );
+    // or just simple list:
+    // console.log("→", actionNames.join(" • "));
+  }
+}, [actionNames, actions]);
+// ────────────────────────────────────────────────
+
+  const [index, setIndex] = useState(0);
+  const loopTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    if (!mixer || !actions || actionNames.length === 0) return;
+
+    const currentName = actionNames[index];
+    const action = actions[currentName];
+    if (!action) {
+      setIndex((i) => (i + 1) % actionNames.length);
+      return;
+    }
+
+    Object.values(actions).forEach((a) => a?.fadeOut(0.2));
+    action.reset().setLoop(THREE.LoopRepeat, Infinity).fadeIn(0.2).play();
+
+    if (loopTimeoutRef.current) clearTimeout(loopTimeoutRef.current);
+    loopTimeoutRef.current = setTimeout(() => {
+      loopTimeoutRef.current = null;
+      setIndex((i) => (i + 1) % actionNames.length);
+    }, LOOP_DURATION * 1000);
+
+    return () => {
+      if (loopTimeoutRef.current) {
+        clearTimeout(loopTimeoutRef.current);
+        loopTimeoutRef.current = null;
+      }
+    };
+  }, [mixer, actions, actionNames, index]);
+
+  return (
+    <group ref={groupRef}>
+      <primitive object={clonedScene} />
+    </group>
+  );
 }
 
 export default function CharacterSelector() {
@@ -48,6 +112,11 @@ export default function CharacterSelector() {
 
   const handleSelect = (char: Character) => {
     setSelectedCharacter(char);
+    if (char.model) {
+      // We can't load GLTF synchronously here, so we'll log once the preview mounts
+      console.log(`→ Selected character: ${char.name} (model: ${char.model})`);
+      console.log("→ Waiting for 3D model to load to list animations...");
+    }
   };
 
   const handleConfirm = () => {
@@ -109,8 +178,8 @@ export default function CharacterSelector() {
           {/* If character has a model url, render a 3D canvas, otherwise fallback to portrait image */}
           {selectedCharacter.model ? (
             <div className="rounded-lg shadow-2xl overflow-hidden bg-gray-800">
-              <div style={{ width: 300, height: 400 }}>
-                <Canvas camera={{ position: [0, 1.2, 3], fov: 50 }}>
+              <div style={{ width: 300, height: 400, position: 'absolute', top: 200, left: 5 }}>
+                <Canvas camera={{ position: [0, 1.2, 4.2], fov: 50 }}>
                   <ambientLight intensity={0.8} />
                   <directionalLight position={[5, 5, 5]} intensity={1} />
                   <Suspense
@@ -121,7 +190,10 @@ export default function CharacterSelector() {
                       </mesh>
                     }
                   >
-                    <Model url={selectedCharacter.model} />
+                    <AnimatedPreview
+                      modelUrl={selectedCharacter.model}
+                      animationUrl={selectedCharacter.animelist}
+                    />
                     <OrbitControls enablePan={false} autoRotate={false} />
                   </Suspense>
                 </Canvas>
