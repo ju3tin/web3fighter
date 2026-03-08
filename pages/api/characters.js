@@ -11,6 +11,7 @@ export default function handler(req, res) {
   { id: 'anna', name: 'Anna', portrait: '/characters/anna.png', model: '/models/sitting_talking.glb', animelist: '/anime/1.glb'  },
   { id: 'xBot', name: 'Anna', portrait: '/characters/anna.png', model: '/models/sitting_talking.glb', animelist: '/anime/1.glb'  },
   { id: 'blanka', name: 'Blanka', portrait: '/characters/Super_Blanka.png', model: '/anime/1a.glb', animelist: '/anime/1a.glb'  },
+  { id: 'heihachi', name: 'heihachi', portrait: '/characters/heihachi.png', model: '/models/heihachi.glb', animelist: '/anime/1a.glb'  },
     ];
     
     res.status(200).json(characters);
