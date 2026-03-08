@@ -23,10 +23,10 @@ export default function GamePage() {
     return () => window.removeEventListener("resize", checkOrientation);
   }, []);
 
-  if (!isPortrait) {
+  if (isPortrait) {
     return (
       <div style={{display:"flex",height:"100vh",alignItems:"center",justifyContent:"center"}}>
-        Rotate your device to portrait
+        Rotate your device to landscape
       </div>
     );
   }
