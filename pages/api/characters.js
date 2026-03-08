@@ -16,7 +16,7 @@ export default function handler(req, res) {
     
     res.status(200).json(characters);
   } else {
-    res.setHeader('Allow', ['GET']);
+    res.setHeader('Allow', ['GET']); 
     res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }
