@@ -1,4 +1,6 @@
 // app/game/page.tsx
+"use client";
+
 import { Suspense } from "react";
 import TekkenGame from "@/components/TekkenGame1";
 import { useEffect, useState } from "react";
