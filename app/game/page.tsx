@@ -1,12 +1,33 @@
 // app/game/page.tsx
 import { Suspense } from "react";
 import TekkenGame from "@/components/TekkenGame1";
-
+import { useEffect, useState } from "react";
 // Optional but recommended for real-time games
 export const dynamic = "force-dynamic";
 // Or use: export const revalidate = 0;
 
 export default function GamePage() {
+
+  const [isPortrait, setIsPortrait] = useState(true);
+
+  useEffect(() => {
+    const checkOrientation = () => {
+      setIsPortrait(window.innerHeight >= window.innerWidth);
+    };
+
+    checkOrientation();
+    window.addEventListener("resize", checkOrientation);
+
+    return () => window.removeEventListener("resize", checkOrientation);
+  }, []);
+
+  if (!isPortrait) {
+    return (
+      <div style={{display:"flex",height:"100vh",alignItems:"center",justifyContent:"center"}}>
+        Rotate your device to portrait
+      </div>
+    );
+  }
   return (
     <Suspense
       fallback={
