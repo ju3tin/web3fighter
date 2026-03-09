@@ -32,8 +32,8 @@ const DirButton: React.FC<{
 
   if (dir === "left")    Object.assign(style, { left: 0,    top: "50%", transform: "translateY(-50%)" });
   if (dir === "right")   Object.assign(style, { right: 0,   top: "50%", transform: "translateY(-50%)" });
-  if (dir === "forward") Object.assign(style, { left: "50%", bottom: 0,   transform: "translateX(-50%)" });
-  if (dir === "back")    Object.assign(style, { left: "50%", top: 0,      transform: "translateX(-50%)" });
+  if (dir === "forward") Object.assign(style, { left: "50%", top: 0,   transform: "translateX(-50%)" });
+  if (dir === "back")    Object.assign(style, { left: "50%", bottom: 0,      transform: "translateX(-50%)" });
 
   return (
     <div
