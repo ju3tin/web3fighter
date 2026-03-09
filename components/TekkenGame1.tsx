@@ -289,12 +289,7 @@ export default function TekkenGame({ selectedId }: Props) {
           onPlayer1Move={(d) => setP1Dir(d === "stop" ? null : d)}
           onPlayer1Action={handlePlayer1Action}
         />
-          <GameController
-            onPlayer1Move={(d) => setP1Dir(d === "stop" ? null : d)}
-            onPlayer2Move={(d) => setP2Dir(d === "stop" ? null : d)}
-            onPlayer1Action={handlePlayer1Action}
-            onPlayer2Action={handlePlayer2Action}
-          />
+       
         </>
       )}
   
