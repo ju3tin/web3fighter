@@ -145,10 +145,15 @@ export function GameUI({
 
       {/* Controls Info */}
 
-      {isMobile ? (<GameController
+      {isMobile ? (
+         <div className="absolute bottom-6 left-6 right-6 flex justify-between text-xs text-white/60 font-mono">
+     
+        <GameController
       onPlayer1Move={() => {console.log("move")}}
       onPlayer1Action={() => {console.log("action")}}
-    />):(
+    />
+    </div>
+    ):(
       <div className="absolute bottom-6 left-6 right-6 flex justify-between text-xs text-white/60 font-mono">
         <div className="bg-black/60 p-3 rounded border border-white/20">
           <div className="font-bold mb-1 text-red-500">P1 CONTROLS</div>
