@@ -2,6 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
+import { GameController } from "@/components/game-controller1";
 
 // Define the Character type if not imported elsewhere
 interface Character {
@@ -31,9 +32,25 @@ export function GameUI({
 }: GameUIProps) {
   const searchParams = useSearchParams();
   const p1 = searchParams.get("p1") ?? "jin";
+  const [isMobile, setIsMobile] = useState(false);
 
   // Add the missing state!
   const [character, setCharacter] = useState<Character | null>(null);
+
+  useEffect(() => {
+    // Method A: media query (most reliable)
+    const mobileQuery = window.matchMedia("(max-width: 1023px)"); // matches Tailwind lg breakpoint
+    setIsMobile(mobileQuery.matches);
+
+    const handleChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mobileQuery.addEventListener("change", handleChange);
+
+    return () => mobileQuery.removeEventListener("change", handleChange);
+
+    // Alternative Method B: user-agent (less reliable, can be spoofed)
+    // const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    // setIsMobile(isMobileUA || window.innerWidth <= 1024);
+  }, []);
 
   useEffect(() => {
     async function fetchCharacter() {
@@ -127,6 +144,11 @@ export function GameUI({
       </div>
 
       {/* Controls Info */}
+
+      {isMobile ? (<GameController
+      onPlayer1Move={() => {console.log("move")}}
+      onPlayer1Action={() => {console.log("action")}}
+    />):(
       <div className="absolute bottom-6 left-6 right-6 flex justify-between text-xs text-white/60 font-mono">
         <div className="bg-black/60 p-3 rounded border border-white/20">
           <div className="font-bold mb-1 text-red-500">P1 CONTROLS</div>
@@ -137,6 +159,8 @@ export function GameUI({
           <div>Arrows - Move | 1 - Punch | 2 - Kick | 3 - Block</div>
         </div>
       </div>
+)}
+
     </div>
   );
 }
