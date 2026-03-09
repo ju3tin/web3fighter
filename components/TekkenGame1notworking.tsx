@@ -269,10 +269,7 @@ export default function TekkenGame({ selectedId }: Props) {
           />
         )}
       </Canvas>
-  
-      {/* ──────────────────────────────────────────────── */}
-      {/*               GAME HUD (only during play)       */}
-      {/* ──────────────────────────────────────────────── */}
+
       {gameState === "playing" && (
         <>
           <GameUI
@@ -290,66 +287,6 @@ export default function TekkenGame({ selectedId }: Props) {
             onPlayer2Action={handlePlayer2Action}
           />
         </>
-      )}
-  
-      {/* ──────────────────────────────────────────────── */}
-      {/*               ROUND END SCREEN                   */}
-      {/* ──────────────────────────────────────────────── */}
-      {gameState === "round-end" && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/70 text-white z-50">
-          <h1 className="text-5xl font-bold mb-6">
-            ROUND {currentRound} — {winner} WINS!
-          </h1>
-  
-          <div className="text-2xl mb-10">
-            Score: {player1Score} – {player2Score}
-          </div>
-  
-          <Button
-            size="lg"
-            className="text-xl px-10 py-6"
-            onClick={nextRound}
-          >
-            NEXT ROUND →
-          </Button>
-        </div>
-      )}
-  
-      {/* ──────────────────────────────────────────────── */}
-      {/*               GAME OVER SCREEN                   */}
-      {/* ──────────────────────────────────────────────── */}
-      {gameState === "game-over" && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/80 text-white z-50">
-          <h1 className="text-6xl font-bold mb-4 text-yellow-400">
-            GAME OVER
-          </h1>
-  
-          <h2 className="text-4xl mb-8">
-            WINNER: <span className="text-green-400">{winner}</span>
-          </h2>
-  
-          <div className="text-2xl mb-12">
-            Final Score: {player1Score} – {player2Score}
-          </div>
-  
-          <Button
-            size="lg"
-            variant="outline"
-            className="text-xl px-10 py-6"
-            onClick={startGame}
-          >
-            PLAY AGAIN
-          </Button>
-        </div>
-      )}
-  
-      {/* Optional: start screen if you want one */}
-      {gameState === "paused" && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black/70 z-50">
-          <Button size="lg" onClick={startGame}>
-            Start Game
-          </Button>
-        </div>
       )}
     </div>
   );
