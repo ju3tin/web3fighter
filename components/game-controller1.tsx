@@ -91,7 +91,7 @@ const Actions = ({ onAction }: { onAction: (a: Action) => void }) => (
       <ActionButton action="kick" label="LK" color="red"   onAction={onAction} />
       <ActionButton action="kick" label="RK" color="red"   onAction={onAction} />
     </div>
-    <ActionButton action="block" label="BLK" color="gray" onAction={onAction} />
+ {/*   <ActionButton action="block" label="BLK" color="gray" onAction={onAction} /> */}
   </div>
 );
 
