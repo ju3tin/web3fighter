@@ -78,8 +78,9 @@ const Dpad = ({ onMove }: { onMove: (d: Direction) => void }) => (
     <div className="absolute inset-0 rounded-full bg-white/8" />
     <DirButton dir="left"   onMove={onMove} />
     <DirButton dir="right"  onMove={onMove} />
-    <DirButton dir="forward" onMove={onMove} />
     <DirButton dir="back"   onMove={onMove} />
+    <DirButton dir="forward" onMove={onMove} />
+    
   </div>
 );
 
