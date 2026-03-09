@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useMemo, Suspense } from 'react';
 import Image from 'next/image';
-import Link from 'next/link'
+import Link from 'next/link';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF, useAnimations } from '@react-three/drei';
 import * as THREE from 'three';
@@ -15,8 +15,11 @@ interface Character {
   animelist?: string;
 }
 
-const LOOP_DURATION = 2.5; // seconds to show each looping animation before switching
+const LOOP_DURATION = 2.5;
 
+/* ──────────────────────────────────────────────── */
+/*  3D PREVIEW COMPONENT (unchanged but cleaned)    */
+/* ──────────────────────────────────────────────── */
 function AnimatedPreview({ modelUrl, animationUrl }: { modelUrl: string; animationUrl?: string }) {
   const groupRef = useRef<THREE.Group>(null);
   const animSource = animationUrl ?? modelUrl;
@@ -29,25 +32,6 @@ function AnimatedPreview({ modelUrl, animationUrl }: { modelUrl: string; animati
 
   const actionNames = useMemo(() => Object.keys(actions), [actions]);
 
-// Log once when animations become available
-useEffect(() => {
-  if (actionNames.length > 0) {
-    console.log(`%c🎮 Available animations for this character:`, "font-weight:bold; color:#8b5cf6");
-    console.table(
-      actionNames.map(name => ({
-        animation: name,
-        duration: actions[name]?.getClip().duration.toFixed(2) + "s",
-        loop: actions[name]?.loop === THREE.LoopRepeat   ? "Repeat ∞" :
-              actions[name]?.loop === THREE.LoopOnce     ? "Once"     :
-              actions[name]?.loop === THREE.LoopPingPong ? "PingPong" : "Other",
-      }))
-    );
-    // or just simple list:
-    // console.log("→", actionNames.join(" • "));
-  }
-}, [actionNames, actions]);
-// ────────────────────────────────────────────────
-
   const [index, setIndex] = useState(0);
   const loopTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -56,25 +40,18 @@ useEffect(() => {
 
     const currentName = actionNames[index];
     const action = actions[currentName];
-    if (!action) {
-      setIndex((i) => (i + 1) % actionNames.length);
-      return;
-    }
+    if (!action) return;
 
     Object.values(actions).forEach((a) => a?.fadeOut(0.2));
     action.reset().setLoop(THREE.LoopRepeat, Infinity).fadeIn(0.2).play();
 
     if (loopTimeoutRef.current) clearTimeout(loopTimeoutRef.current);
     loopTimeoutRef.current = setTimeout(() => {
-      loopTimeoutRef.current = null;
       setIndex((i) => (i + 1) % actionNames.length);
     }, LOOP_DURATION * 1000);
 
     return () => {
-      if (loopTimeoutRef.current) {
-        clearTimeout(loopTimeoutRef.current);
-        loopTimeoutRef.current = null;
-      }
+      if (loopTimeoutRef.current) clearTimeout(loopTimeoutRef.current);
     };
   }, [mixer, actions, actionNames, index]);
 
@@ -85,13 +62,16 @@ useEffect(() => {
   );
 }
 
+/* ──────────────────────────────────────────────── */
+/*  MAIN CHARACTER SELECTOR                         */
+/* ──────────────────────────────────────────────── */
 export default function CharacterSelector() {
   const [characters, setCharacters] = useState<Character[]>([]);
   const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch characters on mount
+  // Fetch characters
   useEffect(() => {
     async function fetchCharacters() {
       try {
@@ -106,25 +86,8 @@ export default function CharacterSelector() {
         setLoading(false);
       }
     }
-
     fetchCharacters();
   }, []);
-
-  const handleSelect = (char: Character) => {
-    setSelectedCharacter(char);
-    if (char.model) {
-      // We can't load GLTF synchronously here, so we'll log once the preview mounts
-      console.log(`→ Selected character: ${char.name} (model: ${char.model})`);
-      console.log("→ Waiting for 3D model to load to list animations...");
-    }
-  };
-
-  const handleConfirm = () => {
-    if (selectedCharacter) {
-      console.log('Selected:', selectedCharacter);
-      // Later: router.push('/game?character=' + selectedCharacter.id);
-    }
-  };
 
   if (loading) {
     return (
@@ -143,50 +106,28 @@ export default function CharacterSelector() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center p-8">
-      <h1 className="text-5xl font-bold mb-12 text-center">SELECT YOUR FIGHTER</h1>
-
-      <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8 max-w-6xl">
-        {characters.map((char) => (
-          <div
-            key={char.id}
-            onClick={() => handleSelect(char)}
-            className={`relative cursor-pointer transition-all duration-300 ${
-              selectedCharacter?.id === char.id
-                ? 'scale-110 ring-4 ring-yellow-400 shadow-2xl'
-                : 'hover:scale-105'
-            }`}
-          >
-            <div className="bg-gray-800 rounded-lg overflow-hidden border-4 border-gray-700">
-              <Image
-                src={char.portrait}
-                alt={char.name}
-                width={200}
-                height={250}
-                className="object-cover w-full h-full"
-              />
-            </div>
-            <p className="text-center mt-2 text-lg font-semibold">{char.name}</p>
-          </div>
-        ))}
+    <div className="min-h-screen bg-gray-900 text-white pb-12">
+      {/* HEADER */}
+      <div className="pt-8 pb-6 text-center">
+        <h1 className="text-5xl font-black tracking-tighter">SELECT YOUR FIGHTER</h1>
+        <p className="mt-2 text-white/60">10 LEGENDS • TOUCH TO CHOOSE</p>
       </div>
 
+      {/* SELECTED PREVIEW – OVER THE GRID */}
       {selectedCharacter && (
-        <div className="mt-12 flex flex-col items-center">
-          <h2 className="text-3xl mb-4">Selected: {selectedCharacter.name}</h2>
-
-          {/* If character has a model url, render a 3D canvas, otherwise fallback to portrait image */}
-          {selectedCharacter.model ? (
-            <div className="rounded-lg shadow-2xl overflow-hidden bg-gray-800">
-              <div style={{ width: 300, height: 400, position: 'absolute', top: 200, left: 5 }}>
-                <Canvas camera={{ position: [0, 1.2, 4.2], fov: 50 }}>
-                  <ambientLight intensity={0.8} />
-                  <directionalLight position={[5, 5, 5]} intensity={1} />
+        <div className="sticky top-0 z-50 bg-gradient-to-b from-gray-900 via-gray-900 to-transparent pt-4 pb-6 px-4">
+          <div className="max-w-2xl mx-auto bg-gray-800/90 backdrop-blur-xl rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+            {/* 3D Model */}
+            <div className="relative aspect-[16/10] bg-black">
+              {selectedCharacter.model && (
+                <Canvas camera={{ position: [0, 1.4, 4], fov: 45 }} className="w-full h-full">
+                  <ambientLight intensity={0.7} />
+                  <directionalLight position={[5, 8, 5]} intensity={1.2} />
                   <Suspense
                     fallback={
                       <mesh>
-                        <boxGeometry args={[1, 1, 1]} />
-                        <meshStandardMaterial color="gray" />
+                        <boxGeometry args={[1.5, 1.5, 1.5]} />
+                        <meshStandardMaterial color="#444" />
                       </mesh>
                     }
                   >
@@ -194,30 +135,84 @@ export default function CharacterSelector() {
                       modelUrl={selectedCharacter.model}
                       animationUrl={selectedCharacter.animelist}
                     />
-                    <OrbitControls enablePan={false} autoRotate={false} />
+                    <OrbitControls enablePan={false} enableZoom={false} autoRotate autoRotateSpeed={0.4} />
                   </Suspense>
                 </Canvas>
-              </div>
+              )}
             </div>
-          ) : (
-            <Image
-              src={selectedCharacter.portrait}
-              alt={selectedCharacter.name}
-              width={300}
-              height={400}
-              className="rounded-lg shadow-2xl"
-            />
-          )}
-<Link href={`/game?p1=${selectedCharacter.id}`}>
-          <button
-            onClick={handleConfirm}
-            className="mt-8 px-12 py-4 bg-red-600 hover:bg-red-700 text-2xl font-bold rounded-lg transition"
-          >
-            FIGHT!
-          </button>
-</Link>
+
+            {/* Name + FIGHT Button */}
+            <div className="p-6 flex items-center justify-between bg-gray-900">
+              <div>
+                <p className="text-3xl font-bold">{selectedCharacter.name}</p>
+                <p className="text-white/50 text-sm">READY TO FIGHT</p>
+              </div>
+
+              <Link href={`/game?p1=${selectedCharacter.id}`}>
+                <button className="px-10 py-4 bg-red-600 hover:bg-red-700 active:scale-95 transition-all text-2xl font-black rounded-2xl shadow-lg">
+                  FIGHT!
+                </button>
+              </Link>
+            </div>
+          </div>
         </div>
       )}
+
+      {/* CHARACTER GRID – SQUARE CARDS, ROWS OF 4 */}
+      <div className="px-4 max-w-6xl mx-auto">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          {characters.map((char) => {
+            const isSelected = selectedCharacter?.id === char.id;
+
+            return (
+              <div
+                key={char.id}
+                onClick={() => setSelectedCharacter(char)}
+                className={`group relative aspect-square rounded-2xl overflow-hidden border-4 transition-all duration-300 cursor-pointer ${
+                  isSelected
+                    ? 'border-yellow-400 scale-105 shadow-2xl shadow-yellow-500/30'
+                    : 'border-transparent hover:border-white/30 hover:scale-[1.03]'
+                }`}
+              >
+                {/* Square Image – crops bottom if portrait is taller */}
+                <div className="relative w-full h-full">
+                  <Image
+                    src={char.portrait}
+                    alt={char.name}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw"
+                  />
+
+                  {/* Overlay gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/70" />
+
+                  {/* Name */}
+                  <div className="absolute bottom-0 left-0 right-0 p-4 text-center">
+                    <p
+                      className={`font-bold text-lg tracking-wider transition-all ${
+                        isSelected ? 'text-yellow-400' : 'text-white group-hover:text-yellow-300'
+                      }`}
+                    >
+                      {char.name}
+                    </p>
+                  </div>
+
+                  {/* Selected ring */}
+                  {isSelected && (
+                    <div className="absolute inset-0 border-4 border-yellow-400 rounded-2xl pointer-events-none" />
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Footer hint */}
+      <div className="text-center mt-10 text-white/40 text-sm">
+        Tap any fighter to preview • 10 characters available
+      </div>
     </div>
   );
 }
