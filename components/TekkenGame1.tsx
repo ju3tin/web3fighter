@@ -5,6 +5,7 @@ import { useState, useCallback, useEffect } from "react";
 import { GameScene } from "@/components/game-scene";
 import { GameUI } from "@/components/game-ui";
 import { GameController } from "@/components/game-controller";
+import { GameController1 } from "@/components/game-controller1";
 import { Button } from "@/components/ui/button";
 import { useSearchParams } from "next/navigation";
 
@@ -283,6 +284,11 @@ export default function TekkenGame({ selectedId }: Props) {
             player1Score={player1Score}
             player2Score={player2Score}
           />
+          
+          <GameController1
+          onPlayer1Move={(d) => setP1Dir(d === "stop" ? null : d)}
+          onPlayer1Action={handlePlayer1Action}
+        />
           <GameController
             onPlayer1Move={(d) => setP1Dir(d === "stop" ? null : d)}
             onPlayer2Move={(d) => setP2Dir(d === "stop" ? null : d)}

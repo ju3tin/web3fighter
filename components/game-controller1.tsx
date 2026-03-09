@@ -136,7 +136,7 @@ const PlayerControls: React.FC<{
   </div>
 );
 
-export const GameController: React.FC<GameControllerProps> = ({
+export const GameController1: React.FC<GameControllerProps> = ({
   onPlayer1Move,
   onPlayer1Action,
 }) => {

@@ -31,7 +31,7 @@ export function GameUI({
   selectedId,
 }: GameUIProps) {
   const searchParams = useSearchParams();
-  const p1 = searchParams.get("p1") ?? "jin";
+  const p1 = searchParams?.get("p1") ?? "jin";
   const [isMobile, setIsMobile] = useState(false);
 
   // Add the missing state!
@@ -144,7 +144,7 @@ export function GameUI({
       </div>
 
       {/* Controls Info */}
-
+{/*
       {isMobile ? (
          <div className="absolute bottom-6 left-6 right-6 flex justify-between text-xs text-white/60 font-mono">
      
@@ -153,7 +153,9 @@ export function GameUI({
       onPlayer1Action={() => {console.log("action")}}
     />
     </div>
-    ):(
+    ):( */}
+
+{!isMobile && (
       <div className="absolute bottom-6 left-6 right-6 flex justify-between text-xs text-white/60 font-mono">
         <div className="bg-black/60 p-3 rounded border border-white/20">
           <div className="font-bold mb-1 text-red-500">P1 CONTROLS</div>
