@@ -32,9 +32,9 @@ const DirButton: React.FC<{
 
   if (dir === "left")   Object.assign(style, { left: 0, top: "50%", transform: "translateY(-50%)" });
   if (dir === "right")  Object.assign(style, { right: 0, top: "50%", transform: "translateY(-50%)" });
-  if (dir === "forward") Object.assign(style, { left: "50%", bottom: 0, transform: "translateX(-50%)" });
   if (dir === "back")   Object.assign(style, { left: "50%", top: 0, transform: "translateX(-50%)" });
-
+  if (dir === "forward") Object.assign(style, { left: "50%", bottom: 0, transform: "translateX(-50%)" });
+ 
   return (
     <div
       className="absolute w-14 h-14 flex items-center justify-center text-xl font-black text-white/90 rounded-full bg-white/15 border border-white/30 active:bg-white/35 active:scale-95 transition-all touch-none shadow-sm"
