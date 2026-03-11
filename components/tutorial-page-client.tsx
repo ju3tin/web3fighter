@@ -126,7 +126,7 @@ export default function TutorialPage({ selectedId }: Props) {
   const [selectedMove, setSelectedMove] = useState<Move | null>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isMuted, setIsMuted] = useState(false)
-
+  const [moves, setMoves] = useState<Move[] | null>(null);
   const handlePlayAnimation = useCallback(() => {
     if (selectedMove) {
       setIsPlaying(true)
@@ -139,6 +139,19 @@ export default function TutorialPage({ selectedId }: Props) {
     setIsPlaying(false)
     setSelectedMove(null)
   }, [])
+
+
+  useEffect(() => {
+    async function fetchMoves() {
+      const res = await fetch("/api/moveslist");
+      const data: { id: string; movelist: Move[] }[] = await res.json();
+      const result = data.find(
+        (item) => item.id === (selectedId ?? p1)
+      );
+      setMoves(result?.movelist ?? null);
+    }
+    fetchMoves();
+  }, [selectedId, p1]);
 
   useEffect(() => {
     async function fetchCharacter() {
