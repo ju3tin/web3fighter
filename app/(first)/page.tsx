@@ -196,7 +196,7 @@ export default function TekkenGame() {
               START FIGHT
             </Button>
             </Link>
-            <br />
+            <br /><br />
             <Link href="/tutorial">
             <Button
               size="lg"
