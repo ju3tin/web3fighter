@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
+import { useRef,useState, useEffect, Suspense, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Canvas } from '@react-three/fiber';
