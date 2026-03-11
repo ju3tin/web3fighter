@@ -196,6 +196,15 @@ export default function TekkenGame() {
               START FIGHT
             </Button>
             </Link>
+            <br />
+            <Link href="/tutorial">
+            <Button
+              size="lg"
+              className="text-2xl px-12 py-8 bg-red-500 hover:bg-red-600 text-white font-bold tracking-wider"
+            >
+              TUTORIAL
+            </Button>
+            </Link>
             <div className="mt-12 text-white/40 text-sm space-y-2">
               <p>Player 1: WASD + J/K/L | Player 2: Arrows + 1/2/3</p>
             </div>
