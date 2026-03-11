@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<style>
+
+body{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  font-family:sans-serif;
+}
+
+.wrapper{
+  position:relative;
+  width:120px;
+}
+
+.picker{
+  height:200px;
+  overflow-y:auto;
+  scroll-snap-type:y mandatory;
+  text-align:center;
+}
+
+.item{
+  height:40px;
+  line-height:40px;
+  scroll-snap-align:center;
+  font-size:20px;
+}
+
+.spacer{
+  height:80px;
+}
+
+.highlight{
+  position:absolute;
+  top:80px;
+  height:40px;
+  width:100%;
+  border-top:2px solid black;
+  border-bottom:2px solid black;
+  pointer-events:none;
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="wrapper">
+
+<div class="highlight"></div>
+
+<div class="picker" id="picker">
+<div class="spacer"></div>
+</div>
+
+</div>
+
+<script>
+
+const values = [1,2,3,4,5,6,7,8,9,10]
+const picker = document.getElementById("picker")
+
+function buildWheel(){
+
+  for(let r=0;r<5;r++){   // repeat list 5 times
+    values.forEach(v=>{
+      const div = document.createElement("div")
+      div.className = "item"
+      div.innerText = v
+      picker.appendChild(div)
+    })
+  }
+
+  const spacer = document.createElement("div")
+  spacer.className="spacer"
+  picker.appendChild(spacer)
+
+}
+
+buildWheel()
+
+const itemHeight = 40
+const setSize = values.length * itemHeight
+
+picker.scrollTop = setSize * 2   // start in middle
+
+picker.addEventListener("scroll", ()=>{
+
+  if(picker.scrollTop < setSize){
+    picker.scrollTop += setSize
+  }
+
+  if(picker.scrollTop > setSize * 3){
+    picker.scrollTop -= setSize
+  }
+
+})
+
+</script>
+
+</body>
+</html>
