@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+
+body{
+  font-family: Arial;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+.picker{
+  width:120px;
+  height:200px;
+  overflow-y:scroll;
+  scroll-snap-type:y mandatory;
+  border:1px solid #ccc;
+  text-align:center;
+}
+
+.item{
+  height:40px;
+  line-height:40px;
+  scroll-snap-align:center;
+  font-size:20px;
+}
+
+.highlight{
+  position:absolute;
+  width:120px;
+  height:40px;
+  border-top:2px solid #000;
+  border-bottom:2px solid #000;
+  top:calc(50% - 20px);
+  pointer-events:none;
+}
+
+.wrapper{
+  position:relative;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+<div class="highlight"></div>
+
+<div class="picker" id="picker">
+
+<div class="item">1</div>
+<div class="item">2</div>
+<div class="item">3</div>
+<div class="item">4</div>
+<div class="item">5</div>
+<div class="item">6</div>
+<div class="item">7</div>
+<div class="item">8</div>
+<div class="item">9</div>
+<div class="item">10</div>
+
+</div>
+
+</div>
+
+</body>
+</html>
