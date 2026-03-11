@@ -5,6 +5,7 @@ import { CharacterViewer } from "@/components/character-viewer"
 import { MovesList, type Move } from "@/components/moves-list"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, Play, Pause, RotateCcw, Volume2, VolumeX, Info } from "lucide-react"
+import { useSearchParams } from "next/navigation";
 import Link from "next/link"
 import {
   Tooltip,
@@ -12,6 +13,17 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+
+type Character = {
+  id: string;
+  model: string;
+  animelist: string;
+};
+
+type Props = {
+  selectedId?: string;
+};
+
 
 // Sample move data - replace with your actual moves
 const sampleMoves: Move[] = [
@@ -107,7 +119,10 @@ const sampleMoves: Move[] = [
   },
 ]
 
-export default function TutorialPage() {
+export default function TutorialPage({ selectedId }: Props) {
+  const searchParams = useSearchParams();
+  const p1 = searchParams?.get("p1") ?? "jin";
+  const [character, setCharacter] = useState<Character | null>(null);
   const [selectedMove, setSelectedMove] = useState<Move | null>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isMuted, setIsMuted] = useState(false)
@@ -124,6 +139,22 @@ export default function TutorialPage() {
     setIsPlaying(false)
     setSelectedMove(null)
   }, [])
+
+  useEffect(() => {
+    async function fetchCharacter() {
+      const res = await fetch("/api/characters");
+      const data: Character[] = await res.json();
+
+      const result = data.find(
+        (item) => item.id === (selectedId ?? p1)
+      );
+
+      setCharacter(result ?? null);
+    }
+
+    fetchCharacter();
+  }, [p1, selectedId]);
+
 
   // Keyboard controls
   useEffect(() => {
