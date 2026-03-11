@@ -254,10 +254,10 @@ export default function TutorialPage({ selectedId }: Props) {
         <div className="flex-1 flex overflow-hidden">
           {/* 3D Viewer - Left Side */}
           <div className="flex-1 relative">
-            <CharacterViewer
-              modelPath="https://web3fighter.vercel.app/models/Xbot.glb"
-              isPlaying={isPlaying}
-            />
+          <CharacterViewer
+  modelPath={character?.model ?? "/models/Xbot.glb"}
+  isPlaying={isPlaying}
+/>
 
             {/* Info overlay when no move is selected */}
             {!selectedMove && (
