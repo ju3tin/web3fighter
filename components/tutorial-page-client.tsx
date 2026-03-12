@@ -20,6 +20,16 @@ type Character = {
   animelist: string;
 };
 
+type Moves = {
+    id: string
+    name: string
+    command: string[]
+    damage: number
+    type: string
+    properties: string[]
+    description: string
+  };
+
 type Props = {
   selectedId?: string;
 };
