@@ -188,7 +188,7 @@ export default function TekkenGame() {
               <span className="text-red-500">WEB3</span> FIGHTER
             </h1>
             <p className="text-xl text-white/60 mb-8">Best of 3 Rounds</p>
-            <Link href="/select">
+            <Link href="/select?mode=fight">
             <Button
               size="lg"
               className="text-2xl px-12 py-8 bg-red-500 hover:bg-red-600 text-white font-bold tracking-wider"
@@ -197,7 +197,7 @@ export default function TekkenGame() {
             </Button>
             </Link>
             <br /><br />
-            <Link href="/tutorial">
+            <Link href="/select?mode=tutorial">
             <Button
               size="lg"
               className="text-2xl px-12 py-8 bg-red-500 hover:bg-red-600 text-white font-bold tracking-wider"

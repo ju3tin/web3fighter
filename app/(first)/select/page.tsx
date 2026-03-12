@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF, useAnimations } from '@react-three/drei';
 import * as THREE from 'three';
+import { useSearchParams } from "next/navigation"
 
 interface Character {
   id: string;
@@ -60,6 +61,8 @@ function AnimatedPreview({ modelUrl, animationUrl }: { modelUrl: string; animati
 }
 
 export default function CharacterSelector() {
+  const searchParams = useSearchParams();
+  const mode = searchParams?.get("mode") ?? "game"
   const [characters, setCharacters] = useState<Character[]>([]);
   const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null);
   const [loading, setLoading] = useState(true);
@@ -179,11 +182,20 @@ export default function CharacterSelector() {
               <p className="text-white/60 text-sm md:text-base">Ready to fight</p>
             </div>
 
-            <Link href={`/game?p1=${selectedCharacter.id}`}>
-              <button className="px-10 md:px-16 py-5 md:py-6 bg-red-600 hover:bg-red-700 active:scale-95 transition-all text-2xl md:text-3xl font-black rounded-2xl shadow-xl shadow-red-900/40">
-                FIGHT!
-              </button>
-            </Link>
+            {mode === "fight" && (
+  <Link href={`/game?p1=${selectedCharacter.id}`}>
+    <button className="px-10 md:px-16 py-5 md:py-6 bg-red-600 hover:bg-red-700 active:scale-95 transition-all text-2xl md:text-3xl font-black rounded-2xl shadow-xl shadow-red-900/40">
+      FIGHT!
+    </button>
+  </Link>
+)}
+{mode === "tutorial" && (
+  <Link href={`/tutorial?p1=${selectedCharacter.id}`}>
+    <button className="px-10 md:px-16 py-5 md:py-6 bg-red-600 hover:bg-red-700 active:scale-95 transition-all text-2xl md:text-3xl font-black rounded-2xl shadow-xl shadow-red-900/40">
+      TUTORIAL
+    </button>
+  </Link>
+)}
           </div>
         </div>
       )}
