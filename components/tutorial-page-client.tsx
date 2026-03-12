@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react"
 import { CharacterViewer } from "@/components/character-viewer"
 import { MovesList, type Move } from "@/components/moves-list"
 import { Button } from "@/components/ui/button"
+import { useSearchParams } from "next/navigation";
 import { ArrowLeft, Play, Pause, RotateCcw, Volume2, VolumeX, Info } from "lucide-react"
 import Link from "next/link"
 import {
@@ -27,11 +28,13 @@ type Props = {
 }
 
 export default function TutorialPage({ selectedId }: Props) {
+  const searchParams = useSearchParams();
+  const p1 = searchParams?.get("p1") ?? "jin";
   const [character, setCharacter] = useState<Character | null>(null)
   const [selectedMove, setSelectedMove] = useState<Move | null>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isMuted, setIsMuted] = useState(false)
-
+ 
   const handlePlayAnimation = useCallback(() => {
     if (selectedMove) {
       setIsPlaying(true)
@@ -47,7 +50,7 @@ export default function TutorialPage({ selectedId }: Props) {
   // Fetch character + moves
   useEffect(() => {
     async function fetchCharacter() {
-      const res = await fetch(`/api/character/${selectedId ?? "ryu"}`)
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/character/${p1}`)
       const data: Character = await res.json()
       setCharacter(data)
     }
