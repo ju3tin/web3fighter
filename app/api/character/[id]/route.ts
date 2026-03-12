@@ -7,8 +7,8 @@ export async function GET(
   const { id } = await context.params
 
   const [charactersRes, movesRes] = await Promise.all([
-    fetch("http://localhost:3000/api/characters"),
-    fetch("http://localhost:3000/api/moveslist")
+    fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/characters`),
+    fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/moveslist`)
   ])
 
   const characters = await charactersRes.json()
