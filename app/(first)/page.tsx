@@ -205,6 +205,14 @@ export default function TekkenGame() {
               TUTORIAL
             </Button>
             </Link>
+            <Link href="/marketplace">
+            <Button
+              size="lg"
+              className="text-2xl px-12 py-8 bg-red-500 hover:bg-red-600 text-white font-bold tracking-wider"
+            >
+              MARKETPLACE
+            </Button>
+            </Link>
             <div className="mt-12 text-white/40 text-sm space-y-2">
               <p>Player 1: WASD + J/K/L | Player 2: Arrows + 1/2/3</p>
             </div>
