@@ -19,7 +19,7 @@ export default function SelecterPage() {
     <Suspense
       fallback={
         <div className="flex items-center justify-center w-full h-screen bg-black text-white text-3xl font-bold">
-          Loading Tekken Game...
+          Loading Web3Fighter...
         </div>
       }
     >

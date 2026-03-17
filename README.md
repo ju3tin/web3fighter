@@ -1,4 +1,4 @@
-# Tekken game in ThreeJS
+# WEb3fighter Game in ThreeJS
 
 *Automatically synced with your [v0.app](https://v0.app) deployments*
 

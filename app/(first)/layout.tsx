@@ -8,8 +8,8 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Tekken Fighter - 3D Fighting Game",
-  description: "A Tekken-style 3D fighting game built with Three.js",
+  title: "Web3Fighter - 3D Fighting Game",
+  description: "A Web3-style 3D fighting game built with Three.js",
   generator: "v0.app",
   icons: {
     icon: [
