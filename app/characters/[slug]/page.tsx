@@ -1,47 +1,66 @@
-// app/marketplace/characters/[slug]/page.tsx
-import { ITEMS } from "@/data/items";
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import { ITEMS } from "@/data/items";           // adjust path
+import { MarketplaceItem } from "@/lib/types";
 
 interface Props {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
-export default function CharacterDetail({ params }: Props) {
-  const item = ITEMS.find(
-    (i) => i.type === "character" && i.slug === params.slug
+export default async function CharacterDetailPage({ params }: Props) {
+  const { slug } = await params;
+
+  console.log(`[Character Detail] Requested ID: ${slug}`);
+
+  const character = ITEMS.find(
+    (item): item is MarketplaceItem & { type: "character" } =>
+      item.type === "character" && item.slug === slug
   );
 
-  if (!item) notFound();
+  if (!character) {
+    notFound();
+  }
 
   return (
-    <main className="min-h-screen bg-zinc-950 text-white py-12 px-6">
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
-        <div>
-          {item.previewGif && (
-            <Image
-              src={item.previewGif}
-              alt={item.title}
-              width={800}
-              height={450}
-              className="rounded-xl shadow-2xl"
-            />
-          )}
-        </div>
+    <main className="min-h-screen bg-gradient-to-b from-zinc-950 to-black text-white">
+      <div className="max-w-7xl mx-auto px-5 py-12 md:py-20">
+        <a
+          href="/marketplace/characters"
+          className="inline-flex items-center text-blue-400 hover:text-blue-300 mb-8 text-lg"
+        >
+          ← Back to Characters
+        </a>
 
-        <div>
-          <h1 className="text-5xl font-black mb-4">{item.title}</h1>
-          <p className="text-3xl text-green-400 mb-6">${item.price.toFixed(2)}</p>
+        <div className="grid md:grid-cols-2 gap-10 lg:gap-16">
+          <div className="relative aspect-video rounded-2xl overflow-hidden border border-zinc-800 shadow-2xl shadow-black/60 bg-zinc-900">
+            {character.previewGif ? (
+              <Image
+                src={character.previewGif}
+                alt={`${character.title} preview`}
+                fill
+                className="object-cover"
+                unoptimized // for GIFs
+              />
+            ) : (
+              <Image src={character.previewImage} alt={character.title} fill className="object-cover" />
+            )}
+          </div>
 
-          <p className="text-zinc-300 text-lg mb-8">{item.description}</p>
-
-          <div className="space-y-4">
-            <button className="w-full bg-blue-600 hover:bg-blue-500 py-4 rounded-xl font-bold text-xl transition">
-              Buy Now
-            </button>
-            <p className="text-center text-sm text-zinc-500">
-              Instant digital download • Compatible with Unity / Godot
+          <div className="flex flex-col justify-center">
+            <h1 className="text-4xl md:text-5xl font-extrabold mb-4">{character.title}</h1>
+            <div className="text-4xl font-bold text-emerald-400 mb-6">
+              ${character.price.toFixed(2)}
+            </div>
+            <p className="text-zinc-300 text-lg leading-relaxed mb-8">
+              {character.description}
             </p>
+
+            {/* Tags, compatibility, buy button... same as before */}
+            <div className="flex flex-col sm:flex-row gap-4 mt-8">
+              <button className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 py-5 rounded-xl font-bold text-lg">
+                Buy Now – ${character.price.toFixed(2)}
+              </button>
+            </div>
           </div>
         </div>
       </div>
