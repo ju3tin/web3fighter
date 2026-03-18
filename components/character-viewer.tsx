@@ -58,9 +58,9 @@ const maximize1 = () => {
   if (maximizeButton) {
     maximizeButton.style.removeProperty("display");
   }
-  const gameController2 = document.getElementById("game-controller-2");
-  if (gameController2) {
-    gameController2.style.removeProperty("display");
+  const gameController1 = document.getElementById("game-controller-2");
+  if (gameController1) {
+    gameController1.style.removeProperty("display");
   }
 }
 function LoadingFallback() { 

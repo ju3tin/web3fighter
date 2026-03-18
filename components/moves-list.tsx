@@ -38,7 +38,7 @@ element.style.display = "none";
     if (maximizeButton) {
       maximizeButton.style.removeProperty('display');
     }
-    const gameController1 = document.getElementById("game-controller-1");
+    const gameController1 = document.getElementById("game-controller-2");
     if (gameController1) {
       gameController1.style.display = "none";
     }
