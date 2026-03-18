@@ -40,7 +40,7 @@ element.style.display = "none";
     }
     const gameController1 = document.getElementById("game-controller-2");
     if (gameController1) {
-      gameController1.style.display = "none";
+      gameController1.style.removeProperty('display');
     }
 }
 
