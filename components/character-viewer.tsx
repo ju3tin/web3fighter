@@ -48,7 +48,8 @@ const maximize1 = () => {
   if (element) {
     //element.style.display = "none";
     element.style.removeProperty("display");
-    element.className = "w-[380px] lg:w-[420px] shrink-0";
+    element.style.removeProperty("width");
+    element.classList.add("w-[380px] lg:w-[420px] shrink-0");
   }
 }
 function LoadingFallback() {
