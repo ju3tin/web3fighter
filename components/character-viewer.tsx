@@ -51,12 +51,14 @@ const maximize1 = () => {
     element.style.removeProperty("display");
     element.style.removeProperty("width");
     element.removeAttribute("style");
-    element.classList.add("w-[380px]", "lg:w-[420px]", "shrink-0", "transform", "transition-transform", "duration-300", "translate-x-0");
+    element.style.right = "0px";
+    element.style.position = "absolute";
+   // element.classList.add("w-[380px]", "lg:w-[420px]", "shrink-0", "transform", "transition-transform", "duration-300", "translate-x-0");
     // w-[380px] lg:w-[420px] shrink-0 transform transition-transform duration-300 translate-x-0
   }
   const maximizeButton = document.getElementById("maximize-button");
   if (maximizeButton) {
-    maximizeButton.style.removeProperty("display");
+    maximizeButton.style.display = "none";
   }
   const gameController1 = document.getElementById("game-controller-2");
     if (gameController1) {
