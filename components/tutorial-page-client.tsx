@@ -184,6 +184,7 @@ export default function TutorialPage({ selectedId }: Props) {
           </div>
 
           {/* Moves List */}
+          <div id="moves-list-container">
           <div id="moves-list" className={`w-[380px] lg:w-[420px] shrink-0 transform transition-transform duration-300 ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}>
@@ -194,7 +195,7 @@ export default function TutorialPage({ selectedId }: Props) {
               characterName={character?.name ?? "Character"}
             />
           </div>
-
+          </div>
         </div>
       </div>
     </TooltipProvider>
