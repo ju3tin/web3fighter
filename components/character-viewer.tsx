@@ -132,12 +132,13 @@ const [open, setOpen] = useState(true);
 
         <gridHelper args={[20, 20, "#1a1a2e", "#1a1a2e"]} position={[0, -1.5, 0]} />
       </Canvas>
+      <GameController1 onPlayer1Move={() => {}} onPlayer1Action={() => {}} />
 <Button id="maximize-button" style={{zIndex: 1000, position: "absolute", top: "10px", right: "10px", display: "none" }} color="secondary" onClick={() => {maximize1(); setOpen(!open)}}>Maximize</Button>
       <div className="absolute bottom-4 left-4 flex items-center gap-2 text-muted-foreground text-xs">
         <span className="bg-secondary/80 px-2 py-1 rounded">Drag to rotate</span>
         <span className="bg-secondary/80 px-2 py-1 rounded">Scroll to zoom</span>
       </div>
-      <GameController1 onPlayer1Move={() => {}} onPlayer1Action={() => {}} />
+     
     </div>
   )
 }
