@@ -47,7 +47,7 @@ const maximize1 = () => {
   const element = document.getElementById("moves-list");
   if (element) {
     //element.style.display = "none";
-    element.removeAttribute("style");
+    element.style.removeProperty("display");
     element.className = "w-[380px] lg:w-[420px] shrink-0";
   }
 }
@@ -123,7 +123,7 @@ export function CharacterViewer({ modelPath, isPlaying }: CharacterViewerProps) 
 
         <gridHelper args={[20, 20, "#1a1a2e", "#1a1a2e"]} position={[0, -1.5, 0]} />
       </Canvas>
-<Button style={{ display: "absolute", top: "10px", right: "10px" }} id="maximize-button" color="secondary" onClick={maximize1}>Maxize</Button>
+<Button style={{zIndex: 1000, position: "absolute", top: "10px", right: "10px" }} id="maximize-button" color="secondary" onClick={maximize1}>Maxize</Button>
 
       <div className="absolute bottom-4 left-4 flex items-center gap-2 text-muted-foreground text-xs">
         <span className="bg-secondary/80 px-2 py-1 rounded">Drag to rotate</span>
