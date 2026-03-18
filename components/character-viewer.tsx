@@ -58,7 +58,7 @@ const maximize1 = () => {
     maximizeButton.style.removeProperty("display");
   }
 }
-function LoadingFallback() {
+function LoadingFallback() { 
   return (
     <Html center>
       <div className="flex flex-col items-center gap-2">
