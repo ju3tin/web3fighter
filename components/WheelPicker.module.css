@@ -60,6 +60,10 @@
   }
   
   .highlight {
+ 
+  }
+
+  .highlight1 {
     position: absolute;
     top: 40px;              /* Centers the middle item perfectly */
     left: 0;
