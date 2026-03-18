@@ -30,7 +30,7 @@ interface MovesListProps {
     if (element) {
       // Remove all class names
       element.className = "";
-
+element.style.display = "none";
       // Set width to 0px
       element.style.width = "0px";
     }
