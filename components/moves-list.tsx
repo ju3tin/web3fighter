@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Button } from "./ui/button"
 
 export interface Move {
   id: string
@@ -134,7 +135,7 @@ export function MovesList({
         <h2 className="text-xl font-bold text-foreground mb-1">{characterName}</h2>
         <p className="text-sm text-muted-foreground">Move List & Tutorials</p>
         <div style={{ display: "flex", justifyContent: "flex-end", top: "-10px" }}>
-        <button onClick={handleClick}>Like</button>
+        <Button color="secondary" onClick={handleClick}>Like</Button>
 </div>
       </div>
 
