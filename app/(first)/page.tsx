@@ -3,6 +3,7 @@
 import { Canvas } from "@react-three/fiber"
 import { useState, useCallback, useEffect } from "react"
 import { GameScene } from "@/components/game-scene"
+import MenuPicker from "@/components/menupicker"
 import { GameUI } from "@/components/game-ui"
 import { GameController } from "@/components/game-controller"
 import { Button } from "@/components/ui/button"
@@ -188,31 +189,7 @@ export default function TekkenGame() {
               <span className="text-red-500">WEB3</span> FIGHTER
             </h1>
             <p className="text-xl text-white/60 mb-8">Best of 3 Rounds</p>
-            <Link href="/select?mode=fight">
-            <Button
-              size="lg"
-              className="text-2xl px-12 py-8 bg-red-500 hover:bg-red-600 text-white font-bold tracking-wider"
-            >
-              START FIGHT
-            </Button>
-            </Link>
-            <br /><br />
-            <Link href="/select?mode=tutorial">
-            <Button
-              size="lg"
-              className="text-2xl px-12 py-8 bg-red-500 hover:bg-red-600 text-white font-bold tracking-wider"
-            >
-              TUTORIAL
-            </Button>
-            </Link>
-            <Link href="/marketplace">
-            <Button
-              size="lg"
-              className="text-2xl px-12 py-8 bg-red-500 hover:bg-red-600 text-white font-bold tracking-wider"
-            >
-              MARKETPLACE
-            </Button>
-            </Link>
+            <MenuPicker />
             <div className="mt-12 text-white/40 text-sm space-y-2">
               <p>Player 1: WASD + J/K/L | Player 2: Arrows + 1/2/3</p>
             </div>
