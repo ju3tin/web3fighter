@@ -93,8 +93,8 @@ export default function WheelPicker({ items }: WheelPickerProps = {}) {
 
   return (
    
-    <div className={styles.center}>
-    <div className={styles.wrapper}>
+    
+    <div className={(styles.center, styles.wrapper)}>
       <div className={styles.arrow} onClick={scrollUp}>
         ▲
       </div>
@@ -109,6 +109,6 @@ export default function WheelPicker({ items }: WheelPickerProps = {}) {
         ▼
       </div>
       </div>
-    </div>
+  
   );
 }
