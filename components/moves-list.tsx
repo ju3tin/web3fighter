@@ -29,10 +29,14 @@ interface MovesListProps {
     const element = document.getElementById("moves-list");
     if (element) {
       // Remove all class names
-      element.className = "";
+ //     element.className = "";
 element.style.display = "none";
       // Set width to 0px
       element.style.width = "0px";
+    }
+    const maximizeButton = document.getElementById("maximize-button");
+    if (maximizeButton) {
+      maximizeButton.style.removeProperty('display');
     }
 }
 
