@@ -17,6 +17,7 @@ type Character = {
   id: string;
   model: string;
   animelist: string;
+  moveslist?: Array<string>;
 };
 
 type Direction = "left" | "right" | "forward" | "back" | null;
