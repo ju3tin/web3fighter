@@ -6,6 +6,7 @@ import { OrbitControls, useGLTF, useAnimations, Environment, ContactShadows, Htm
 import * as THREE from "three"
 import { Spinner } from "@/components/ui/spinner"
 import { Button } from "./ui/button"
+import { GameController1 } from "./game-controller1"
 
 interface CharacterModelProps {
   modelPath: string
@@ -136,6 +137,7 @@ const [open, setOpen] = useState(true);
         <span className="bg-secondary/80 px-2 py-1 rounded">Drag to rotate</span>
         <span className="bg-secondary/80 px-2 py-1 rounded">Scroll to zoom</span>
       </div>
+      <GameController1 onPlayer1Move={() => {}} onPlayer1Action={() => {}} />
     </div>
   )
 }
