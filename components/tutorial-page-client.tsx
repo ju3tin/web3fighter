@@ -34,6 +34,7 @@ export default function TutorialPage({ selectedId }: Props) {
   const [selectedMove, setSelectedMove] = useState<Move | null>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isMuted, setIsMuted] = useState(false)
+  const [open, setOpen] = useState(true);
  
   const handlePlayAnimation = useCallback(() => {
     if (selectedMove) {
@@ -183,7 +184,9 @@ export default function TutorialPage({ selectedId }: Props) {
           </div>
 
           {/* Moves List */}
-          <div id="moves-list" className="w-[380px] lg:w-[420px] shrink-0">
+          <div id="moves-list" className={`w-[380px] lg:w-[420px] shrink-0 transform transition-transform duration-300 ${
+          open ? "translate-x-0" : "-translate-x-full"
+        }`}>
             <MovesList
               moves={character?.moves ?? []}
               selectedMove={selectedMove}

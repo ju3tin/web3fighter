@@ -1,6 +1,6 @@
 "use client"
 
-import { Suspense, useRef, useEffect } from "react"
+import { Suspense, useRef, useEffect, useState } from "react"
 import { Canvas, useFrame } from "@react-three/fiber"
 import { OrbitControls, useGLTF, useAnimations, Environment, ContactShadows, Html } from "@react-three/drei"
 import * as THREE from "three"
@@ -72,6 +72,7 @@ interface CharacterViewerProps {
 
 export function CharacterViewer({ modelPath, isPlaying }: CharacterViewerProps) {
   
+const [open, setOpen] = useState(true);
   return (
     <div className="w-full h-full relative">
       <Canvas
@@ -125,8 +126,7 @@ export function CharacterViewer({ modelPath, isPlaying }: CharacterViewerProps) 
 
         <gridHelper args={[20, 20, "#1a1a2e", "#1a1a2e"]} position={[0, -1.5, 0]} />
       </Canvas>
-<Button style={{zIndex: 1000, position: "absolute", top: "10px", right: "10px" }} id="maximize-button" color="secondary" onClick={maximize1}>Maxize</Button>
-
+<Button style={{zIndex: 1000, position: "absolute", top: "10px", right: "10px" }} color="secondary" onClick={() => setOpen(!open)}>Maximize</Button>
       <div className="absolute bottom-4 left-4 flex items-center gap-2 text-muted-foreground text-xs">
         <span className="bg-secondary/80 px-2 py-1 rounded">Drag to rotate</span>
         <span className="bg-secondary/80 px-2 py-1 rounded">Scroll to zoom</span>
