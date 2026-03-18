@@ -63,7 +63,7 @@ export default function TekkenGame({ selectedId }: Props) {
 
   useEffect(() => {
     async function fetchCharacter() {
-      const res = await fetch("/api/characters");
+      const res = await fetch("/api/chartactermovelist");
       const data: Character[] = await res.json();
 
       const result = data.find(
