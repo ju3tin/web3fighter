@@ -13,13 +13,13 @@ interface WheelPickerProps {
 export default function WheelPicker({ items }: WheelPickerProps = {}) {
   // Default routes (you can override by passing props)
   const defaultRoutes = {
-    Tutorial: "/tutorial",
-    "Start Game": "/play",
-    Marketplace: "/shop",
-    Settings: "/settings",
-    Credits: "/credits",
-    Leaderboard: "/leaderboard",
-    About: "/about",
+    "Start Game": "/play", 
+    "Tutorial": "/tutorial",
+    "Marketplace": "/shop",
+    "Settings": "/settings",
+    "Credits": "/credits",
+    "Leaderboard": "/leaderboard",
+    "About": "/about",
   };
 
   const routes = items || defaultRoutes;
