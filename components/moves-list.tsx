@@ -144,7 +144,7 @@ export function MovesList({
         <h2 className="text-xl font-bold text-foreground mb-1">{characterName}</h2>
         <p className="text-sm text-muted-foreground">Move List & Tutorials</p>
         <div style={{ display: "flex", justifyContent: "flex-end", top: "-10px" }}>
-        <Button color="secondary" onClick={() => setOpen(!open)}>Minimize</Button>
+        <Button color="secondary" onClick={() => {handleClick(); setOpen(!open)}}>Minimize</Button>
 </div>
       </div>
 
