@@ -25,6 +25,17 @@ interface MovesListProps {
   characterName: string
 }
 
+ const handleClick = () => {
+    const element = document.getElementById("moves-list");
+    if (element) {
+      // Remove all class names
+      element.className = "";
+
+      // Set width to 0px
+      element.style.width = "0px";
+    }
+}
+
 const moveCategories = [
   { id: "all", label: "All" },
   { id: "basic", label: "Basic" },
@@ -58,9 +69,7 @@ function CommandDisplay({ command }: { command: string[] }) {
   )
 }
 
-function handleClick() {
-  console.log('increment like count');
-}
+
 
 function MoveCard({
   move,
