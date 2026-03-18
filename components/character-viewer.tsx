@@ -6,7 +6,7 @@ import { OrbitControls, useGLTF, useAnimations, Environment, ContactShadows, Htm
 import * as THREE from "three"
 import { Spinner } from "@/components/ui/spinner"
 import { Button } from "./ui/button"
-import { GameController1 } from "./game-controller1"
+import { GameController1 } from "./game-controller2"
 
 interface CharacterModelProps {
   modelPath: string
@@ -57,6 +57,10 @@ const maximize1 = () => {
   const maximizeButton = document.getElementById("maximize-button");
   if (maximizeButton) {
     maximizeButton.style.removeProperty("display");
+  }
+  const gameController2 = document.getElementById("game-controller-2");
+  if (gameController2) {
+    gameController2.style.removeProperty("display");
   }
 }
 function LoadingFallback() { 

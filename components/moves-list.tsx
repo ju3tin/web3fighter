@@ -38,6 +38,10 @@ element.style.display = "none";
     if (maximizeButton) {
       maximizeButton.style.removeProperty('display');
     }
+    const gameController2 = document.getElementById("game-controller-2");
+    if (gameController2) {
+      gameController2.style.display = "none";
+    }
 }
 
 const moveCategories = [
