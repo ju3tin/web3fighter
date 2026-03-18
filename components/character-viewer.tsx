@@ -50,7 +50,8 @@ const maximize1 = () => {
     element.style.removeProperty("display");
     element.style.removeProperty("width");
     element.removeAttribute("style");
-    element.classList.add("w-[380px]", "lg:w-[420px]", "shrink-0");
+    element.classList.add("w-[380px]", "lg:w-[420px]", "shrink-0", "transform", "transition-transform", "duration-300", "translate-x-0");
+    // w-[380px] lg:w-[420px] shrink-0 transform transition-transform duration-300 translate-x-0
   }
 }
 function LoadingFallback() {
