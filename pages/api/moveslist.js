@@ -294,6 +294,18 @@
                   description: "A rapid three-hit combo that catches opponents off-guard. Great for pressure.",
                 },
               ]   },
+    { id: 'ninja', 
+        movelist: [
+            {
+              id: "1",
+              name: "Flash Punch Combo",
+              command: ["1", "1", "2"],
+              damage: 32,
+              type: "high",
+              properties: ["combo", "quick"],
+              description: "A rapid three-hit combo that catches opponents off-guard. Great for pressure.",
+            },
+          ]   },
       ];
       
       res.status(200).json(movelist);
