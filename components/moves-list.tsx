@@ -139,7 +139,7 @@ export function MovesList({
   })
 
   return (
-    <div id="moves-list" className="flex flex-col h-full bg-card/30 backdrop-blur-sm border-l border-border">
+    <div className="flex flex-col h-full bg-card/30 backdrop-blur-sm border-l border-border">
       <div className="p-4 border-b border-border">
         <h2 className="text-xl font-bold text-foreground mb-1">{characterName}</h2>
         <p className="text-sm text-muted-foreground">Move List & Tutorials</p>

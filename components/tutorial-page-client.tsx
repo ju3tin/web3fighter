@@ -183,7 +183,7 @@ export default function TutorialPage({ selectedId }: Props) {
           </div>
 
           {/* Moves List */}
-          <div className="w-[380px] lg:w-[420px] shrink-0">
+          <div id="moves-list" className="w-[380px] lg:w-[420px] shrink-0">
             <MovesList
               moves={character?.moves ?? []}
               selectedMove={selectedMove}
