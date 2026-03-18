@@ -53,6 +53,10 @@ const maximize1 = () => {
     element.classList.add("w-[380px]", "lg:w-[420px]", "shrink-0", "transform", "transition-transform", "duration-300", "translate-x-0");
     // w-[380px] lg:w-[420px] shrink-0 transform transition-transform duration-300 translate-x-0
   }
+  const maximizeButton = document.getElementById("maximize-button");
+  if (maximizeButton) {
+    maximizeButton.style.removeProperty("display");
+  }
 }
 function LoadingFallback() {
   return (

@@ -32,7 +32,7 @@ interface MovesListProps {
  //     element.className = "";
 element.style.display = "none";
       // Set width to 0px
-      element.style.width = "0px";
+ //     element.style.width = "0px";
     }
     const maximizeButton = document.getElementById("maximize-button");
     if (maximizeButton) {
