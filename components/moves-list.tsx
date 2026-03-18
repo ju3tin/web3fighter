@@ -57,6 +57,10 @@ function CommandDisplay({ command }: { command: string[] }) {
   )
 }
 
+function handleClick() {
+  console.log('increment like count');
+}
+
 function MoveCard({
   move,
   isSelected,
@@ -129,6 +133,9 @@ export function MovesList({
       <div className="p-4 border-b border-border">
         <h2 className="text-xl font-bold text-foreground mb-1">{characterName}</h2>
         <p className="text-sm text-muted-foreground">Move List & Tutorials</p>
+        <div style={{ display: "flex", justifyContent: "flex-end", top: "-10px" }}>
+        <button onClick={handleClick}>Like</button>
+</div>
       </div>
 
       <Tabs value={activeCategory} onValueChange={setActiveCategory} className="flex-1 flex flex-col">
