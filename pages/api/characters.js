@@ -13,7 +13,7 @@ export default function handler(req, res) {
   { id: 'blanka', name: 'Blanka', portrait: '/characters/Super_Blanka.png', model: '/anime/1a.glb', animelist: '/anime/1a.glb'  },
   { id: 'heihachi', name: 'heihachi', portrait: '/characters/heihachi.png', model: '/models/heihachi.glb', animelist: '/anime/1a.glb'  },
   { id: 'urbanninja', name: 'urbanninja', portrait: '/characters/urbanninja.png', model: '/models/urbanninja.glb', animelist: '/anime/1a.glb'  },
-  { id: 'ninja', name: 'ninja', portrait: '/characters/ninja1.png', model: '/models/ninja2.glb', animelist: '/anime/1a.glb'  },
+  { id: 'ninja', name: 'ninja', portrait: '/characters/ninja1.png', model: '/models/ninja2a.glb', animelist: '/anime/1a.glb'  },
     ];
     
     res.status(200).json(characters);
