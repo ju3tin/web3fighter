@@ -15,23 +15,22 @@ body{
 
 .wrapper{
   position:relative;
-  width:160px;
-}
-
-.picker{
-  height:200px;
-  overflow-y:auto;
-  scroll-snap-type:y mandatory;
+  width:180px;
   text-align:center;
 }
 
-/* FIX: make links behave like blocks */
+.picker{
+  height:120px; /* 3 items (40px each) */
+  overflow-y:auto;
+  scroll-snap-type:y mandatory;
+}
+
 .item{
   display:block;
   height:40px;
   line-height:40px;
   scroll-snap-align:center;
-  font-size:20px;
+  font-size:18px;
   text-decoration:none;
   color:black;
 }
@@ -41,17 +40,25 @@ body{
 }
 
 .spacer{
-  height:80px;
+  height:40px; /* half of visible area */
 }
 
 .highlight{
   position:absolute;
-  top:80px;
+  top:80px; /* ✅ middle item */
   height:40px;
   width:100%;
   border-top:2px solid black;
   border-bottom:2px solid black;
   pointer-events:none;
+}
+
+/* arrows */
+.arrow{
+  cursor:pointer;
+  user-select:none;
+  font-size:20px;
+  padding:5px;
 }
 
 </style>
@@ -61,11 +68,15 @@ body{
 
 <div class="wrapper">
 
+<div class="arrow" id="up">▲</div>
+
 <div class="highlight"></div>
 
 <div class="picker" id="picker">
-<div class="spacer"></div>
+  <div class="spacer"></div>
 </div>
+
+<div class="arrow" id="down">▼</div>
 
 </div>
 
@@ -85,19 +96,12 @@ const values = Object.keys(routes)
 const picker = document.getElementById("picker")
 
 function buildWheel(){
-
   for (let r = 0; r < 5; r++) {
     values.forEach(v => {
       const link = document.createElement("a")
       link.className = "item"
       link.innerText = v
       link.href = routes[v]
-
-      // OPTIONAL: prevent accidental clicks while scrolling
-      link.addEventListener("click", (e) => {
-        if (isScrolling) e.preventDefault()
-      })
-
       picker.appendChild(link)
     })
   }
@@ -105,7 +109,6 @@ function buildWheel(){
   const spacer = document.createElement("div")
   spacer.className="spacer"
   picker.appendChild(spacer)
-
 }
 
 buildWheel()
@@ -113,30 +116,26 @@ buildWheel()
 const itemHeight = 40
 const setSize = values.length * itemHeight
 
-picker.scrollTop = setSize * 2   // start in middle
+picker.scrollTop = setSize * 2
 
-let isScrolling = false
-let scrollTimeout
-
+// infinite scroll
 picker.addEventListener("scroll", ()=>{
-
-  isScrolling = true
-  clearTimeout(scrollTimeout)
-
-  scrollTimeout = setTimeout(()=>{
-    isScrolling = false
-  }, 100)
-
-  // infinite loop effect
   if(picker.scrollTop < setSize){
     picker.scrollTop += setSize
   }
-
   if(picker.scrollTop > setSize * 3){
     picker.scrollTop -= setSize
   }
-
 })
+
+// arrow controls
+document.getElementById("up").onclick = () => {
+  picker.scrollBy({ top: -itemHeight, behavior: "smooth" })
+}
+
+document.getElementById("down").onclick = () => {
+  picker.scrollBy({ top: itemHeight, behavior: "smooth" })
+}
 
 </script>
 
