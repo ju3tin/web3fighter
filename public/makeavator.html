@@ -29,8 +29,8 @@
     var app
     // load some json data first
     var loadUrls = {
-        modeling_sliders: 'node_modules/makehuman-data/src/json/sliders/modeling_sliders.json',
-        resources: 'node_modules/makehuman-data/public/data/resources.json'
+        modeling_sliders: 'makehuman-data/src/json/sliders/modeling_sliders.json',
+        resources: 'makehuman-data/public/data/resources.json'
     }
     var loader = new THREE.XHRLoader();
     Promise.all(
@@ -51,7 +51,7 @@
     })
     .then(() => {
         // start the app
-        resources.baseUrl = "node_modules/makehuman-data/public/data/"
+        resources.baseUrl = "makehuman-data/public/data/"
         app = new App(resources, modeling_sliders)
         app.init()
         app.animate()
