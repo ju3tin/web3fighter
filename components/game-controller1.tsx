@@ -1,7 +1,7 @@
 // components/game-controller1.tsx
 "use client";
 
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 
 type Direction = "left" | "right" | "forward" | "back" | "stop";
 type Action = "punch" | "kick" | "block";
@@ -99,6 +99,112 @@ export const GameController1: React.FC<GameControllerProps> = ({
   onPlayer1Move,
   onPlayer1Action,
 }) => {
+
+  const keysPressed = useRef<Set<string>>(new Set())
+  const p1Move = useRef<"left" | "right" | "forward" | "back" | "stop">("stop")
+  const p2Move = useRef<"left" | "right" | "forward" | "back" | "stop">("stop")
+  useEffect(() => {
+    const p1MoveKeyToDir: Record<string, "left" | "right" | "forward" | "back"> = {
+      a: "left",
+      d: "right",
+      w: "forward",
+      s: "back",
+    }
+
+    const p2MoveKeyToDir: Record<string, "left" | "right" | "forward" | "back"> = {
+      arrowleft: "left",
+      arrowright: "right",
+      arrowup: "forward",
+      arrowdown: "back",
+    }
+
+    const computeFallbackMove = (
+      mapping: Record<string, "left" | "right" | "forward" | "back">,
+    ): "left" | "right" | "forward" | "back" | "stop" => {
+      // Priority order when the "active" key is released.
+      // (We don’t have key order history, so we pick a stable priority.)
+      const priority = Object.keys(mapping)
+      for (const k of priority) {
+        if (keysPressed.current.has(k)) return mapping[k]
+      }
+      return "stop"
+    }
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const key = e.key.toLowerCase()
+
+      // Prevent default for game keys
+      if (
+        ["w", "a", "s", "d", "j", "k", "l", "arrowup", "arrowdown", "arrowleft", "arrowright", "1", "2", "3"].includes(
+          key,
+        )
+      ) {
+        e.preventDefault()
+      }
+
+      if (keysPressed.current.has(key)) return
+      keysPressed.current.add(key)
+
+      // Player 1 Controls (WASD + JKL)
+      if (key in p1MoveKeyToDir) {
+        const dir = p1MoveKeyToDir[key]
+        p1Move.current = dir
+        onPlayer1Move(dir)
+        window.dispatchEvent(new Event("Player 1-walk"))
+      }
+      if (key === "j") {
+        onPlayer1Action("punch")
+        window.dispatchEvent(new Event("Player 1-punch"))
+      }
+      if (key === "k") {
+        onPlayer1Action("kick")
+        window.dispatchEvent(new Event("Player 1-kick"))
+      }
+      if (key === "l") {
+        onPlayer1Action("block")
+        window.dispatchEvent(new Event("Player 1-block"))
+      }
+
+      // Player 2 Controls (Arrow Keys + 123)
+    
+    }
+
+    const handleKeyUp = (e: KeyboardEvent) => {
+      const key = e.key.toLowerCase()
+      keysPressed.current.delete(key)
+
+      // Player 1 stop moving
+      if (key in p1MoveKeyToDir) {
+        const releasedDir = p1MoveKeyToDir[key]
+        if (p1Move.current === releasedDir) {
+          const next = computeFallbackMove(p1MoveKeyToDir)
+          p1Move.current = next
+          onPlayer1Move(next)
+          window.dispatchEvent(new Event(next === "stop" ? "Player 1-idle" : "Player 1-walk"))
+        }
+      }
+
+      // Player 1 stop blocking
+      if (key === "l") {
+        window.dispatchEvent(new Event("Player 1-idle"))
+      }
+
+      // Player 2 stop moving
+   
+
+      // Player 2 stop blocking
+   
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+    window.addEventListener("keyup", handleKeyUp)
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown)
+      window.removeEventListener("keyup", handleKeyUp)
+    }
+  }, [onPlayer1Move, onPlayer1Action, p1Move, p2Move])
+
   return (
     <div className="fixed inset-x-0 bottom-0 z-50 lg:hidden pointer-events-none select-none">
       <div className="bg-gradient-to-t from-black/25 to-transparent pt-1 pb-3 px-2 pointer-events-auto">
