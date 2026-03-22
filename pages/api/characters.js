@@ -7,7 +7,7 @@ export default function handler(req, res) {
   { id: 'ryu', name: 'Ryu', portrait: '/characters/ryu.png', model: '/models/ryu.glb', animelist: '/anime/1.glb'  },
   { id: 'ken', name: 'Ems', portrait: '/characters/ken.png', model: '/models/ken.glb', animelist: '/anime/1.glb'  },
   { id: 'chunli', name: 'Chun-Li', portrait: '/characters/ChunLi.png', model: '/models/chun_li.glb', animelist: '/anime/1.glb'  },
-  { id: 'guile', name: 'Guile', portrait: '/characters/Guile.png', model: '/models/urbanninja.glb', animelist: '/anime/1.glb'  },
+  { id: 'guile', name: 'Guile', portrait: '/characters/Guile.png', model: '/models/muay_thai_fighter.glb', animelist: '/anime/1.glb'  },
   { id: 'anna', name: 'Anna', portrait: '/characters/anna.png', model: '/models/sitting_talking.glb', animelist: '/anime/1.glb'  },
   { id: 'xBot', name: 'Anna', portrait: '/characters/anna.png', model: '/models/sitting_talking.glb', animelist: '/anime/1.glb'  },
   { id: 'blanka', name: 'Blanka', portrait: '/characters/Super_Blanka.png', model: '/anime/1a.glb', animelist: '/anime/1a.glb'  },
