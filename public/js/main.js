@@ -331,6 +331,21 @@ var App = function(makehuman, dat, _, THREE, Detector, Nanobar, Stats) {
     }
     
     GUI.prototype.setupIOGUI = function () {
+
+      this.downloadGLB3 = function (model) {
+            const exporter = new THREE.GLTFExporter();
+            exporter.parse(model, function (result) {
+                const output = JSON.stringify(result, null, 2);
+                const blob = new Blob([output], { type: 'application/json' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'model.glb';
+                link.click();
+            }, { binary: true });
+        }
+
+
+
         this.downloadGLB = function () {
 
             // Make sure exporter is available (your existing lazy-load logic is fine)
@@ -399,6 +414,8 @@ var App = function(makehuman, dat, _, THREE, Detector, Nanobar, Stats) {
         }.bind(this);
         
         this.gui.add(this, 'downloadGLB');
+
+        this.gui.add(this, 'downloadGLB3');
 
         this.downloadGLB2 = function () {
             const data = self.human.io.toGLTF();
