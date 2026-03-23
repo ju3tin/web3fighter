@@ -323,11 +323,11 @@ var App = function(makehuman, dat, _, THREE, Detector, Nanobar, Stats) {
     }
     
     GUI.prototype.setupIOGUI = function () {
-       this.downloadGLB = function () {
-          const exporter = new GLTFExporter();
-          console.log(exporter);
+        this.downloadGLB = function () {
+            const exporter = new THREE.GLTFExporter();
+        
             exporter.parse(
-                self.human.io.toGLTF(),
+                self.scene, // ✅ export the scene directly
                 function (result) {
                     const blob = new Blob([result], { type: 'model/gltf-binary' });
                     saveAs(blob, 'avatar.glb');
@@ -338,9 +338,7 @@ var App = function(makehuman, dat, _, THREE, Detector, Nanobar, Stats) {
                 }
             );
         };
-        
         this.gui.add(this, 'downloadGLB');
-
        this.downloadObj = function() {
 			// Uses FileSaver.js/1.3.3
 			saveAs(
