@@ -8,6 +8,14 @@ var App = function(makehuman, dat, _, THREE, Detector, Nanobar, Stats) {
      * @param       {object} modeling_sliders - list of modeling_sliders from makehuman-data
      * @constructor
      */
+
+    function loadGLTFExporter(callback) {
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/three@0.158/examples/js/exporters/GLTFExporter.js';
+        script.onload = callback;
+        document.head.appendChild(script);
+    }
+
     function App(resources, modeling_sliders) {
 
         this.SCREEN_WIDTH = window.innerWidth / 3 * 2;
