@@ -350,6 +350,16 @@ var App = function(makehuman, dat, _, THREE, Detector, Nanobar, Stats) {
         }.bind(this);
         
         this.gui.add(this, 'downloadGLB');
+
+        this.downloadGLB2 = function () {
+            const data = self.human.io.toGLTF();
+        
+            const blob = new Blob([data], { type: 'application/octet-stream' });
+            saveAs(blob, 'avatar.glb');
+        };
+        this.gui.add(this, 'downloadGLB2');
+
+
        this.downloadObj = function() {
 			// Uses FileSaver.js/1.3.3
 			saveAs(
