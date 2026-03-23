@@ -1,5 +1,7 @@
 'use strict';
 
+import { GLTFExporter } from 'https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/exporters/GLTFExporter.js';
+
 var App = function(makehuman, dat, _, THREE, Detector, Nanobar, Stats) {
 
 
