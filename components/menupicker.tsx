@@ -19,7 +19,7 @@ export default function WheelPicker({ items }: WheelPickerProps = {}) {
     "Settings": "/settings",
     "Credits": "/credits",
     "Leaderboard": "/leaderboard",
-    "About": "/about",
+    "About": "/faq",
   };
 
   const routes = items || defaultRoutes;
