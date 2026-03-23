@@ -323,13 +323,31 @@ var App = function(makehuman, dat, _, THREE, Detector, Nanobar, Stats) {
     }
     
     GUI.prototype.setupIOGUI = function () {
-        this.downloadObj = function() {
+        this.downloadGLB = function () {
+            const exporter = new GLTFExporter();
+        
+            exporter.parse(
+                self.human.mesh, // or your THREE.Scene
+                function (result) {
+                    const blob = new Blob([result], { type: 'model/gltf-binary' });
+                    saveAs(blob, 'avatar.glb');
+                },
+                {
+                    binary: true,
+                    embedImages: true
+                }
+            );
+        };
+        
+        this.gui.add(this, 'downloadGLB');
+
+  //      this.downloadObj = function() {
 			// Uses FileSaver.js/1.3.3
-			saveAs(
-				new Blob( [self.human.io.toObj()], {type : 'text/plain;charset=utf-8'} ),
-					'test.obj'
-				);
-			};
+	//		saveAs(
+	//			new Blob( [self.human.io.toObj()], {type : 'text/plain;charset=utf-8'} ),
+	//				'test.obj'
+	//			);
+	//		};
         this.gui.add(this, 'downloadObj');
 	}
 
