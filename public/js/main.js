@@ -325,28 +325,69 @@ var App = function(makehuman, dat, _, THREE, Detector, Nanobar, Stats) {
     GUI.prototype.setupIOGUI = function () {
         this.downloadGLB = function () {
 
+            // Make sure exporter is available (your existing lazy-load logic is fine)
             if (!THREE.GLTFExporter) {
-                console.warn("Exporter not loaded yet, loading now...");
-        
-                loadGLTFExporter(() => {
-                    this.downloadGLB(); // retry after load
-                });
-        
+                console.warn("GLTFExporter not loaded yet...");
+                loadGLTFExporter(() => { this.downloadGLB(); });
                 return;
             }
         
             const exporter = new THREE.GLTFExporter();
         
+            // Very important: update world matrices before export
             self.human.updateMatrixWorld(true);
         
+            // Optional but recommended: traverse and prepare materials/textures
+            self.human.traverse((child) => {
+                if (child.isMesh) {
+                    // Make sure textures are properly loaded & flipped for glTF
+                    if (child.material.map) {
+                        child.material.map.flipY = false;     // ← glTF convention
+                        child.material.map.needsUpdate = true;
+                    }
+                    if (child.material.normalMap) {
+                        child.material.normalMap.flipY = false;
+                        child.material.normalMap.needsUpdate = true;
+                    }
+                    // Do the same for roughnessMap, metalnessMap, etc. if you use them
+                }
+            });
+        
             exporter.parse(
-                self.human,
-                function (result) {
-                    const blob = new Blob([result], { type: 'model/gltf-binary' });
-                    saveAs(blob, 'avatar.glb');
+                self.human,                           // ← root object to export
+        
+                function onSuccess(result) {
+                    let blob;
+                    let filename = 'human-avatar.glb';
+                    let mime = 'model/gltf-binary';
+        
+                    if (result instanceof ArrayBuffer) {
+                        // binary: true → returns ArrayBuffer (GLB)
+                        blob = new Blob([result], { type: mime });
+                    } else {
+                        // binary: false → returns { .gltf JSON + separate buffers }
+                        blob = new Blob([JSON.stringify(result)], { type: 'application/json' });
+                        filename = 'human-avatar.gltf';
+                        mime = 'application/json';
+                    }
+        
+                    saveAs(blob, filename);
                 },
-                { binary: true }
+        
+                function onError(err) {
+                    console.error("GLTF export failed:", err);
+                    alert("Export failed — check console for details.");
+                },
+        
+                {
+                    binary: true,                // ← must be true for .glb
+                    embedImages: true,           // ← crucial: embeds textures into .glb
+                    // truncateDrawRange: false, // usually leave default
+                    // onlyVisible: false,       // usually leave default
+                    // maxTextureSize: 4096      // optional – lower if you get errors
+                }
             );
+        
         }.bind(this);
         
         this.gui.add(this, 'downloadGLB');
