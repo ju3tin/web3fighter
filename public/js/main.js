@@ -324,20 +324,31 @@ var App = function(makehuman, dat, _, THREE, Detector, Nanobar, Stats) {
     
     GUI.prototype.setupIOGUI = function () {
         this.downloadGLB = function () {
+
+            if (!THREE.GLTFExporter) {
+                console.warn("Exporter not loaded yet, loading now...");
+        
+                loadGLTFExporter(() => {
+                    this.downloadGLB(); // retry after load
+                });
+        
+                return;
+            }
+        
             const exporter = new THREE.GLTFExporter();
         
+            self.human.updateMatrixWorld(true);
+        
             exporter.parse(
-                self.scene, // ✅ export the scene directly
+                self.human,
                 function (result) {
                     const blob = new Blob([result], { type: 'model/gltf-binary' });
                     saveAs(blob, 'avatar.glb');
                 },
-                {
-                    binary: true,
-                    embedImages: true
-                }
+                { binary: true }
             );
-        };
+        }.bind(this);
+        
         this.gui.add(this, 'downloadGLB');
        this.downloadObj = function() {
 			// Uses FileSaver.js/1.3.3
