@@ -12,6 +12,7 @@
 <div id="nav"></div>
 <div id="container"></div>
 <div id="progress-bar"></div>
+<button id="downloadGLB">Download GLB</button>
     </body>
     <script src="https://cdn.jsdelivr.net/npm/dat.gui@0.6.5/build/dat.gui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r82/three.js" charset="utf-8"></script>
@@ -60,6 +61,29 @@
         app.init()
         app.animate()
     })
+    async function downloadGLB() {
+    // ensure exporter + saver exist
+    if (!THREE.GLTFExporter) {
+        await loadScript("https://cdn.jsdelivr.net/npm/three@0.152.0/examples/js/exporters/GLTFExporter.js");
+    }
 
+    if (!window.saveAs) {
+        await loadScript("https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js");
+    }
+
+    const exporter = new THREE.GLTFExporter();
+
+    // important: update transforms
+    self.human.updateMatrixWorld(true);
+
+    exporter.parse(
+        self.human, // or self.scene
+        (result) => {
+            const blob = new Blob([result], { type: 'model/gltf-binary' });
+            saveAs(blob, 'avatar.glb');
+        },
+        { binary: true }
+    );
+}
     </script>
 </html>
