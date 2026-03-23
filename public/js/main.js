@@ -1,7 +1,7 @@
 'use strict';
-
-import { GLTFExporter } from 'https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/exporters/GLTFExporter.js';
-
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.152.0/build/three.module.js';
+import { GLTFExporter } from 'https://cdn.jsdelivr.net/npm/three@0.152.0/examples/js/exporters/GLTFExporter.js';
+import { saveAs } from 'https://cdn.jsdelivr.net/npm/file-saver@2.0.5/FileSaver.min.js';
 var App = function(makehuman, dat, _, THREE, Detector, Nanobar, Stats) {
 
 
@@ -326,10 +326,10 @@ var App = function(makehuman, dat, _, THREE, Detector, Nanobar, Stats) {
     
     GUI.prototype.setupIOGUI = function () {
         this.downloadGLB = function () {
-            const exporter = new GLTFExporter();
-        
+          const exporter = new GLTFExporter();
+          console.log(exporter);
             exporter.parse(
-                self.human.mesh, // or your THREE.Scene
+                self.human.io.toGLTF(), // or your THREE.Scene
                 function (result) {
                     const blob = new Blob([result], { type: 'model/gltf-binary' });
                     saveAs(blob, 'avatar.glb');
@@ -350,7 +350,7 @@ var App = function(makehuman, dat, _, THREE, Detector, Nanobar, Stats) {
 	//				'test.obj'
 	//			);
 	//		};
-        this.gui.add(this, 'downloadObj');
+     //   this.gui.add(this, 'downloadObj');
 	}
 
     GUI.prototype.setupProxyGUI = function () {
