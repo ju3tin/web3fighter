@@ -1,0 +1,21 @@
+{
+  "title": "Credits",
+  "people": [
+    {
+      "name": "Justin Grierson",
+      "role": "Lead Developer",
+      "avatar": "/avatars/justin.png"
+    },
+    {
+      "name": "Person Two",
+      "role": "Game Designer",
+      "avatar": "/avatars/person2.png"
+    },
+    {
+      "name": "Person Three",
+      "role": "Artist & Sound",
+      "avatar": "/avatars/person3.png"
+    }
+  ],
+  "footer": "Thanks for playing ❤️"
+}
