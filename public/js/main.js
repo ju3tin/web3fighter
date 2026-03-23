@@ -323,7 +323,7 @@ var App = function(makehuman, dat, _, THREE, Detector, Nanobar, Stats) {
     }
     
     GUI.prototype.setupIOGUI = function () {
-     /*   this.downloadGLB = function () {
+       this.downloadGLB = function () {
           const exporter = new GLTFExporter();
           console.log(exporter);
             exporter.parse(
@@ -340,7 +340,7 @@ var App = function(makehuman, dat, _, THREE, Detector, Nanobar, Stats) {
         };
         
         this.gui.add(this, 'downloadGLB');
-*/
+
        this.downloadObj = function() {
 			// Uses FileSaver.js/1.3.3
 			saveAs(
