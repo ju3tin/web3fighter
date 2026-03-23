@@ -6,6 +6,8 @@ var App = function(makehuman, dat, _, THREE, Detector, Nanobar, Stats) {
      * A three.js app that build a scene
      * @param       {object} resources        - list of resources from makehuman-data
      * @param       {object} modeling_sliders - list of modeling_sliders from makehuman-data
+     * @param       {object} GLTFExporter - GLTFExporter from three.js
+     * @param       {object} saveAs - saveAs from file-saver.js
      * @constructor
      */
     function App(resources, modeling_sliders) {
@@ -448,4 +450,4 @@ var App = function(makehuman, dat, _, THREE, Detector, Nanobar, Stats) {
     }
 
     return App;
-}(makehuman, dat, _, THREE, Detector, Nanobar, Stats);
+}(makehuman, dat, _, THREE, Detector, Nanobar, Stats, GLTFExporter, saveAs);
