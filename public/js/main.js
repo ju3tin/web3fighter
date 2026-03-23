@@ -1,13 +1,5 @@
 'use strict';
 
-import * as THREE from 'three';
-import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter.js';
-
-// Usage:
-const exporter = new GLTFExporter();
-exporter.parse(yourModel, (result) => {
-    console.log(result);
-});
 
 var App = function(makehuman, dat, _, THREE, Detector, Nanobar, Stats) {
 
