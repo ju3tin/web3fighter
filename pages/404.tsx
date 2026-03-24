@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import Link from 'next/link';
+import Head from 'next/head';
 
 export default function Custom404() {
   useEffect(() => {
@@ -13,6 +14,10 @@ export default function Custom404() {
   }, []);
 
   return (
+      <>
+    <Head>
+  <style>{`body { margin: 0; }`}</style>
+</Head>
     <div style={{
       display: 'flex',
       minHeight: '100vh',
@@ -37,5 +42,6 @@ export default function Custom404() {
         Go Home
       </Link>
     </div>
+      </>
   );
 }
