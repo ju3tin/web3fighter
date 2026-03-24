@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Fighter Builder - Bone Attachment + Fine Tuning</title>
+    <style>
+        body { margin:0; overflow:hidden; background:#0a0a0a; color:#eee; font-family:Arial, sans-serif; }
+        canvas { display:block; }
+        #panel {
+            position: absolute; top: 10px; left: 10px; width: 360px; background: rgba(20,20,30,0.95);
+            padding: 18px; border-radius: 12px; z-index: 100; box-shadow: 0 4px 30px rgba(0,0,0,0.6);
+            max-height: 96vh; overflow-y: auto;
+        }
+        h1 { margin:0 0 20px 0; font-size:24px; text-align:center; }
+        .section { margin-bottom: 22px; border-bottom: 1px solid #444; padding-bottom: 15px; }
+        label { display:block; margin:8px 0 4px; font-size:14px; }
+        input[type="color"] { width:100%; height:38px; border:none; border-radius:6px; }
+        button { width:100%; padding:11px; margin:6px 0; font-size:15px; border-radius:8px; cursor:pointer; }
+        .toggle { background:#333; }
+        #exportBtn { background:#0a5; color:white; font-weight:bold; padding:16px; font-size:18px; }
+        .slider { width:100%; }
+        .value { float:right; font-family:monospace; font-size:13px; }
+        #status { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:rgba(0,0,0,0.92); padding:25px 50px; border-radius:12px; display:none; font-size:18px; }
+    </style>
+</head>
+<body>
+    <div id="panel">
+        <h1>⚔️ Fighter Builder • Fine Tuning</h1>
+        <button id="loadBaseBtn">1. Load Base Character</button>
+
+        <div id="customization" style="display:none;">
+            <div class="section">
+                <label>Skin Tone</label>
+                <input type="color" id="skinColor" value="#e0b080">
+            </div>
+
+            <div class="section">
+                <h3>Clothing & Attachments</h3>
+                <button class="toggle" id="helmetBtn">Helmet</button>
+                <button class="toggle" id="chestBtn">Chest Armor</button>
+                <button class="toggle" id="shouldersBtn">Shoulder Pads</button>
+                <button class="toggle" id="glovesBtn">Gloves</button>
+                <button class="toggle" id="pantsBtn">Pants</button>
+                <button class="toggle" id="bootsBtn">Boots</button>
+                <button class="toggle" id="swordBtn">Sword (Right Hand)</button>
+            </div>
+
+            <div class="section" id="tuningPanel" style="display:none;">
+                <h3>Fine-tune Selected Piece</h3>
+                <select id="pieceSelect" style="width:100%; padding:8px; margin-bottom:10px;"></select>
+                
+                <label>Position X <span class="value" id="posXVal">0.00</span></label>
+                <input type="range" id="posX" class="slider" min="-2" max="2" step="0.001" value="0">
+                
+                <label>Position Y <span class="value" id="posYVal">0.00</span></label>
+                <input type="range" id="posY" class="slider" min="-2" max="2" step="0.001" value="0">
+                
+                <label>Position Z <span class="value" id="posZVal">0.00</span></label>
+                <input type="range" id="posZ" class="slider" min="-2" max="2" step="0.001" value="0">
+
+                <label>Rotation X <span class="value" id="rotXVal">0.00</span></label>
+                <input type="range" id="rotX" class="slider" min="-180" max="180" step="0.1" value="0">
+                
+                <label>Rotation Y <span class="value" id="rotYVal">0.00</span></label>
+                <input type="range" id="rotY" class="slider" min="-180" max="180" step="0.1" value="0">
+                
+                <label>Rotation Z <span class="value" id="rotZVal">0.00</span></label>
+                <input type="range" id="rotZ" class="slider" min="-180" max="180" step="0.1" value="0">
+
+                <label>Scale <span class="value" id="scaleVal">1.00</span></label>
+                <input type="range" id="scale" class="slider" min="0.1" max="3" step="0.01" value="1">
+            </div>
+
+            <div class="section">
+                <label>Armor Color</label>
+                <input type="color" id="armorColor" value="#334466">
+            </div>
+
+            <button id="exportBtn">Export Final Fighter.glb</button>
+        </div>
+    </div>
+    <div id="status">Loading base character...</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.134/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.134/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.134/examples/js/exporters/GLTFExporter.js"></script>
+
+    <script>
+        let scene, camera, renderer, controls, baseModel;
+        let clothing = {}; // helmet, chest, etc.
+        let currentPiece = null;
+
+        const status = document.getElementById('status');
+        const tuningPanel = document.getElementById('tuningPanel');
+        const pieceSelect = document.getElementById('pieceSelect');
+
+        function initScene() {
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x1a1a2a);
+            camera = new THREE.PerspectiveCamera(50, window.innerWidth/window.innerHeight, 0.1, 100);
+            camera.position.set(0, 1.6, 4);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.shadowMap.enabled = true;
+            document.body.appendChild(renderer.domElement);
+
+            scene.add(new THREE.HemisphereLight(0xffffff, 0x444466, 1.4));
+            const dir = new THREE.DirectionalLight(0xffffff, 1.2);
+            dir.position.set(6, 12, 10);
+            scene.add(dir);
+
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.target.set(0, 1.0, 0);
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+
+            animate();
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        function findBone(keywords) {
+            if (!baseModel) return null;
+            let bone = null;
+            baseModel.traverse(child => {
+                if (child.isBone) {
+                    const n = child.name.toLowerCase();
+                    if (keywords.some(k => n.includes(k.toLowerCase()))) {
+                        bone = child;
+                    }
+                }
+            });
+            return bone;
+        }
+
+        // Load base
+        document.getElementById('loadBaseBtn').onclick = () => {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.glb';
+            input.onchange = e => {
+                const file = e.target.files[0];
+                if (!file) return;
+                status.style.display = 'block';
+                status.textContent = 'Loading base...';
+
+                const reader = new FileReader();
+                reader.onload = ev => {
+                    new THREE.GLTFLoader().parse(ev.target.result, '', gltf => {
+                        baseModel = gltf.scene;
+                        baseModel.traverse(c => { if (c.isMesh) c.castShadow = c.receiveShadow = true; });
+
+                        while (scene.children.length > 3) scene.remove(scene.children[3]);
+                        scene.add(baseModel);
+
+                        const box = new THREE.Box3().setFromObject(baseModel);
+                        const center = box.getCenter(new THREE.Vector3());
+                        const size = box.getSize(new THREE.Vector3());
+                        camera.position.set(center.x, center.y + size.y*0.8, center.z + size.z*1.7);
+                        controls.target.copy(center);
+                        controls.update();
+
+                        loadClothingWithAttachment();
+                    });
+                };
+                reader.readAsArrayBuffer(file);
+            };
+            input.click();
+        };
+
+        async function loadClothingWithAttachment() {
+            const piecesConfig = [
+                { id: 'helmet',    file: 'helmet.glb',    bone: ['head', 'neck'] },
+                { id: 'chest',     file: 'chest.glb',     bone: ['spine', 'chest'] },
+                { id: 'shoulders', file: 'shoulders.glb', bone: ['shoulder', 'clavicle'] },
+                { id: 'gloves',    file: 'gloves.glb',    bone: ['hand', 'wrist'] },
+                { id: 'pants',     file: 'pants.glb',     bone: ['hips', 'pelvis'] },
+                { id: 'boots',     file: 'boots.glb',     bone: ['foot', 'ankle'] }
+            ];
+
+            for (let p of piecesConfig) {
+                try {
+                    const res = await fetch(p.file);
+                    const buffer = await res.arrayBuffer();
+                    new THREE.GLTFLoader().parse(buffer, '', gltf => {
+                        const piece = gltf.scene;
+                        piece.visible = false;
+                        piece.userData = { offsetPos: new THREE.Vector3(), offsetRot: new THREE.Euler(), offsetScale: 1 };
+
+                        const targetBone = findBone(p.bone);
+                        if (targetBone) {
+                            targetBone.add(piece);
+                        } else {
+                            baseModel.add(piece);
+                        }
+                        clothing[p.id] = piece;
+
+                        // Add to selector
+                        const option = document.createElement('option');
+                        option.value = p.id;
+                        option.textContent = p.id.charAt(0).toUpperCase() + p.id.slice(1);
+                        pieceSelect.appendChild(option);
+                    });
+                } catch (e) { console.warn(`Missing ${p.file}`); }
+            }
+
+            // Weapon on right hand
+            const rightHand = findBone(['righthand', 'right_hand', 'hand_r']);
+            sword = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.06, 1.4), 
+                new THREE.MeshStandardMaterial({color:0xcccccc, metalness:1}));
+            sword.visible = false;
+            sword.userData = { offsetPos: new THREE.Vector3(0.1,0,0), offsetRot: new THREE.Euler(0,0,0.8), offsetScale: 1 };
+            if (rightHand) rightHand.add(sword);
+            clothing['sword'] = sword;
+
+            const swordOption = document.createElement('option');
+            swordOption.value = 'sword';
+            swordOption.textContent = 'Sword';
+            pieceSelect.appendChild(swordOption);
+
+            document.getElementById('customization').style.display = 'block';
+            status.style.display = 'none';
+
+            // Setup sliders
+            setupFineTuningSliders();
+        }
+
+        function setupFineTuningSliders() {
+            const sliders = ['posX','posY','posZ','rotX','rotY','rotZ','scale'];
+            sliders.forEach(id => {
+                const slider = document.getElementById(id);
+                slider.oninput = () => {
+                    if (!currentPiece) return;
+                    const val = parseFloat(slider.value);
+                    document.getElementById(id + 'Val').textContent = val.toFixed(2);
+
+                    if (id.startsWith('pos')) {
+                        currentPiece.userData.offsetPos[id[3].toLowerCase()] = val;
+                        currentPiece.position.copy(currentPiece.userData.offsetPos);
+                    } else if (id.startsWith('rot')) {
+                        currentPiece.userData.offsetRot[id[3].toLowerCase()] = val * Math.PI / 180;
+                        currentPiece.rotation.copy(currentPiece.userData.offsetRot);
+                    } else if (id === 'scale') {
+                        currentPiece.userData.offsetScale = val;
+                        currentPiece.scale.setScalar(val);
+                    }
+                };
+            });
+
+            pieceSelect.onchange = () => {
+                currentPiece = clothing[pieceSelect.value];
+                if (!currentPiece) return;
+                tuningPanel.style.display = 'block';
+
+                // Load current values into sliders
+                document.getElementById('posX').value = currentPiece.userData.offsetPos.x;
+                document.getElementById('posY').value = currentPiece.userData.offsetPos.y;
+                document.getElementById('posZ').value = currentPiece.userData.offsetPos.z;
+                document.getElementById('rotX').value = currentPiece.userData.offsetRot.x * 180 / Math.PI;
+                document.getElementById('rotY').value = currentPiece.userData.offsetRot.y * 180 / Math.PI;
+                document.getElementById('rotZ').value = currentPiece.userData.offsetRot.z * 180 / Math.PI;
+                document.getElementById('scale').value = currentPiece.userData.offsetScale;
+
+                ['posXVal','posYVal','posZVal','rotXVal','rotYVal','rotZVal','scaleVal'].forEach(v => {
+                    document.getElementById(v).textContent = parseFloat(document.getElementById(v.replace('Val','')).value).toFixed(2);
+                });
+            };
+        }
+
+        // Toggle buttons
+        ['helmet','chest','shoulders','gloves','pants','boots','sword'].forEach(name => {
+            const btn = document.getElementById(name + 'Btn');
+            if (btn) btn.onclick = () => {
+                if (clothing[name]) clothing[name].visible = !clothing[name].visible;
+            };
+        });
+
+        // Colors
+        document.getElementById('skinColor').oninput = e => {
+            baseModel.traverse(c => { if (c.isMesh && c.name.toLowerCase().includes('skin')) c.material.color.set(e.target.value); });
+        };
+        document.getElementById('armorColor').oninput = e => {
+            Object.values(clothing).forEach(p => {
+                if (p) p.traverse(c => { if (c.isMesh && c.material) c.material.color.set(e.target.value); });
+            });
+        };
+
+        // Export
+        document.getElementById('exportBtn').onclick = () => {
+            if (!baseModel) return;
+            status.style.display = 'block';
+            status.textContent = 'Exporting with fine-tuned attachments...';
+
+            const exporter = new THREE.GLTFExporter();
+            exporter.parse(baseModel, result => {
+                const blob = new Blob([result], { type: 'application/octet-stream' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'my-fighter.glb';
+                a.click();
+                URL.revokeObjectURL(url);
+                status.style.display = 'none';
+            }, { binary: true });
+        };
+
+        initScene();
+    </script>
+</body>
+</html>
