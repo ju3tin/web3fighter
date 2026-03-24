@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>MakeHuman Legacy JSON → GLB Converter</title>
+    <style>
+        body { margin:0; overflow:hidden; background:#111; color:#fff; font-family:Arial, sans-serif; }
+        canvas { display:block; }
+        #ui { position:absolute; top:10px; left:10px; background:rgba(0,0,0,0.85); padding:15px; border-radius:8px; z-index:100; max-width:320px; }
+        button { width:100%; padding:12px; margin:8px 0; font-size:16px; cursor:pointer; }
+        #status { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:rgba(0,0,0,0.9); padding:25px 50px; border-radius:12px; font-size:18px; display:none; }
+    </style>
+</head>
+<body>
+    <div id="ui">
+        <strong>MakeHuman JSON → GLB (Legacy Fix)</strong><br><br>
+        <button id="loadBtn">1. Load human.json</button><br>
+        <button id="exportBtn" disabled>2. Download human.glb</button>
+        <div id="info" style="margin-top:10px; font-size:13px;"></div>
+    </div>
+    <div id="status">Converting legacy geometry...</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.134/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.134/examples/js/exporters/GLTFExporter.js"></script>
+
+    <script>
+        let scene, camera, renderer, controls, currentModel;
+
+        function initScene() {
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x222233);
+
+            camera = new THREE.PerspectiveCamera(50, window.innerWidth/window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 1.6, 3);
+
+            renderer = new THREE.WebGLRenderer({antialias: true});
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            document.body.appendChild(renderer.domElement);
+
+            scene.add(new THREE.HemisphereLight(0xffffff, 0x446688, 1.2));
+            const dirLight = new THREE.DirectionalLight(0xffffff, 1.1);
+            dirLight.position.set(5, 10, 8);
+            scene.add(dirLight);
+
+            const floor = new THREE.Mesh(new THREE.PlaneGeometry(30,30), new THREE.MeshStandardMaterial({color:0x444444}));
+            floor.rotation.x = -Math.PI/2;
+            scene.add(floor);
+
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.target.set(0, 1, 0);
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+
+            animate();
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        // Legacy Geometry → BufferGeometry converter
+        function convertLegacyGeometry(geoData) {
+            const vertices = geoData.data.vertices;
+            const positions = new Float32Array(vertices.length);
+            for (let i = 0; i < vertices.length; i++) {
+                positions[i] = vertices[i];
+            }
+
+            const geometry = new THREE.BufferGeometry();
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+            // If faces exist, use them (most MakeHuman exports have them)
+            if (geoData.data.faces && geoData.data.faces.length > 0) {
+                const indices = [];
+                for (let i = 0; i < geoData.data.faces.length; i += 3) {
+                    indices.push(geoData.data.faces[i], geoData.data.faces[i+1], geoData.data.faces[i+2]);
+                }
+                geometry.setIndex(indices);
+            }
+
+            geometry.computeVertexNormals();
+            return geometry;
+        }
+
+        document.getElementById('loadBtn').onclick = () => {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = e => {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                const status = document.getElementById('status');
+                status.style.display = 'block';
+                status.textContent = 'Parsing legacy MakeHuman JSON...';
+
+                const reader = new FileReader();
+                reader.onload = ev => {
+                    try {
+                        const json = JSON.parse(ev.target.result);
+
+                        // Clear old model
+                        if (currentModel) scene.remove(currentModel);
+
+                        // Use ObjectLoader but fix legacy geometries first
+                        const loader = new THREE.ObjectLoader();
+
+                        // Pre-process geometries if needed
+                        if (json.geometries) {
+                            json.geometries.forEach(g => {
+                                if (g.type === "Geometry" && g.data && g.data.vertices) {
+                                    // We'll handle conversion after parsing or manually
+                                }
+                            });
+                        }
+
+                        currentModel = loader.parse(json);
+
+                        // Fix any remaining legacy issues + add materials if missing
+                        currentModel.traverse(child => {
+                            if (child.isMesh) {
+                                if (!child.geometry.isBufferGeometry) {
+                                    // Fallback if still legacy
+                                    child.geometry = convertLegacyGeometry({data: {vertices: child.geometry.attributes ? [] : child.geometry.vertices || []}});
+                                }
+                                child.castShadow = true;
+                                child.receiveShadow = true;
+
+                                if (!child.material || child.material.length === 0) {
+                                    child.material = new THREE.MeshStandardMaterial({
+                                        color: 0xffccaa,
+                                        roughness: 0.7,
+                                        metalness: 0.1
+                                    });
+                                }
+                            }
+                        });
+
+                        scene.add(currentModel);
+
+                        // Auto-fit camera
+                        const box = new THREE.Box3().setFromObject(currentModel);
+                        const center = box.getCenter(new THREE.Vector3());
+                        const size = box.getSize(new THREE.Vector3());
+                        const maxDim = Math.max(size.x, size.y, size.z);
+                        camera.position.set(center.x, center.y + maxDim * 0.7, center.z + maxDim * 1.6);
+                        controls.target.copy(center);
+                        controls.update();
+
+                        document.getElementById('exportBtn').disabled = false;
+                        document.getElementById('info').innerHTML = '✅ Model loaded!<br>Click "Download human.glb"';
+                        status.style.display = 'none';
+
+                    } catch (err) {
+                        console.error(err);
+                        status.textContent = 'Failed: ' + err.message;
+                        setTimeout(() => status.style.display = 'none', 5000);
+                    }
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        };
+
+        document.getElementById('exportBtn').onclick = () => {
+            if (!currentModel) return;
+            const status = document.getElementById('status');
+            status.style.display = 'block';
+            status.textContent = 'Exporting GLB...';
+
+            const exporter = new THREE.GLTFExporter();
+            exporter.parse(currentModel, (result) => {
+                const blob = new Blob([result], { type: 'application/octet-stream' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'human.glb';
+                a.click();
+                URL.revokeObjectURL(url);
+                status.style.display = 'none';
+            }, { binary: true });
+        };
+
+        initScene();
+    </script>
+</body>
+</html>
