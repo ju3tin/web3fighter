@@ -350,6 +350,8 @@ var App = function(makehuman, dat, _, THREE, Detector, Nanobar, Stats) {
 
         this.downloadGLB = function () {
 console.log(self.human)
+
+console.log("this is the shit"+self.human instanceof THREE.Object3D);
             // Make sure exporter is available (your existing lazy-load logic is fine)
             if (!THREE.GLTFExporter) {
                 console.warn("GLTFExporter not loaded yet...");
