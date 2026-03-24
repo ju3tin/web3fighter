@@ -49,7 +49,7 @@
         modeling_sliders: 'makehuman-data/src/json/sliders/modeling_sliders.json',
         resources: 'makehuman-data/public/data/resources.json'
     }
-    var loader = new THREE.XHRLoader();
+    var loader = new THREE.GLTFLoader();
     Promise.all(
         _.values(loadUrls).map((url) => new Promise((resolve, reject) =>
                 loader.load(
