@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import { useEffect } from 'react';
+import Link from 'next/link';
 
 export default function Custom404() {
   useEffect(() => {
@@ -12,7 +12,6 @@ export default function Custom404() {
     };
   }, []);
 
-export default function Custom404() {
   return (
     <div style={{
       display: 'flex',
@@ -25,7 +24,7 @@ export default function Custom404() {
     }}>
       <h1 style={{ fontSize: '4rem', fontWeight: 'bold' }}>404</h1>
       <p style={{ marginTop: '1rem', color: '#aaa' }}>
-        This page could not be found dude.
+        This page could not be found.
       </p>
 
       <Link href="/" style={{
