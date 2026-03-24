@@ -36,6 +36,12 @@
 
 <!-- nanobar (latest 0.4.2 – still current) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/nanobar/0.4.2/nanobar.min.js"></script>
+    <script type="module">
+  import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js';
+  import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/GLTFLoader.js';
+
+  const scene = new THREE.Scene();
+</script>
     <script src="/js/OrbitControls.js"></script>
     <script src="/js/Projector.js"></script>
     <script src="/js/Detector.js"></script>
