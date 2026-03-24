@@ -16,6 +16,8 @@
 <div id="progress-bar"></div>
 <button id="downloadGLB">Download GLB</button>
       <button id="exportGLB1">Export GLB</button>
+      <button onclick="downloadHuman()">Download Human JSON</button>
+
 
       <div id="info">
         <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - exporter - gltf
@@ -799,5 +801,25 @@ window.exportToGLB1 = async function (human, helpers = false) {
  );
 }
  </script>
+
+<script>
+    function saveObject(obj, filename = 'data.json') {
+      const json = JSON.stringify(obj, null, 2);
+    
+      const blob = new Blob([json], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+    
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      a.click();
+    
+      URL.revokeObjectURL(url);
+    }
+    
+    function downloadHuman() {
+      saveObject(self.human, 'human.json');
+    }
+    </script>
 
 </html>
