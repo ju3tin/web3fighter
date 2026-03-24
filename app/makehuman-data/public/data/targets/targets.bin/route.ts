@@ -6,7 +6,7 @@ export async function GET() {
     return new Response(res.body, {
       headers: {
         'Content-Type': 'application/octet-stream',
-        'Content-Disposition': 'inline; filename="targets.bin"',
+        'Content-Disposition': 'inline; filename="targets.txt"',
       },
     });
   }
