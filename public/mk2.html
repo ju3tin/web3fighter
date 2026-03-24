@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MakeHuman GLB Export</title>
+<style>
+  #exportGLB {
+    padding: 10px 16px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+</style>
+</head>
+<body>
+
+<button id="exportGLB">Export MakeHuman GLB</button>
+
+<!-- Three.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<!-- GLTFExporter CDN -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/exporters/GLTFExporter.js"></script>
+
+<script>
+  // === Example: your MakeHuman JS object ===
+  // Replace this with your actual MakeHuman instance
+  const human = {
+    mesh: new THREE.Mesh(
+      new THREE.BoxGeometry(1, 2, 1),
+      new THREE.MeshStandardMaterial({ color: 0x00ff00 })
+    )
+  };
+
+  // === GLB Export function ===
+  window.exportToGLB = async function(human) {
+    const exporter = new THREE.GLTFExporter();
+
+    let mesh = human.mesh.clone();
+
+    // Convert old Geometry to BufferGeometry if needed
+    if (mesh.geometry.isGeometry) {
+      mesh.geometry = new THREE.BufferGeometry().fromGeometry(mesh.geometry);
+    } else {
+      mesh.geometry = mesh.geometry.clone();
+    }
+
+    mesh.name = 'makehuman_' + new Date().toISOString();
+
+    return new Promise((resolve) => {
+      exporter.parse(
+        mesh,
+        (result) => {
+          // Result is ArrayBuffer when binary:true → create Blob
+          const blob = new Blob([result], { type: 'model/gltf-binary' });
+          resolve(blob);
+        },
+        {
+          binary: true,
+          // Include materials, textures, skin, and morph targets
+          animations: mesh.animations || [],
+          includeCustomExtensions: true
+        }
+      );
+    });
+  };
+
+  // === Button click handler ===
+  document.getElementById('exportGLB').onclick = async () => {
+    try {
+      const blob = await exportToGLB(human);
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'makehuman_character.glb';
+      link.click();
+      URL.revokeObjectURL(link.href);
+    } catch (err) {
+      console.error('GLB export failed:', err);
+    }
+  };
+</script>
+
+</body>
+</html>
