@@ -100,6 +100,11 @@ import { GLTFExporter } from 'js/GLTFExporter.js';
 }
 
 window.exportToGLB1 = async function (human, helpers = false) {
+
+  if (!THREE.GLTFExporter) {
+        await loadScript("https://cdn.jsdelivr.net/npm/three@0.152.0/examples/js/exporters/GLTFExporter.js");
+    }
+    
     const exporter = new GLTFExporter();
 
     let mesh = human.mesh.clone();
