@@ -750,7 +750,7 @@ window.exportToGLB1 = async function (human, helpers = false) {
      modeling_sliders: 'makehuman-data/src/json/sliders/modeling_sliders.json',
      resources: 'makehuman-data/public/data/resources.json'
  }
- var loader = new THREE.gltfLoader();
+ var loader = new THREE.XHRLoader();
  Promise.all(
      _.values(loadUrls).map((url) => new Promise((resolve, reject) =>
              loader.load(
