@@ -16,7 +16,7 @@
 			{
 				"imports": {
 					"three": "/three/build/three.module.js",
-					"three/addons/": "/three/examples/jsm"
+					"/three/addons/": "/three/examples/jsm"
 				}
 			}
 		</script>
@@ -25,12 +25,12 @@
 
 			import * as THREE from 'three';
 
-			import { GLTFExporter } from 'three/addons/exporters/GLTFExporter.js';
-			import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-			import { KTX2Loader } from 'three/addons/loaders/KTX2Loader.js';
-			import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
-			import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
-			import * as TextureUtils from 'three/addons/utils/WebGLTextureUtils.js';
+			import { GLTFExporter } from '/three/examples/jsm/exporters/GLTFExporter.js';
+			import { GLTFLoader } from '/three/examples/jsm/loaders/GLTFLoader.js';
+			import { KTX2Loader } from '/three/examples/jsm/loaders/KTX2Loader.js';
+			import { MeshoptDecoder } from '/three/examples/jsm/libs/meshopt_decoder.module.js';
+			import { GUI } from '/three/examples/jsm/libs/lil-gui.module.min.js';
+			import * as TextureUtils from '/three/examples/jsm/utils/WebGLTextureUtils.js';
 
 			function exportGLTF( input ) {
 
