@@ -99,7 +99,7 @@
     );
 }
 
-function exportToGLB1(human, helpers = false) {
+window.exportToGLB1 = async function (human, helpers = false) {
     const exporter = new GLTFExporter();
 
     let mesh = human.mesh.clone();
