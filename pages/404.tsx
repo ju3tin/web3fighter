@@ -1,4 +1,16 @@
 import Link from 'next/link';
+import { useEffect } from 'react';
+
+export default function Custom404() {
+  useEffect(() => {
+    // remove margin
+    document.body.style.margin = '0';
+
+    // optional: cleanup when leaving page
+    return () => {
+      document.body.style.margin = '';
+    };
+  }, []);
 
 export default function Custom404() {
   return (
