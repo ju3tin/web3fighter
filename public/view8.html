@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Browser Avatar Creator - Base GLB + Morphing + Modular Clothes</title>
+    <style>
+        body { margin:0; overflow:hidden; background:#111; color:#eee; font-family:Arial, sans-serif; }
+        canvas { display:block; }
+        #panel {
+            position:absolute; top:10px; left:10px; background:rgba(0,0,0,0.92); padding:15px; border-radius:10px;
+            width:390px; max-height:96vh; overflow-y:auto; z-index:100; box-shadow:0 4px 30px rgba(0,0,0,0.8);
+        }
+        h1 { margin:0 0 15px 0; text-align:center; }
+        button, input[type="file"] { width:100%; padding:12px; margin:8px 0; font-size:15px; }
+        label { display:block; margin:10px 0 4px; }
+        input[type="range"] { width:100%; }
+        .value { float:right; color:#aaa; }
+    </style>
+</head>
+<body>
+    <div id="panel">
+        <h1>Avatar Creator (All in Browser)</h1>
+
+        <button id="loadBase">1. Load Base Rigged GLB</button>
+        <input type="file" id="baseFile" accept=".glb" style="display:none">
+
+        <h3>Body Morphing</h3>
+        <label>Muscle <span class="value" id="muscleVal">0.5</span></label>
+        <input type="range" id="muscle" min="0" max="1" step="0.01" value="0.5">
+
+        <label>Fat <span class="value" id="fatVal">0.4</span></label>
+        <input type="range" id="fat" min="0" max="1" step="0.01" value="0.4">
+
+        <label>Height Scale <span class="value" id="heightVal">1.0</span></label>
+        <input type="range" id="height" min="0.85" max="1.2" step="0.01" value="1.0">
+
+        <label>Hip Width <span class="value" id="hipVal">1.0</span></label>
+        <input type="range" id="hip" min="0.8" max="1.3" step="0.01" value="1.0">
+
+        <label>Waist <span class="value" id="waistVal">1.0</span></label>
+        <input type="range" id="waist" min="0.7" max="1.3" step="0.01" value="1.0">
+
+        <label>Shoulder Width <span class="value" id="shoulderVal">1.0</span></label>
+        <input type="range" id="shoulder" min="0.8" max="1.3" step="0.01" value="1.0">
+
+        <button id="loadItem">2. Load Clothing / Hair / Accessory GLB</button>
+        <input type="file" id="itemFile" accept=".glb" style="display:none" multiple>
+
+        <button id="download">Download Final Avatar as GLB</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.134/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.134/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.134/examples/js/exporters/GLTFExporter.js"></script>
+
+    <script>
+        let scene, camera, renderer, controls;
+        let baseModel = null;
+        let addedItems = [];
+
+        function initScene() {
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x1e2333);
+
+            camera = new THREE.PerspectiveCamera(50, window.innerWidth/window.innerHeight, 0.1, 200);
+            camera.position.set(0, 1.8, 5);
+
+            renderer = new THREE.WebGLRenderer({antialias:true});
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+
+            scene.add(new THREE.HemisphereLight(0xffffff, 0x444466, 1.4));
+            const dir = new THREE.DirectionalLight(0xffffff, 1.1);
+            dir.position.set(5,12,10);
+            scene.add(dir);
+
+            const floor = new THREE.Mesh(new THREE.PlaneGeometry(20,20), new THREE.MeshStandardMaterial({color:0x444444}));
+            floor.rotation.x = -Math.PI/2;
+            scene.add(floor);
+
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.target.set(0, 1.2, 0);
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+
+            animate();
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        // Load Base
+        document.getElementById('loadBase').onclick = () => document.getElementById('baseFile').click();
+        document.getElementById('baseFile').onchange = e => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const url = URL.createObjectURL(file);
+            new THREE.GLTFLoader().load(url, gltf => {
+                if (baseModel) scene.remove(baseModel);
+                baseModel = gltf.scene;
+                scene.add(baseModel);
+                fitCamera();
+                console.log("Base loaded - morph targets available:", baseModel.children.some(c => c.morphTargetInfluences));
+            });
+        };
+
+        // Load Clothing / Hair / Accessory (can load multiple)
+        document.getElementById('loadItem').onclick = () => document.getElementById('itemFile').click();
+        document.getElementById('itemFile').onchange = e => {
+            if (!baseModel) { alert("Load base first!"); return; }
+            Array.from(e.target.files).forEach(file => {
+                const url = URL.createObjectURL(file);
+                new THREE.GLTFLoader().load(url, gltf => {
+                    const item = gltf.scene;
+                    item.traverse(child => { if (child.isMesh) child.castShadow = child.receiveShadow = true; });
+                    baseModel.add(item);   // Attach to base skeleton
+                    addedItems.push(item);
+                    console.log("Added:", file.name);
+                });
+            });
+        };
+
+        // Body Morphing
+        function applyMorphs() {
+            if (!baseModel) return;
+            baseModel.traverse(child => {
+                if (child.isMesh && child.morphTargetInfluences && child.morphTargetDictionary) {
+                    const dict = child.morphTargetDictionary;
+                    const inf = child.morphTargetInfluences;
+
+                    if (dict.muscle !== undefined) inf[dict.muscle] = document.getElementById('muscle').value;
+                    if (dict.fat !== undefined)    inf[dict.fat] = document.getElementById('fat').value;
+                    if (dict.height !== undefined) inf[dict.height] = document.getElementById('height').value - 1;
+                    if (dict.hips !== undefined)   inf[dict.hips] = document.getElementById('hip').value - 1;
+                    if (dict.waist !== undefined)  inf[dict.waist] = document.getElementById('waist').value - 1;
+                    if (dict.shoulders !== undefined) inf[dict.shoulders] = document.getElementById('shoulder').value - 1;
+                }
+            });
+        }
+
+        // Live update morphs
+        ['muscle','fat','height','hip','waist','shoulder'].forEach(id => {
+            const slider = document.getElementById(id);
+            slider.addEventListener('input', () => {
+                document.getElementById(id + 'Val').textContent = parseFloat(slider.value).toFixed(2);
+                applyMorphs();
+            });
+        });
+
+        function fitCamera() {
+            if (!baseModel) return;
+            const box = new THREE.Box3().setFromObject(baseModel);
+            const center = box.getCenter(new THREE.Vector3());
+            const size = box.getSize(new THREE.Vector3());
+            camera.position.set(center.x, center.y + size.y*0.8, center.z + size.y*1.8);
+            controls.target.copy(center);
+            controls.update();
+        }
+
+        // Download combined avatar
+        document.getElementById('download').onclick = () => {
+            if (!baseModel) return alert("Load a base GLB first");
+            new THREE.GLTFExporter().parse(baseModel, result => {
+                const blob = new Blob([result], {type: 'application/octet-stream'});
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = 'my-custom-avatar.glb';
+                a.click();
+            }, { binary: true });
+        };
+
+        initScene();
+    </script>
+</body>
+</html>
