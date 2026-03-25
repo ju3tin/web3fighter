@@ -105,7 +105,7 @@ export default function CharacterSelector() {
   return (
     <div className="min-h-screen bg-gray-900 text-white relative pb-24 md:pb-32">
       {/* HEADER */}
-      <Topbar />
+      <TopBar />
       <div className="pt-8 pb-6 text-center">
         <h1 className="text-5xl md:text-6xl font-black tracking-tight">SELECT YOUR FIGHTER</h1>
         <p className="mt-2 text-white/60 text-lg">10 LEGENDS • TAP TO CHOOSE</p>
