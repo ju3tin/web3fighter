@@ -2,7 +2,7 @@
 export default function handler(req, res) {
   if (req.method === 'GET') {
     const characters = [
-  { id: 'xiaoyu', name: 'Xiaoyu', portrait: '/characters/xiaoyu.png', model: '/models/black_girl_avatar.glb', animelist: '/anime/1.glb' },
+  { id: 'xiaoyu', name: 'Xiaoyu', portrait: '/characters/xiaoyu.png', model: '/models/black_girl_avatar1.glb', animelist: '/anime/1.glb' },
   { id: 'julia', name: 'Julia', portrait: '/characters/julia.png', model: '/models/123.glb', animelist: '/anime/1.glb'  },
   { id: 'ryu', name: 'Ryu', portrait: '/characters/ryu.png', model: '/models/ryu.glb', animelist: '/anime/1.glb'  },
   { id: 'ken', name: 'Ems', portrait: '/characters/ken.png', model: '/models/ken1.glb', animelist: '/anime/1.glb'  },
