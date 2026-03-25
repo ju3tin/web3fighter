@@ -243,8 +243,8 @@ const GameController1: React.FC<GameControllerProps> = ({
   );
 
   return (
+     <SettingsMenu />
     <div className="fixed inset-x-0 bottom-0 z-50 lg:hidden pointer-events-none select-none">
-      <SettingsMenu />
       <div className="bg-gradient-to-t from-black/25 to-transparent pt-1 pb-3 px-2 pointer-events-auto">
         <div className="flex items-end justify-between h-44">
           <div className="pl-2 pb-2">
