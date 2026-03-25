@@ -1,36 +1,28 @@
 // components/SettingsMenu.js
 
 import { useState } from 'react';
-import styles from './SettingsMenu.module.css'; // Import CSS for animation
+import styles from './SettingsMenu.module.css'; // Import the CSS for styling and animation
 
 const SettingsMenu = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
-  const [isGamePaused, setGamePaused] = useState(false);
 
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
-    setGamePaused(!isGamePaused);
-    
-    if (isGamePaused) {
-      // Resume the game logic here (e.g., unfreeze game timers, interactions)
-      console.log("Game Resumed");
-    } else {
-      // Pause the game logic here (e.g., freeze game timers, interactions)
-      console.log("Game Paused");
-    }
   };
 
   return (
     <div>
-      {/* Settings Button */}
-      <button 
+      {/* Settings Tab */}
+      <div 
         onClick={toggleMenu} 
-        className={styles.settingsButton}>
+        className={`${styles.settingsTab} ${isMenuOpen ? styles.open : ''}`}
+      >
         Settings
-      </button>
+      </div>
 
-      {/* Settings Menu */}
+      {/* Settings Menu (Hidden by default, slides up when active) */}
       <div className={`${styles.settingsMenu} ${isMenuOpen ? styles.open : ''}`}>
+        <button className={styles.closeButton} onClick={toggleMenu}>X</button>
         <h3>Settings</h3>
         <ul>
           <li>Audio</li>
@@ -38,13 +30,6 @@ const SettingsMenu = () => {
           <li>Graphics</li>
           {/* Add your settings options here */}
         </ul>
-        <button onClick={toggleMenu}>Close</button>
-      </div>
-
-      {/* Optionally, you can hide the game UI when the menu is open */}
-      <div className={isMenuOpen ? styles.gameUIHidden : ''}>
-        {/* Your game content goes here */}
-        <h2>Game Content</h2>
       </div>
     </div>
   );
