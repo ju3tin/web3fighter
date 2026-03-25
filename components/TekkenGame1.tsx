@@ -258,6 +258,7 @@ export default function TekkenGame({ selectedId }: Props) {
 
   return (
     <div className="relative w-full h-screen bg-black overflow-hidden">
+   <SettingsMenu />
       <Canvas
         shadows
         dpr={[1, 1.5]}
@@ -358,7 +359,5 @@ export default function TekkenGame({ selectedId }: Props) {
       )}
     </div>
   );
-  <>
-   <SettingsMenu />
-  </>
+
 }
