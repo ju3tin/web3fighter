@@ -13,7 +13,7 @@ const SettingsMenu = () => {
   return (
     <div>
       {/* Settings Tab */}
-      <div 
+      <div style={{ zIndex: 1000 }}
         onClick={toggleMenu} 
         className={`${styles.settingsTab} ${isMenuOpen ? styles.open : ''}`}
       >
@@ -31,6 +31,8 @@ const SettingsMenu = () => {
           {/* Add your settings options here */}
         </ul>
       </div>
+
+      
     </div>
   );
 };
