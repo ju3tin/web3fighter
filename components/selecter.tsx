@@ -7,7 +7,7 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF, useAnimations } from '@react-three/drei';
 import * as THREE from 'three';
 import { useSearchParams } from "next/navigation"
-import TopBar from '@components/TopBar';
+import TopBar from './TopBar';
 
 interface Character {
   id: string;
