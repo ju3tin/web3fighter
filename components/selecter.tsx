@@ -183,6 +183,10 @@ export default function CharacterSelector() {
             </div>
 
             {mode === "fight" && (
+ <button className="px-10 md:px-16 py-5 md:py-6 bg-red-600 hover:bg-red-700 active:scale-95 transition-all text-2xl md:text-3xl font-black rounded-2xl shadow-xl shadow-red-900/40">
+      x
+    </button>
+          
   <Link href={`/game?p1=${selectedCharacter.id}`}>
     <button className="px-10 md:px-16 py-5 md:py-6 bg-red-600 hover:bg-red-700 active:scale-95 transition-all text-2xl md:text-3xl font-black rounded-2xl shadow-xl shadow-red-900/40">
       FIGHT!
@@ -190,6 +194,10 @@ export default function CharacterSelector() {
   </Link>
 )}
 {mode === "tutorial" && (
+ <button className="px-10 md:px-16 py-5 md:py-6 bg-red-600 hover:bg-red-700 active:scale-95 transition-all text-2xl md:text-3xl font-black rounded-2xl shadow-xl shadow-red-900/40">
+      x
+    </button>
+  
   <Link href={`/tutorial?p1=${selectedCharacter.id}`}>
     <button className="px-10 md:px-16 py-5 md:py-6 bg-red-600 hover:bg-red-700 active:scale-95 transition-all text-2xl md:text-3xl font-black rounded-2xl shadow-xl shadow-red-900/40">
       TUTORIAL
