@@ -8,7 +8,7 @@ import { GameController } from "@/components/game-controller";
 import { GameController1 } from "@/components/game-controller5b";
 import { Button } from "@/components/ui/button";
 import { useSearchParams } from "next/navigation";
-import SettingsMenu from '../components/SettingsMenu';
+import SettingsMenu from '@/components/SettingsMenu';
 
 
 
