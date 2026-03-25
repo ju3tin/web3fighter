@@ -1,50 +1,62 @@
 /* components/SettingsMenu.module.css */
 
-/* Settings Button positioned at the bottom center */
-.settingsButton {
+/* The small tab at the bottom of the screen */
+.settingsTab {
   position: fixed;
-  bottom: 20px;
+  bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
   padding: 10px 20px;
-  font-size: 16px;
   background-color: #007bff;
   color: white;
   border: none;
   cursor: pointer;
   border-radius: 5px;
   z-index: 10;
+  transition: bottom 0.3s ease; /* Animates the tab's movement */
 }
 
-.settingsButton:hover {
-  background-color: #0056b3;
+/* When the menu is open, move the tab upwards */
+.settingsTab.open {
+  bottom: 80px;  /* Move the tab up when the menu opens */
 }
 
-/* Settings Menu style (hidden by default) */
+/* The settings menu that expands from the tab */
 .settingsMenu {
   position: fixed;
-  bottom: -100%;
-  left: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.7);
+  bottom: -300px; /* Initially hidden below the screen */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
   color: white;
   padding: 20px;
-  transition: bottom 0.3s ease;
+  transition: bottom 0.3s ease; /* Slide in/out smoothly */
   z-index: 5;
 }
 
-/* Slide-in animation when the menu is open */
+/* When the menu is open, move it up to reveal it */
 .settingsMenu.open {
   bottom: 0;
 }
 
-/* Game UI hidden when the settings menu is open */
-.gameUIHidden {
-  opacity: 0.3;
-  pointer-events: none;
+/* Close button inside the settings menu */
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  background-color: transparent;
+  color: white;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
 }
 
-/* Basic styling for the menu */
+.closeButton:hover {
+  color: #ff4d4d;
+}
+
+/* Basic styling for the settings menu */
 .settingsMenu h3 {
   margin-top: 0;
 }
@@ -56,18 +68,4 @@
 
 .settingsMenu ul li {
   padding: 5px 0;
-}
-
-.settingsMenu button {
-  margin-top: 20px;
-  background-color: #ff4d4d;
-  color: white;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.settingsMenu button:hover {
-  background-color: #cc0000;
 }
