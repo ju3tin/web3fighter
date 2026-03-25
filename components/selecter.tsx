@@ -113,7 +113,7 @@ export default function CharacterSelector() {
 
       {/* 3D PREVIEW – LEFT SIDE, BEHIND GRID */}
       {selectedCharacter?.model && (
-        <div className="fixed left-0 top-0 bottom-0 w-1/3 md:w-2/5 lg:w-1/3 -z-10 opacity-40 md:opacity-60 pointer-events-none hidden md:block" style={{ 'zIndex: 1000' }}>
+        <div className="fixed left-0 top-0 bottom-0 w-1/3 md:w-2/5 lg:w-1/3 -z-10 opacity-40 md:opacity-60 pointer-events-none hidden md:block" style={{ zIndex: 10000  }}>
           <div className="absolute inset-0">
             <Canvas camera={{ position: [0, 0, 5.5], fov: 45 }}>
               <ambientLight intensity={0.6} />
