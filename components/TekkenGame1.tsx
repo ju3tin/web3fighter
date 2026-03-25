@@ -8,7 +8,6 @@ import { GameController } from "@/components/game-controller";
 import { GameController1 } from "@/components/game-controller5b";
 import { Button } from "@/components/ui/button";
 import { useSearchParams } from "next/navigation";
-import SettingsMenu from '@/components/SettingsMenu';
 
 
 
@@ -258,7 +257,6 @@ export default function TekkenGame({ selectedId }: Props) {
 
   return (
     <div className="relative w-full h-screen bg-black overflow-hidden">
-   <SettingsMenu />
       <Canvas
         shadows
         dpr={[1, 1.5]}
