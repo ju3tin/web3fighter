@@ -160,6 +160,7 @@ export default function TekkenGame() {
 
   return (
     <div className="w-full h-screen bg-black overflow-hidden relative">
+       <TopBar />
       <Canvas shadows camera={{ position: [0, 2, 8], fov: 50 }} gl={{ antialias: true }}>
       </Canvas>
 
@@ -185,7 +186,7 @@ export default function TekkenGame() {
       {/* Main Menu */}
       {gameState === "menu" && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/80 backdrop-blur-sm">
-          <TopBar />
+         
           <div className="text-center space-y-8">
             <h1 className="text-7xl font-bold text-white tracking-wider mb-4">
               <span className="text-red-500">WEB3</span> FIGHTER
