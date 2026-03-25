@@ -8,7 +8,7 @@ import { GameUI } from "@/components/game-ui"
 import { GameController } from "@/components/game-controller"
 import { Button } from "@/components/ui/button"
 import Link from 'next/link'
-import TopBar from './TopBar';
+import TopBar from '@/components/TopBar';
 
 type GameState = "menu" | "playing" | "paused" | "round-end" | "game-over"
 
