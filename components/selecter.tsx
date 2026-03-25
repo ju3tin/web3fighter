@@ -34,7 +34,7 @@ function AnimatedPreview({ modelUrl, animationUrl }: { modelUrl: string; animati
   const [index, setIndex] = useState(0);
   const loopTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useEffect(() => {
+  useEffect(() => { 
     if (!mixer || !actions || actionNames.length === 0) return;
 
     const currentName = actionNames[index];
