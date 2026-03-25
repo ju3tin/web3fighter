@@ -1,0 +1,73 @@
+/* components/SettingsMenu.module.css */
+
+/* Settings Button positioned at the bottom center */
+.settingsButton {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  z-index: 10;
+}
+
+.settingsButton:hover {
+  background-color: #0056b3;
+}
+
+/* Settings Menu style (hidden by default) */
+.settingsMenu {
+  position: fixed;
+  bottom: -100%;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 20px;
+  transition: bottom 0.3s ease;
+  z-index: 5;
+}
+
+/* Slide-in animation when the menu is open */
+.settingsMenu.open {
+  bottom: 0;
+}
+
+/* Game UI hidden when the settings menu is open */
+.gameUIHidden {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* Basic styling for the menu */
+.settingsMenu h3 {
+  margin-top: 0;
+}
+
+.settingsMenu ul {
+  list-style: none;
+  padding: 0;
+}
+
+.settingsMenu ul li {
+  padding: 5px 0;
+}
+
+.settingsMenu button {
+  margin-top: 20px;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.settingsMenu button:hover {
+  background-color: #cc0000;
+}
