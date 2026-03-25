@@ -1,4 +1,5 @@
 // components/TopBar.tsx
+'use client'
 import React from 'react';
 import styles from './TopBar.module.css';
 
