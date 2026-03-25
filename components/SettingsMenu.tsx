@@ -11,9 +11,9 @@ const SettingsMenu = () => {
   };
 
   return (
-    <div>
+    <div style={{ zIndex: 1000 }}>
       {/* Settings Tab */}
-      <div style={{ zIndex: 1000 }}
+      <div
         onClick={toggleMenu} 
         className={`${styles.settingsTab} ${isMenuOpen ? styles.open : ''}`}
       >
