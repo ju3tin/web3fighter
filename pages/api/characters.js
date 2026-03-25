@@ -4,7 +4,7 @@ export default function handler(req, res) {
     const characters = [
   { id: 'xiaoyu', name: 'Xiaoyu', portrait: '/characters/xiaoyu.png', model: '/models/black_girl_avatar1.glb', animelist: '/anime/1.glb' },
   { id: 'julia', name: 'Julia', portrait: '/characters/julia.png', model: '/models/123.glb', animelist: '/anime/1.glb'  },
-  { id: 'ryu', name: 'Ryu', portrait: '/characters/ryu.png', model: '/models/ryu.glb', animelist: '/anime/1.glb'  },
+  { id: 'ryu', name: 'Ryu', portrait: '/characters/ryu.png', model: '/models/ryu1.glb', animelist: '/anime/1.glb'  },
   { id: 'ken', name: 'Ems', portrait: '/characters/ken.png', model: '/models/ken1.glb', animelist: '/anime/1.glb'  },
   { id: 'chunli', name: 'Chun-Li', portrait: '/characters/ChunLi.png', model: '/models/chun_li.glb', animelist: '/anime/1.glb'  },
   { id: 'guile', name: 'Guile', portrait: '/characters/Guile.png', model: '/models/muay_thai_fighter1.glb', animelist: '/anime/1.glb'  },
