@@ -34,7 +34,7 @@ function AnimatedPreview({ modelUrl, animationUrl }: { modelUrl: string; animati
   const [index, setIndex] = useState(0);
   const loopTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useEffect(() => {
+  useEffect(() => { 
     if (!mixer || !actions || actionNames.length === 0) return;
 
     const currentName = actionNames[index];
@@ -113,7 +113,11 @@ export default function CharacterSelector() {
 
       {/* 3D PREVIEW – LEFT SIDE, BEHIND GRID */}
       {selectedCharacter?.model && (
+<<<<<<< HEAD
         <div className="fixed left-0 top-0 bottom-0 w-1/3 md:w-2/5 lg:w-1/3 -z-10 opacity-40 md:opacity-60 pointer-events-none hidden md:block" style={{ zIndex: 10000, position: 'absolute' }}>
+=======
+        <div style={{zIndex: 10000  }}>
+>>>>>>> 7442f6254e6e6a7c333972cec9e6f77efbb09ed6
             <Canvas className="canvas2"  camera={{ position: [0, 0, 5.5], fov: 45 }}>
               <ambientLight intensity={0.6} />
               <directionalLight position={[4, 6, 4]} intensity={1} />
