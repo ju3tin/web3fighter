@@ -1,8 +1,9 @@
-// components/TopBar.js
+// components/TopBar.tsx
 import React from 'react';
-import styles from './TopBar.module.css'; // We'll use CSS modules for styling
+import styles from './TopBar.module.css';
 
-const TopBar = () => {
+// Define the types for the props if needed, for now, we'll just assume no props
+const TopBar: React.FC = () => {
   return (
     <div className={styles.topBar}>
       <button className={styles.backBtn}>Back</button>
