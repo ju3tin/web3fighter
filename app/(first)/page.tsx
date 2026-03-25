@@ -8,6 +8,7 @@ import { GameUI } from "@/components/game-ui"
 import { GameController } from "@/components/game-controller"
 import { Button } from "@/components/ui/button"
 import Link from 'next/link'
+import TopBar from './TopBar';
 
 type GameState = "menu" | "playing" | "paused" | "round-end" | "game-over"
 
@@ -184,6 +185,7 @@ export default function TekkenGame() {
       {/* Main Menu */}
       {gameState === "menu" && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/80 backdrop-blur-sm">
+          <TopBar />
           <div className="text-center space-y-8">
             <h1 className="text-7xl font-bold text-white tracking-wider mb-4">
               <span className="text-red-500">WEB3</span> FIGHTER
