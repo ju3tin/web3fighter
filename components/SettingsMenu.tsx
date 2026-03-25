@@ -11,7 +11,7 @@ const SettingsMenu = () => {
   };
 
   return (
-    <div style={{ zIndex: 1000 }}>
+    <div style={{ zIndex: 1000, position: 'absolute' }}>
       {/* Settings Tab */}
       <div
         onClick={toggleMenu} 
