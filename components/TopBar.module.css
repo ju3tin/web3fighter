@@ -1,0 +1,25 @@
+/* components/TopBar.module.css */
+
+.topBar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  z-index: 10; /* Ensure it stays on top */
+}
+
+.backBtn, .loginBtn {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.backBtn:hover, .loginBtn:hover {
+  background-color: #005bb5;
+}
