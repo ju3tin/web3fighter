@@ -173,7 +173,7 @@ export default function CharacterSelector() {
 
       {/* FIXED BOTTOM BAR – FIGHT BUTTON */}
       {selectedCharacter && (
-        <div className="fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-t from-gray-900 via-gray-900/95 to-transparent pt-6 pb-6 px-6 border-t border-white/10">
+        <div className="fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-t from-gray-900 via-gray-900/95 to-transparent pt-6 pb-6 px-6 border-t border-white/10" style={{zIndex: 10005,}}>
           <div className="max-w-4xl mx-auto flex items-center justify-between">
             <div>
               <p className="text-2xl md:text-3xl font-bold text-white">
