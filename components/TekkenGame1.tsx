@@ -5,7 +5,7 @@ import { useState, useCallback, useEffect } from "react";
 import { GameScene } from "@/components/game-scene";
 import { GameUI } from "@/components/game-ui";
 import { GameController } from "@/components/game-controller";
-import { GameController1 } from "@/components/game-controller1";
+import { GameController1 } from "@/components/game-controller5";
 import { Button } from "@/components/ui/button";
 import { useSearchParams } from "next/navigation";
 
