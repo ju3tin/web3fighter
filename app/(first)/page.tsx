@@ -202,7 +202,7 @@ export default function TekkenGame() {
           <div className="text-center space-y-8">
             <h1
       className={`font-bold text-white tracking-wider mb-4 ${
-        isMobile ? "text-4xl" : "text-7xl"
+        isMobile ? "text-5xl" : "text-7xl"
       }`}
     >
       <span className="text-red-500">WEB3</span> FIGHTER
