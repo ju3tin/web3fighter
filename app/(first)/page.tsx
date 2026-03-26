@@ -23,7 +23,19 @@ export default function TekkenGame() {
   const [currentRound, setCurrentRound] = useState(1)
   const [gameTime, setGameTime] = useState(99)
   const [winner, setWinner] = useState<string | null>(null)
+  const [isMobile, setIsMobile] = useState(false);
 
+
+    useEffect(() => {
+    const checkScreen = () => {
+      setIsMobile(window.innerWidth < 768); // mobile breakpoint
+    };
+
+    checkScreen(); // run on mount
+    window.addEventListener("resize", checkScreen);
+
+    return () => window.removeEventListener("resize", checkScreen);
+  }, []);
   // Game timer countdown
   useEffect(() => {
     if (gameState !== "playing") return
@@ -188,9 +200,13 @@ export default function TekkenGame() {
         <div className="absolute inset-0 flex items-center justify-center bg-black/80 backdrop-blur-sm">
          
           <div className="text-center space-y-8">
-            <h1 className="text-7xl font-bold text-white tracking-wider mb-4">
-              <span className="text-red-500">WEB3</span> FIGHTER
-            </h1>
+            <h1
+      className={`font-bold text-white tracking-wider mb-4 ${
+        isMobile ? "text-4xl" : "text-7xl"
+      }`}
+    >
+      <span className="text-red-500">WEB3</span> FIGHTER
+    </h1>
             <p className="text-xl text-white/60 mb-8">Best of 3 Rounds</p>
             <MenuPicker />
             <div className="mt-12 text-white/40 text-sm space-y-2">
