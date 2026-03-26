@@ -20,6 +20,7 @@ export default function WheelPicker({ items }: WheelPickerProps = {}) {
     "Credits": "/credits",
     "Leaderboard": "/leaderboard",
     "About": "/faq",
+    "Build Your Fighter": "/makeavator.html",
   };
 
   const routes = items || defaultRoutes;
