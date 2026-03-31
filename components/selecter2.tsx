@@ -99,6 +99,17 @@ export default function CharacterSelector() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const divStyle = {
+  zIndex: 10000,
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  width: orientation === 'landscape' ? '100%' : '100vw',  // Change width based on orientation
+  height: orientation === 'landscape' ? '100vh' : '100%',  // Change height for portrait
+  backgroundColor: orientation === 'landscape' ? 'lightblue' : 'lightgreen',
+  transition: 'all 0.3s ease', // Smooth transition between changes
+};
+
   useEffect(() => {
     async function fetchCharacters() {
       try {
