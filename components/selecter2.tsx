@@ -28,6 +28,20 @@ function AnimatedPreview({ modelUrl, animationUrl }: { modelUrl: string; animati
 
     const [orientation, setOrientation] = useState('portrait'); // Default to portrait
 
+
+const divStyle = {
+  zIndex: 10000,
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  width: orientation === 'landscape' ? '100%' : '100vw',  // Change width based on orientation
+  height: orientation === 'landscape' ? '100vh' : '100%',  // Change height for portrait
+  backgroundColor: orientation === 'landscape' ? 'lightblue' : 'lightgreen',
+  transition: 'all 0.3s ease', // Smooth transition between changes
+};
+
+
+  
   useEffect(() => {
     const handleResize = () => {
       // Check if the window width is greater than the window height
@@ -129,7 +143,7 @@ export default function CharacterSelector() {
 
       {/* 3D PREVIEW – LEFT SIDE, BEHIND GRID */}
       {selectedCharacter?.model && (
-         <div className="w-full h-full relative" style={{ zIndex: 10000, position: 'fixed',/* top: '0px', left: '0px', width: '100%', height: '100vh'*/ }}>
+         <div className="w-full h-full relative" style={divStyle}>
           <Canvas
         camera={{ position: [0, 1, 5], fov: 45 }}
         shadows
