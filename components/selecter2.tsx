@@ -98,6 +98,8 @@ export default function CharacterSelector() {
   const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [orientation, setOrientation] = useState('portrait'); // Default to portrait
+
 
   const divStyle = {
   zIndex: 10000,
@@ -110,6 +112,28 @@ export default function CharacterSelector() {
   transition: 'all 0.3s ease', // Smooth transition between changes
 };
 
+ useEffect(() => {
+    const handleResize = () => {
+      // Check if the window width is greater than the window height
+      if (window.innerWidth > window.innerHeight) {
+        setOrientation('landscape');
+      } else {
+        setOrientation('portrait');
+      }
+    };
+
+    // Initial check on mount
+    handleResize();
+
+    // Add event listener for resize
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup the event listener on unmount
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+  
   useEffect(() => {
     async function fetchCharacters() {
       try {
