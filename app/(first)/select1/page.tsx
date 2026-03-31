@@ -7,7 +7,7 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF, useAnimations } from '@react-three/drei';
 import * as THREE from 'three';
 import { useSearchParams } from "next/navigation"
-import CharacterSelector from '@/components/selecter2';
+import CharacterSelector from '@/components/selecter1';
 export const dynamic = "force-dynamic";
 
 
