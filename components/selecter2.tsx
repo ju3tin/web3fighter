@@ -26,6 +26,44 @@ function AnimatedPreview({ modelUrl, animationUrl }: { modelUrl: string; animati
   const [index, setIndex] = useState(0);
   const loopTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+    const [orientation, setOrientation] = useState('portrait'); // Default to portrait
+
+
+const divStyle = {
+  zIndex: 10000,
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  width: orientation === 'landscape' ? '100%' : '100vw',  // Change width based on orientation
+  height: orientation === 'landscape' ? '100vh' : '100%',  // Change height for portrait
+  backgroundColor: orientation === 'landscape' ? 'lightblue' : 'lightgreen',
+  transition: 'all 0.3s ease', // Smooth transition between changes
+};
+
+
+  
+  useEffect(() => {
+    const handleResize = () => {
+      // Check if the window width is greater than the window height
+      if (window.innerWidth > window.innerHeight) {
+        setOrientation('landscape');
+      } else {
+        setOrientation('portrait');
+      }
+    };
+
+    // Initial check on mount
+    handleResize();
+
+    // Add event listener for resize
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup the event listener on unmount
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   useEffect(() => {
     if (!mixer || !actions || actionNames.length === 0) return;
 
@@ -60,7 +98,42 @@ export default function CharacterSelector() {
   const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [orientation, setOrientation] = useState('portrait'); // Default to portrait
 
+
+  const divStyle = {
+  zIndex: 10000,
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  width: orientation === 'landscape' ? '100%' : '100vw',  // Change width based on orientation
+  height: orientation === 'landscape' ? '100vh' : '100%',  // Change height for portrait
+  backgroundColor: orientation === 'landscape' ? 'lightblue' : 'lightgreen',
+  transition: 'all 0.3s ease', // Smooth transition between changes
+};
+
+ useEffect(() => {
+    const handleResize = () => {
+      // Check if the window width is greater than the window height
+      if (window.innerWidth > window.innerHeight) {
+        setOrientation('landscape');
+      } else {
+        setOrientation('portrait');
+      }
+    };
+
+    // Initial check on mount
+    handleResize();
+
+    // Add event listener for resize
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup the event listener on unmount
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+  
   useEffect(() => {
     async function fetchCharacters() {
       try {
@@ -105,24 +178,30 @@ export default function CharacterSelector() {
 
       {/* 3D PREVIEW – LEFT SIDE, BEHIND GRID */}
       {selectedCharacter?.model && (
-         <div className="w-full h-full relative" style={{ zIndex: 10000, position: 'fixed',/* top: '0px', left: '0px', width: '100%', height: '100vh'*/ }}>
-          <Canvas
-        camera={{ position: [0, 1, 5], fov: 45 }}
-        shadows
-        className="canvas2"
-        gl={{ antialias: true, alpha: true }}
-
-      >
-            <ambientLight intensity={0.6} />
-            <directionalLight position={[4, 6, 4]} intensity={1} />
-            <Suspense fallback={null}>
-              <AnimatedPreview
-                modelUrl={selectedCharacter.model}
-                animationUrl={selectedCharacter.animelist}
-              />
-              <OrbitControls enablePan={false} enableZoom={false} autoRotate autoRotateSpeed={0.6} />
-            </Suspense>
-          </Canvas>
+         <div className="w-full h-full relative" style={divStyle}>
+         <Canvas
+     camera={{
+    position: [0, 5, 10],  // Move the camera to position [X=0, Y=5, Z=10]
+    fov: 60,  // Field of view: wider than default 45
+    rotation: [-0.3, 0, 0], // Camera rotation (X=-0.3, Y=0, Z=0)
+  }}
+      shadows
+      className="canvas2"
+      gl={{ antialias: true, alpha: true }}
+    >
+      <ambientLight intensity={0.6} />
+      <directionalLight position={[4, 6, 4]} intensity={1} />
+      
+      <Suspense fallback={null}>
+        <AnimatedPreview
+          modelUrl={selectedCharacter.model}
+          animationUrl={selectedCharacter.animelist}
+        />
+        
+        {/* Adjust OrbitControls to allow zoom and pan if necessary */}
+        <OrbitControls enablePan enableZoom autoRotate autoRotateSpeed={0.6} />
+      </Suspense>
+    </Canvas>
         </div>
       )}
 
