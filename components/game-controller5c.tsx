@@ -251,10 +251,12 @@ const GameController1: React.FC<GameControllerProps> = ({
       <div className="bg-gradient-to-t from-black/25 to-transparent pt-1 pb-3 px-2 pointer-events-auto">
         <div className="flex items-end justify-between h-44">
           <div className="pl-2 pb-2">
-          <ControllerSVG />
+            <ControllerSVG />
+            <Dpad onMove={onPlayer1Move} />
           </div>
           <div className="pr-2 pb-2">
-           <Pad2 />
+            <Pad2 />
+            <Actions onAction={onPlayer1Action} />
           </div>
         </div>
       </div>
