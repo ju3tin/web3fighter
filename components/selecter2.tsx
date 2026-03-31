@@ -26,6 +26,30 @@ function AnimatedPreview({ modelUrl, animationUrl }: { modelUrl: string; animati
   const [index, setIndex] = useState(0);
   const loopTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+    const [orientation, setOrientation] = useState('portrait'); // Default to portrait
+
+  useEffect(() => {
+    const handleResize = () => {
+      // Check if the window width is greater than the window height
+      if (window.innerWidth > window.innerHeight) {
+        setOrientation('landscape');
+      } else {
+        setOrientation('portrait');
+      }
+    };
+
+    // Initial check on mount
+    handleResize();
+
+    // Add event listener for resize
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup the event listener on unmount
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   useEffect(() => {
     if (!mixer || !actions || actionNames.length === 0) return;
 
