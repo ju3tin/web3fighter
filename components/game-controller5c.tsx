@@ -459,7 +459,116 @@ const GameController1: React.FC<GameControllerProps> = ({
             <Dpad onMove={onPlayer1Move} />
           </div>
           <div className="pr-2 pb-2">
-            <Pad2 />
+          <svg
+   id="svg2"
+   sodipodi:docname="pad2.svg"
+   viewBox="0 0 78 77.999998"
+   sodipodi:version="0.32"
+   version="1.0"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25)"
+   width="78"
+   height="78"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs1" />
+  <circle
+     id="path3221"
+     style="display:inline;fill:#333333;fill-rule:evenodd;stroke:#000000;stroke-width:0.999952;stroke-linecap:round;stroke-linejoin:round"
+     transform="matrix(-1,0,0,1,-260.34,-473.69)"
+     cx="-299.3013"
+     cy="512.41736"
+     r="37.906826" />
+  <path
+     id="path3219"
+     style="display:inline;fill:#262626;fill-rule:evenodd;stroke-width:1.2761"
+     d="m 289.35968,476.69011 c -1.95255,0 -3.54777,1.59504 -3.54777,3.54736 v 18.70656 h -18.74702 c -1.95254,0 -3.50948,1.59503 -3.50948,3.54736 v 19.89326 c 0,1.96509 1.55694,3.56012 3.50948,3.56012 h 18.74702 v 18.6938 c 0,1.96508 1.59522,3.54736 3.54777,3.54736 h 19.90833 c 1.95255,0 3.50948,-1.58228 3.50948,-3.54736 v -18.6938 h 18.73426 c 1.96531,0 3.50948,-1.59503 3.50948,-3.56012 v -19.89326 c 0,-1.95233 -1.54417,-3.54736 -3.50948,-3.54736 h -18.73426 v -18.70656 c 0,-1.95232 -1.55693,-3.54736 -3.50948,-3.54736 z"
+     transform="translate(-260.34,-473.69)" />
+  <ellipse
+     id="path3246"
+     style="fill:#5a5a5a;fill-rule:evenodd;stroke:#454545;stroke-width:1.39429;stroke-linecap:round;stroke-linejoin:round"
+     inkscape:label="crossbutton"
+     cx="299.29343"
+     cy="537.60022"
+     rx="11.309089"
+     ry="11.6584"
+     transform="translate(-260.34,-473.69)" />
+  <ellipse
+     id="path3244-1"
+     style="display:inline;fill:#5a5a5a;fill-rule:evenodd;stroke:#454545;stroke-width:1.39429;stroke-linecap:round;stroke-linejoin:round"
+     cx="38.953232"
+     cy="13.760545"
+     inkscape:label="trianglebutton"
+     rx="11.309089"
+     ry="11.6584" />
+  <ellipse
+     id="path3250"
+     style="fill:#5a5a5a;fill-rule:evenodd;stroke:#454545;stroke-width:1.39429;stroke-linecap:round;stroke-linejoin:round"
+     transform="rotate(180,-130.17,-236.845)"
+     inkscape:label="squarebutton"
+     cx="-274.97665"
+     cy="-512.55896"
+     rx="11.309089"
+     ry="11.6584" />
+  <ellipse
+     id="path3248-7"
+     style="fill:#5a5a5a;fill-rule:evenodd;stroke:#454545;stroke-width:1.39429;stroke-linecap:round;stroke-linejoin:round"
+     transform="scale(-1)"
+     inkscape:label="circlebutton"
+     cx="-62.995564"
+     cy="-38.626194"
+     rx="11.309089"
+     ry="11.6584" />
+  <path
+     id="path3309"
+     style="fill:none;stroke:#00ff83;stroke-width:1.1416"
+     sodipodi:type="star"
+     sodipodi:sides="3"
+     sodipodi:r1="6.9132905"
+     sodipodi:r2="3.4566453"
+     sodipodi:arg1="0.52359878"
+     sodipodi:arg2="1.5707963"
+     transform="matrix(1.2038977,0,0,1.2390022,-501.97409,-623.49444)"
+     inkscape:randomized="0"
+     sodipodi:cy="514.68372"
+     sodipodi:cx="449.3132"
+     inkscape:rounded="0"
+     inkscape:flatsided="true"
+     d="m 455.30029,518.14036 -11.97417,0 5.98708,-10.36993 z"
+     inkscape:label="trianlge" />
+  <rect
+     id="rect3307"
+     style="fill:none;stroke:#ff01db;stroke-width:1.39429"
+     rx="0"
+     ry="0"
+     height="13.347011"
+     width="12.947104"
+     y="505.85269"
+     x="268.49954"
+     inkscape:label="square"
+     transform="translate(-260.34,-473.69)" />
+  <ellipse
+     id="path3311"
+     style="fill:none;stroke:#ff0000;stroke-width:2.0333;stroke-linecap:round;stroke-linejoin:round"
+     transform="rotate(180,-130.17,-236.845)"
+     inkscape:label="circle"
+     cx="-323.61572"
+     cy="-512.52496"
+     rx="7.754981"
+     ry="7.9945145" />
+  <path
+     id="path3313"
+     style="fill:none;stroke:#8243fb;stroke-width:1.39429"
+     d="m 293.56124,531.80182 11.67259,12.03315 m 0,-12.03315 -11.67259,12.03315"
+     inkscape:label="cross"
+     transform="translate(-260.34,-473.69)" />
+</svg>
             <Actions onAction={onPlayer1Action} />
           </div>
         </div>
