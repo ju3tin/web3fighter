@@ -180,7 +180,11 @@ export default function CharacterSelector() {
       {selectedCharacter?.model && (
          <div className="w-full h-full relative" style={divStyle}>
          <Canvas
-      camera={{ position: [0, 2, 10], fov: 60 }} // Increase the Z-position and FOV
+     camera={{
+    position: [0, 5, 10],  // Move the camera to position [X=0, Y=5, Z=10]
+    fov: 60,  // Field of view: wider than default 45
+    rotation: [-0.3, 0, 0], // Camera rotation (X=-0.3, Y=0, Z=0)
+  }}
       shadows
       className="canvas2"
       gl={{ antialias: true, alpha: true }}
