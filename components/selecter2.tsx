@@ -105,12 +105,13 @@ export default function CharacterSelector() {
 
       {/* 3D PREVIEW – LEFT SIDE, BEHIND GRID */}
       {selectedCharacter?.model && (
-         <div className="w-full h-full relative" style={{ zIndex: 10000,/* position: 'absolute', top: '0px', left: '0px', width: '100%', height: '100vh'*/ }}>
+         <div className="w-full h-full relative" style={{ zIndex: 10000, position: 'fixed',/* top: '0px', left: '0px', width: '100%', height: '100vh'*/ }}>
           <Canvas
         camera={{ position: [0, 1, 5], fov: 45 }}
         shadows
         className="canvas2"
         gl={{ antialias: true, alpha: true }}
+
       >
             <ambientLight intensity={0.6} />
             <directionalLight position={[4, 6, 4]} intensity={1} />
