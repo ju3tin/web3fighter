@@ -179,23 +179,25 @@ export default function CharacterSelector() {
       {/* 3D PREVIEW – LEFT SIDE, BEHIND GRID */}
       {selectedCharacter?.model && (
          <div className="w-full h-full relative" style={divStyle}>
-          <Canvas
-        camera={{ position: [0, 1, 5], fov: 45 }}
-        shadows
-        className="canvas2"
-        gl={{ antialias: true, alpha: true }}
-
-      >
-            <ambientLight intensity={0.6} />
-            <directionalLight position={[4, 6, 4]} intensity={1} />
-            <Suspense fallback={null}>
-              <AnimatedPreview
-                modelUrl={selectedCharacter.model}
-                animationUrl={selectedCharacter.animelist}
-              />
-              <OrbitControls enablePan={false} enableZoom={false} autoRotate autoRotateSpeed={0.6} />
-            </Suspense>
-          </Canvas>
+         <Canvas
+      camera={{ position: [0, 2, 10], fov: 60 }} // Increase the Z-position and FOV
+      shadows
+      className="canvas2"
+      gl={{ antialias: true, alpha: true }}
+    >
+      <ambientLight intensity={0.6} />
+      <directionalLight position={[4, 6, 4]} intensity={1} />
+      
+      <Suspense fallback={null}>
+        <AnimatedPreview
+          modelUrl={selectedCharacter.model}
+          animationUrl={selectedCharacter.animelist}
+        />
+        
+        {/* Adjust OrbitControls to allow zoom and pan if necessary */}
+        <OrbitControls enablePan enableZoom autoRotate autoRotateSpeed={0.6} />
+      </Suspense>
+    </Canvas>
         </div>
       )}
 
