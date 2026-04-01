@@ -5,7 +5,7 @@ export default function Pad1a() {
 const [pressed, setPressed] = useState(null);
 
   const handleDown = (id) => {
-    console.log("Pressed:", id);
+    console.log("Pressed0:", id);
     setPressed(id);
   };
 
@@ -14,7 +14,7 @@ const [pressed, setPressed] = useState(null);
   };
 
    const handleDown1 = (id) => {
-    console.log("Pressed:", id);
+    console.log("Pressed1:", id);
     setPressed(id);
   };
 
@@ -23,7 +23,7 @@ const [pressed, setPressed] = useState(null);
   };
 
   const handleDown2 = (id) => {
-    console.log("Pressed:", id);
+    console.log("Pressed2:", id);
     setPressed(id);
   };
 
@@ -31,7 +31,7 @@ const [pressed, setPressed] = useState(null);
     setPressed(null);
   };
   const handleDown3 = (id) => {
-    console.log("Pressed:", id);
+    console.log("Pressed3:", id);
     setPressed(id);
   };
 
@@ -40,7 +40,7 @@ const [pressed, setPressed] = useState(null);
   };
 
   const handleDown4 = (id) => {
-    console.log("Pressed:", id);
+    console.log("Pressed4:", id);
     setPressed(id);
   };
 
@@ -49,7 +49,7 @@ const [pressed, setPressed] = useState(null);
   };
 
   const handleDown5 = (id) => {
-    console.log("Pressed:", id);
+    console.log("Pressed5:", id);
     setPressed(id);
   };
 
@@ -58,7 +58,7 @@ const [pressed, setPressed] = useState(null);
   };
 
   const handleDown6 = (id) => {
-    console.log("Pressed:", id);
+    console.log("Pressed6:", id);
     setPressed(id);
   };
 
@@ -67,7 +67,7 @@ const [pressed, setPressed] = useState(null);
   };
 
   const handleDown7 = (id) => {
-    console.log("Pressed:", id);
+    console.log("Pressed7:", id);
     setPressed(id);
   };
 
@@ -76,7 +76,7 @@ const [pressed, setPressed] = useState(null);
   };
 
   const handleDown8 = (id) => {
-    console.log("Pressed:", id);
+    console.log("Pressed8:", id);
     setPressed(id);
   };
 
@@ -112,7 +112,7 @@ const [pressed, setPressed] = useState(null);
         strokeWidth: 2.11618,
         cursor: "pointer",
       }}
-      onPointerDown={() => handleDown("top")}
+      onPointerDown={() => handleDown("top0")}
       onPointerUp={handleUp}
     />
     <ellipse
@@ -130,7 +130,7 @@ const [pressed, setPressed] = useState(null);
         strokeLinejoin: "round",
         cursor: "pointer",
       }}
-      onPointerDown={() => handleDown1("top")}
+      onPointerDown={() => handleDown1("top1")}
       onPointerUp={handleUp1}
     />
     <ellipse
@@ -149,7 +149,7 @@ const [pressed, setPressed] = useState(null);
         strokeLinejoin: "round",
         cursor: "pointer",
       }}
-      onPointerDown={() => handleDown2("top")}
+      onPointerDown={() => handleDown2("top2")}
       onPointerUp={handleUp2}
     />
     <ellipse
@@ -168,7 +168,7 @@ const [pressed, setPressed] = useState(null);
         cursor: "pointer",
       }}
       transform="scale(-1)"
-      onPointerDown={() => handleDown3("top")}
+      onPointerDown={() => handleDown3("top3")}
       onPointerUp={handleUp3}
     />
     <ellipse
@@ -187,7 +187,7 @@ const [pressed, setPressed] = useState(null);
         cursor: "pointer",
       }}
       transform="scale(-1)"
-      onPointerDown={() => handleDown4("top")}
+      onPointerDown={() => handleDown4("top4")}
       onPointerUp={handleUp4}
     />
     <path
@@ -199,7 +199,7 @@ const [pressed, setPressed] = useState(null);
         strokeWidth: 2.31213,
         cursor: "pointer",
       }}
-      onPointerDown={() => handleDown5("top")}
+      onPointerDown={() => handleDown5("top5")}
       onPointerUp={handleUp5}
     />
     <rect
@@ -216,7 +216,7 @@ const [pressed, setPressed] = useState(null);
         strokeWidth: 2.31218,
         cursor: "pointer",
       }}
-      onPointerDown={() => handleDown6("top")}
+      onPointerDown={() => handleDown6("top6")}
       onPointerUp={handleUp6}
     />
     <ellipse
@@ -234,7 +234,7 @@ const [pressed, setPressed] = useState(null);
         cursor: "pointer",
       }}
       transform="scale(-1)"
-      onPointerDown={() => handleDown7("top")}
+      onPointerDown={() => handleDown7("top7")}
       onPointerUp={handleUp7}
     />
     <path
@@ -246,7 +246,7 @@ const [pressed, setPressed] = useState(null);
         strokeWidth: 2.31218,
         cursor: "pointer",
       }}
-      onPointerDown={() => handleDown8("top")}
+      onPointerDown={() => handleDown8("top8")}
       onPointerUp={handleUp8}
     />
   </svg>
