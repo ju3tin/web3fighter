@@ -4,6 +4,8 @@
 import SettingsMenu from '@/components/SettingsMenu';
 import ControllerSVG from "@/components/controller.svg";
 import Pad2 from "@/components/pad2.svg"
+import Pad3 from "@/components/pad1a.svg"
+import Pad4 from "@/components/pad1b.svg"
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
 type Direction =
