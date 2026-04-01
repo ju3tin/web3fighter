@@ -255,7 +255,7 @@ const GameController1: React.FC<GameControllerProps> = ({
             <Dpad onMove={onPlayer1Move} />
           </div>
           <div className="pr-2 pb-2">
-           
+            <Pad2 />
             <Actions onAction={onPlayer1Action} />
           </div>
         </div>
