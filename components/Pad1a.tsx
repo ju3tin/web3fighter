@@ -13,6 +13,76 @@ const [pressed, setPressed] = useState(null);
     setPressed(null);
   };
 
+   const handleDown1 = (id) => {
+    console.log("Pressed:", id);
+    setPressed(id);
+  };
+
+  const handleUp1 = () => {
+    setPressed(null);
+  };
+
+  const handleDown2 = (id) => {
+    console.log("Pressed:", id);
+    setPressed(id);
+  };
+
+  const handleUp2 = () => {
+    setPressed(null);
+  };
+  const handleDown3 = (id) => {
+    console.log("Pressed:", id);
+    setPressed(id);
+  };
+
+  const handleUp3 = () => {
+    setPressed(null);
+  };
+
+  const handleDown4 = (id) => {
+    console.log("Pressed:", id);
+    setPressed(id);
+  };
+
+  const handleUp4 = () => {
+    setPressed(null);
+  };
+
+  const handleDown5 = (id) => {
+    console.log("Pressed:", id);
+    setPressed(id);
+  };
+
+  const handleUp5 = () => {
+    setPressed(null);
+  };
+
+  const handleDown6 = (id) => {
+    console.log("Pressed:", id);
+    setPressed(id);
+  };
+
+  const handleUp6 = () => {
+    setPressed(null);
+  };
+
+  const handleDown7 = (id) => {
+    console.log("Pressed:", id);
+    setPressed(id);
+  };
+
+  const handleUp7 = () => {
+    setPressed(null);
+  };
+
+  const handleDown8 = (id) => {
+    console.log("Pressed:", id);
+    setPressed(id);
+  };
+
+  const handleUp8 = () => {
+    setPressed(null);
+  };
   
   return (
      <svg xmlns="http://www.w3.org/2000/svg" width={128} height={128} opacity="0.5">
@@ -58,7 +128,10 @@ const [pressed, setPressed] = useState(null);
         strokeWidth: 2.31218,
         strokeLinecap: "round",
         strokeLinejoin: "round",
+        cursor: "pointer",
       }}
+      onPointerDown={() => handleDown1("top")}
+      onPointerUp={handleUp1}
     />
     <ellipse
       id="ellipse2a"
@@ -74,7 +147,10 @@ const [pressed, setPressed] = useState(null);
         strokeWidth: 2.31218,
         strokeLinecap: "round",
         strokeLinejoin: "round",
+        cursor: "pointer",
       }}
+      onPointerDown={() => handleDown2("top")}
+      onPointerUp={handleUp2}
     />
     <ellipse
       id="ellipse3a"
@@ -89,8 +165,11 @@ const [pressed, setPressed] = useState(null);
         strokeWidth: 2.31218,
         strokeLinecap: "round",
         strokeLinejoin: "round",
+        cursor: "pointer",
       }}
       transform="scale(-1)"
+      onPointerDown={() => handleDown3("top")}
+      onPointerUp={handleUp3}
     />
     <ellipse
       id="ellipse4a"
@@ -105,8 +184,11 @@ const [pressed, setPressed] = useState(null);
         strokeWidth: 2.31218,
         strokeLinecap: "round",
         strokeLinejoin: "round",
+        cursor: "pointer",
       }}
       transform="scale(-1)"
+      onPointerDown={() => handleDown4("top")}
+      onPointerUp={handleUp4}
     />
     <path
       id="ellipse5a"
@@ -115,7 +197,10 @@ const [pressed, setPressed] = useState(null);
         fill: "none",
         stroke: "#00ff83",
         strokeWidth: 2.31213,
+        cursor: "pointer",
       }}
+      onPointerDown={() => handleDown5("top")}
+      onPointerUp={handleUp5}
     />
     <rect
       id="rect1a"
@@ -129,7 +214,10 @@ const [pressed, setPressed] = useState(null);
         fill: "none",
         stroke: "#ff01db",
         strokeWidth: 2.31218,
+        cursor: "pointer",
       }}
+      onPointerDown={() => handleDown6("top")}
+      onPointerUp={handleUp6}
     />
     <ellipse
       id="ellipse11a"
@@ -143,8 +231,11 @@ const [pressed, setPressed] = useState(null);
         strokeWidth: 3.37186,
         strokeLinecap: "round",
         strokeLinejoin: "round",
+        cursor: "pointer",
       }}
       transform="scale(-1)"
+      onPointerDown={() => handleDown7("top")}
+      onPointerUp={handleUp7}
     />
     <path
       id="ellipse1ppa"
@@ -153,7 +244,10 @@ const [pressed, setPressed] = useState(null);
         fill: "none",
         stroke: "#8243fb",
         strokeWidth: 2.31218,
+        cursor: "pointer",
       }}
+      onPointerDown={() => handleDown8("top")}
+      onPointerUp={handleUp8}
     />
   </svg>
      );
