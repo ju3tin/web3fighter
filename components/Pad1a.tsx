@@ -1,6 +1,6 @@
 export default function Pad1a() {
   return (
-     <svg xmlns="http://www.w3.org/2000/svg" width={128} height={128}>
+     <svg xmlns="http://www.w3.org/2000/svg" width={128} height={128} opacity="0.5">
     <circle
       cx={-64.245}
       cy={64.011}
