@@ -1,4 +1,19 @@
+
+import { useState } from "react";
+
 export default function Pad1a() {
+const [pressed, setPressed] = useState(null);
+
+  const handleDown = (id) => {
+    console.log("Pressed:", id);
+    setPressed(id);
+  };
+
+  const handleUp = () => {
+    setPressed(null);
+  };
+
+  
   return (
      <svg xmlns="http://www.w3.org/2000/svg" width={128} height={128} opacity="0.5">
     <circle
@@ -25,7 +40,10 @@ export default function Pad1a() {
         fill: "#262626",
         fillRule: "evenodd",
         strokeWidth: 2.11618,
+        cursor: "pointer",
       }}
+      onPointerDown={() => handleDown("top")}
+      onPointerUp={handleUp}
     />
     <ellipse
       id="ellipse1a"
