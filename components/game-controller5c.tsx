@@ -380,7 +380,7 @@ const GameController1: React.FC<GameControllerProps> = ({
     />
   </svg>
 
-            <Dpad onMove={onPlayer1Move} />
+            {/* <Dpad onMove={onPlayer1Move} /> */}
           </div>
           <div className="pr-2 pb-2">
 
@@ -499,7 +499,7 @@ const GameController1: React.FC<GameControllerProps> = ({
     />
   </svg>
 
-            <Actions onAction={onPlayer1Action} />
+            {/* <Actions onAction={onPlayer1Action} /> */}
           </div>
         </div>
       </div>
