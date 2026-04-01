@@ -4,8 +4,8 @@
 import SettingsMenu from '@/components/SettingsMenu';
 import ControllerSVG from "@/components/controller.svg";
 import Pad2 from "@/components/pad2.svg"
-import Pad3 from "@/components/pad1a.svg"
-import Pad4 from "@/components/pad1b.svg"
+import Pad1b from "@/components/Pad1b"
+import Pad1a from "@/components/Pad1a"
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
 type Direction =
@@ -253,13 +253,13 @@ const GameController1: React.FC<GameControllerProps> = ({
       <div className="bg-gradient-to-t from-black/25 to-transparent pt-1 pb-3 px-2 pointer-events-auto">
         <div className="flex items-end justify-between h-44">
           <div className="pl-2 pb-2">
-         <Pad3 />
+         <Pad1b />
 
             {/* <Dpad onMove={onPlayer1Move} /> */}
           </div>
           <div className="pr-2 pb-2">
 
-        <Pad4 />
+        <Pad1a />
 
             {/* <Actions onAction={onPlayer1Action} /> */}
           </div>
