@@ -258,72 +258,123 @@ const GameController1: React.FC<GameControllerProps> = ({
    width="78"
    height="78">
   <circle
-     id="path3221"
-     style="display:inline;fill:#333333;fill-rule:evenodd;stroke:#000000;stroke-width:0.999952;stroke-linecap:round;stroke-linejoin:round"
-     transform="scale(-1,1)"
-     cx="-38.9613"
-     cy="38.72736"
-     r="37.906826" />
+  id="path3221"
+  style={{
+    display: 'inline',
+    fill: '#333333',
+    fillRule: 'evenodd',
+    stroke: '#000000',
+    strokeWidth: 0.999952,
+    strokeLinecap: 'round',
+    strokeLinejoin: 'round',
+  }}
+  transform="scale(-1,1)"
+  cx={-38.9613}
+  cy={38.72736}
+  r={37.906826}
+/>
   <path
-     id="path3219"
-     style="display:inline;fill:#262626;fill-rule:evenodd;stroke-width:1.2761"
-     d="m 29.01968,3.00011 c -1.95255,0 -3.54777,1.59504 -3.54777,3.54736 V 25.25403 H 6.72489 c -1.95254,0 -3.50948,1.59503 -3.50948,3.54736 v 19.89326 c 0,1.96509 1.55694,3.56012 3.50948,3.56012 h 18.74702 v 18.6938 c 0,1.96508 1.59522,3.54736 3.54777,3.54736 h 19.90833 c 1.95255,0 3.50948,-1.58228 3.50948,-3.54736 v -18.6938 h 18.73426 c 1.96531,0 3.50948,-1.59503 3.50948,-3.56012 V 28.80139 c 0,-1.95233 -1.54417,-3.54736 -3.50948,-3.54736 H 52.43749 V 6.54747 c 0,-1.95232 -1.55693,-3.54736 -3.50948,-3.54736 z" />
-  <ellipse
-     id="path3246"
-     style="fill:#5a5a5a;fill-rule:evenodd;stroke:#454545;stroke-width:1.39429;stroke-linecap:round;stroke-linejoin:round"
-     cx="38.953426"
-     cy="63.910221"
-     rx="11.309089"
-     ry="11.6584" />
-  <ellipse
-     id="path3244-1"
-     style="display:inline;fill:#5a5a5a;fill-rule:evenodd;stroke:#454545;stroke-width:1.39429;stroke-linecap:round;stroke-linejoin:round"
-     cx="38.953232"
-     cy="13.760545"
-     rx="11.309089"
-     ry="11.6584" />
-  <ellipse
-     id="path3250"
-     style="fill:#5a5a5a;fill-rule:evenodd;stroke:#454545;stroke-width:1.39429;stroke-linecap:round;stroke-linejoin:round"
-     transform="scale(-1)"
-     cx="-14.636654"
-     cy="-38.868961"
-     rx="11.309089"
-     ry="11.6584" />
-  <ellipse
-     id="path3248-7"
-     style="fill:#5a5a5a;fill-rule:evenodd;stroke:#454545;stroke-width:1.39429;stroke-linecap:round;stroke-linejoin:round"
-     transform="scale(-1)"
-     cx="-62.995564"
-     cy="-38.626194"
-     rx="11.309089"
-     ry="11.6584" />
-  <path
-     id="path3309"
-     style="fill:none;stroke:#00ff83;stroke-width:1.1416"
-     transform="matrix(1.2038977,0,0,1.2390022,-501.97409,-623.49444)"
-     d="m 455.30029,518.14036 -11.97417,0 5.98708,-10.36993 z" />
-  <rect
-     id="rect3307"
-     style="fill:none;stroke:#ff01db;stroke-width:1.39429"
-     rx="0"
-     ry="0"
-     height="13.347011"
-     width="12.947104"
-     y="32.162693"
-     x="8.1595421" />
-  <ellipse
-     id="path3311"
-     style="fill:none;stroke:#ff0000;stroke-width:2.0333;stroke-linecap:round;stroke-linejoin:round"
-     transform="scale(-1)"
-     cx="-63.275723"
-     cy="-38.834965"
-     rx="7.754981"
-     ry="7.9945145" />
-  <path
-     id="path3313"
-     style="fill:none;stroke:#8243fb;stroke-width:1.39429"
-     d="m 33.22124,58.11182 11.67259,12.03315 m 0,-12.03315 -11.67259,12.03315" />
+  id="path3219"
+  display="inline"
+  fill="#262626"
+  fillRule="evenodd"
+  strokeWidth={1.2761}
+  d="m 29.01968,3.00011 c -1.95255,0 -3.54777,1.59504 -3.54777,3.54736 V 25.25403 H 6.72489 c -1.95254,0 -3.50948,1.59503 -3.50948,3.54736 v 19.89326 c 0,1.96509 1.55694,3.56012 3.50948,3.56012 h 18.74702 v 18.6938 c 0,1.96508 1.59522,3.54736 3.54777,3.54736 h 19.90833 c 1.95255,0 3.50948,-1.58228 3.50948,-3.54736 v -18.6938 h 18.73426 c 1.96531,0 3.50948,-1.59503 3.50948,-3.56012 V 28.80139 c 0,-1.95233 -1.54417,-3.54736 -3.50948,-3.54736 H 52.43749 V 6.54747 c 0,-1.95232 -1.55693,-3.54736 -3.50948,-3.54736 z"
+/>
+<ellipse
+  id="path3246"
+  fill="#5a5a5a"
+  fillRule="evenodd"
+  stroke="#454545"
+  strokeWidth={1.39429}
+  strokeLinecap="round"
+  strokeLinejoin="round"
+  cx={38.953426}
+  cy={63.910221}
+  rx={11.309089}
+  ry={11.6584}
+/>
+<ellipse
+  id="path3244-1"
+  display="inline"
+  fill="#5a5a5a"
+  fillRule="evenodd"
+  stroke="#454545"
+  strokeWidth={1.39429}
+  strokeLinecap="round"
+  strokeLinejoin="round"
+  cx={38.953232}
+  cy={13.760545}
+  rx={11.309089}
+  ry={11.6584}
+/><ellipse
+  id="path3250"
+  fill="#5a5a5a"
+  fillRule="evenodd"
+  stroke="#454545"
+  strokeWidth={1.39429}
+  strokeLinecap="round"
+  strokeLinejoin="round"
+  transform="scale(-1)"
+  cx={-14.636654}
+  cy={-38.868961}
+  rx={11.309089}
+  ry={11.6584}
+/><ellipse
+  id="path3248-7"
+  fill="#5a5a5a"
+  fillRule="evenodd"
+  stroke="#454545"
+  strokeWidth={1.39429}
+  strokeLinecap="round"
+  strokeLinejoin="round"
+  transform="scale(-1)"
+  cx={-62.995564}
+  cy={-38.626194}
+  rx={11.309089}
+  ry={11.6584}
+/>
+<path
+  id="path3309"
+  fill="none"
+  stroke="#00ff83"
+  strokeWidth={1.1416}
+  transform="matrix(1.2038977,0,0,1.2390022,-501.97409,-623.49444)"
+  d="m 455.30029,518.14036 -11.97417,0 5.98708,-10.36993 z"
+/><rect
+  id="rect3307"
+  fill="none"
+  stroke="#ff01db"
+  strokeWidth={1.39429}
+  rx={0}
+  ry={0}
+  height={13.347011}
+  width={12.947104}
+  y={32.162693}
+  x={8.1595421}
+/>
+
+<ellipse
+  id="path3311"
+  fill="none"
+  stroke="#ff0000"
+  strokeWidth={2.0333}
+  strokeLinecap="round"
+  strokeLinejoin="round"
+  transform="scale(-1)"
+  cx={-63.275723}
+  cy={-38.834965}
+  rx={7.754981}
+  ry={7.9945145}
+/>
+
+<path
+  id="path3313"
+  fill="none"
+  stroke="#8243fb"
+  strokeWidth={1.39429}
+  d="m 33.22124,58.11182 11.67259,12.03315 m 0,-12.03315 -11.67259,12.03315"
+/>
 </svg>
             <Dpad onMove={onPlayer1Move} />
           </div>
