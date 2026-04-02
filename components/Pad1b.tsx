@@ -1,22 +1,33 @@
-
 import { useState } from "react";
 
+/** Must stay in sync with `Direction` in `game-controller5c.tsx` */
+export type DpadDirection =
+  | "left"
+  | "right"
+  | "forward"
+  | "back"
+  | "forward-left"
+  | "forward-right"
+  | "back-left"
+  | "back-right"
+  | "stop";
+
 interface Pad1bProps {
-  buttonDown: (action: string) => void;
+  buttonDown: (dir: DpadDirection) => void;
   buttonUp?: () => void;
 }
 
-
 export default function Pad1b({ buttonDown, buttonUp }: Pad1bProps) {
-  const [pressed, setPressed] = useState(null);
+  const [pressed, setPressed] = useState<string | null>(null);
 
-  const buttonDown1 = (id: any) => {
+  const buttonDown1 = (id: string) => {
     console.log("Pressed1:", id);
     setPressed(id);
   };
 
-  const buttonUp1 = () => {
+  const segmentUp = () => {
     setPressed(null);
+    buttonUp?.();
   };
 
 
@@ -48,9 +59,9 @@ export default function Pad1b({ buttonDown, buttonUp }: Pad1bProps) {
       }}
       onPointerDown={() => {
         buttonDown1("dir1");
-     //   handleDown("rk");
+        buttonDown("stop");
       }}
-      onPointerUp={buttonUp1}
+      onPointerUp={segmentUp}
     />
     <path
       id="path2"
@@ -61,9 +72,9 @@ export default function Pad1b({ buttonDown, buttonUp }: Pad1bProps) {
       }}
       onPointerDown={() => {
         buttonDown1("dir2");
-     //   handleDown("rk");
+        buttonDown("back-right");
       }}
-      onPointerUp={buttonUp1}
+      onPointerUp={segmentUp}
     />
     <path
       id="path2"
@@ -74,9 +85,9 @@ export default function Pad1b({ buttonDown, buttonUp }: Pad1bProps) {
       }}
       onPointerDown={() => {
         buttonDown1("dir3");
-     //   handleDown("rk");
+        buttonDown("forward-right");
       }}
-      onPointerUp={buttonUp1}
+      onPointerUp={segmentUp}
     />
     <path
       id="path3"
@@ -87,9 +98,9 @@ export default function Pad1b({ buttonDown, buttonUp }: Pad1bProps) {
       }}
       onPointerDown={() => {
         buttonDown1("dir4");
-     //   handleDown("rk");
+        buttonDown("forward-left");
       }}
-      onPointerUp={buttonUp1}
+      onPointerUp={segmentUp}
     />
     <path
       id="path4"
@@ -100,9 +111,9 @@ export default function Pad1b({ buttonDown, buttonUp }: Pad1bProps) {
       }}
       onPointerDown={() => {
         buttonDown1("dir5");
-     //   handleDown("rk");
+        buttonDown("back-left");
       }}
-      onPointerUp={buttonUp1}
+      onPointerUp={segmentUp}
     />
     <path
       id="path5"
@@ -114,9 +125,9 @@ export default function Pad1b({ buttonDown, buttonUp }: Pad1bProps) {
       }}
       onPointerDown={() => {
         buttonDown1("dir6");
-     //   handleDown("rk");
+        buttonDown("stop");
       }}
-      onPointerUp={buttonUp1}
+      onPointerUp={segmentUp}
     />
     <path
       id="path6"
@@ -131,9 +142,9 @@ export default function Pad1b({ buttonDown, buttonUp }: Pad1bProps) {
       }}
       onPointerDown={() => {
         buttonDown1("dir7");
-     //   handleDown("rk");
+        buttonDown("back");
       }}
-      onPointerUp={buttonUp1}
+      onPointerUp={segmentUp}
     />
     <path
       id="path7"
@@ -148,9 +159,9 @@ export default function Pad1b({ buttonDown, buttonUp }: Pad1bProps) {
       }}
       onPointerDown={() => {
         buttonDown1("dir8");
-     //   handleDown("rk");
+        buttonDown("left");
       }}
-      onPointerUp={buttonUp1}
+      onPointerUp={segmentUp}
     />
     <path
       id="path8"
@@ -165,9 +176,9 @@ export default function Pad1b({ buttonDown, buttonUp }: Pad1bProps) {
       }}
       onPointerDown={() => {
         buttonDown1("dir9");
-     //   handleDown("rk");
+        buttonDown("right");
       }}
-      onPointerUp={buttonUp1}
+      onPointerUp={segmentUp}
     />
     <path
       id="path9"
@@ -182,9 +193,9 @@ export default function Pad1b({ buttonDown, buttonUp }: Pad1bProps) {
       }}
       onPointerDown={() => {
         buttonDown1("dir10");
-     //   handleDown("rk");
+        buttonDown("forward");
       }}
-      onPointerUp={buttonUp1}
+      onPointerUp={segmentUp}
     />
     <path
       id="path10"
@@ -197,9 +208,9 @@ export default function Pad1b({ buttonDown, buttonUp }: Pad1bProps) {
       }}
       onPointerDown={() => {
         buttonDown1("dir11");
-     //   handleDown("rk");
+        buttonDown("stop");
       }}
-      onPointerUp={buttonUp1}
+      onPointerUp={segmentUp}
     />
   </svg>
      );
