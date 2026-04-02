@@ -159,7 +159,7 @@ const [pressed, setPressed] = useState(null);
       }}
         onPointerDown={() => {
         handleDown2("top2");
-        handleDown("rk");
+        handleDown("rp");
       }}
       onPointerUp={() => {
     handleUp && handleUp();
@@ -218,7 +218,7 @@ const [pressed, setPressed] = useState(null);
       }}
       onPointerDown={() => {
         handleDown5("top5");
-        handleDown("lp");
+        handleDown("rp");
       }}
       onPointerUp={handleUp5}
     />
