@@ -260,12 +260,14 @@ const GameController1: React.FC<GameControllerProps> = ({
           <div className="pr-2 pb-2">
 
         <Pad1a
-  handleDown={(action) => {
-    handleDown(action);     // logs pressed action
-    onPlayer1Action(action);
-  }}
-  handleUp={() => {}} // optional
-/>
+          handleDown={(action) => {
+            console.log("pressed action", action);
+            if (action === "punch" || action === "kick" || action === "block") {
+              onPlayer1Action(action);
+            }
+          }}
+          handleUp={() => {}}
+        />
 
             {/* <Actions onAction={onPlayer1Action} /> */}
           </div>
