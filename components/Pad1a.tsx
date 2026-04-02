@@ -272,7 +272,10 @@ const [pressed, setPressed] = useState(null);
         strokeWidth: 2.31218,
         cursor: "pointer",
       }}
-      onPointerDown={() => handleDown8("top8")}
+       onPointerDown={() => {
+        handleDown5("top8");
+        handleDown("lk");
+      }}
       onPointerUp={handleUp8}
     />
   </svg>
