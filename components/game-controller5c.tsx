@@ -19,7 +19,9 @@ type Direction =
   | "back-right"
   | "stop";
 
-type Action = "punch" | "kick" | "block";
+/** LP/RP = left/right punch, LK/RK = left/right kick */
+export type Player1Action = "lp" | "rp" | "lk" | "rk" | "block";
+type Action = Player1Action;
 
 interface GameControllerProps {
   onPlayer1Move: (dir: Direction) => void;
@@ -43,7 +45,23 @@ const GameController1: React.FC<GameControllerProps> = ({
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       const key = e.key.toLowerCase();
-      if (["w", "a", "s", "d", "j", "k", "l", "arrowup", "arrowdown", "arrowleft", "arrowright"].includes(key)) {
+      if (
+        [
+          "w",
+          "a",
+          "s",
+          "d",
+          "j",
+          "k",
+          "u",
+          "i",
+          "l",
+          "arrowup",
+          "arrowdown",
+          "arrowleft",
+          "arrowright",
+        ].includes(key)
+      ) {
         e.preventDefault();
       }
       if (keysPressed.current.has(key)) return;
@@ -55,9 +73,11 @@ const GameController1: React.FC<GameControllerProps> = ({
       if (key === "w") onPlayer1Move("forward");
       if (key === "s") onPlayer1Move("back");
 
-      // Actions
-      if (key === "j") onPlayer1Action("punch");
-      if (key === "k") onPlayer1Action("kick");
+      // Actions: j/k = punches, u/i = kicks, l = block
+      if (key === "j") onPlayer1Action("lp");
+      if (key === "k") onPlayer1Action("rp");
+      if (key === "u") onPlayer1Action("lk");
+      if (key === "i") onPlayer1Action("rk");
       if (key === "l") onPlayer1Action("block");
     };
 
@@ -119,11 +139,12 @@ const GameController1: React.FC<GameControllerProps> = ({
       onPlayer1Move(newDir);
     }
 
-    // --- Actions: Face Buttons (standard mapping) ---
-    // 0 = A (punch), 1 = B (kick), 2 = X (block) — change as you like
-    if (gp.buttons[0]?.pressed) onPlayer1Action("punch");
-    if (gp.buttons[1]?.pressed) onPlayer1Action("kick");
-    if (gp.buttons[2]?.pressed) onPlayer1Action("block");
+    // --- Actions: face buttons + LB (Xbox-style indices) ---
+    if (gp.buttons[0]?.pressed) onPlayer1Action("lp");
+    if (gp.buttons[1]?.pressed) onPlayer1Action("rp");
+    if (gp.buttons[2]?.pressed) onPlayer1Action("lk");
+    if (gp.buttons[3]?.pressed) onPlayer1Action("rk");
+    if (gp.buttons[4]?.pressed) onPlayer1Action("block");
 
     rafRef.current = requestAnimationFrame(updateGamepad);
   }, [onPlayer1Move, onPlayer1Action]);
@@ -238,10 +259,10 @@ const GameController1: React.FC<GameControllerProps> = ({
   const Actions = ({ onAction }: { onAction: (a: Action) => void }) => (
     <div className="flex flex-col items-center gap-2">
       <div className="grid grid-cols-2 gap-1.5">
-        <ActionButton action="punch" label="LP" color="amber" onAction={onAction} />
-        <ActionButton action="punch" label="RP" color="amber" onAction={onAction} />
-        <ActionButton action="kick" label="LK" color="red" onAction={onAction} />
-        <ActionButton action="kick" label="RK" color="red" onAction={onAction} />
+        <ActionButton action="lp" label="LP" color="amber" onAction={onAction} />
+        <ActionButton action="rp" label="RP" color="amber" onAction={onAction} />
+        <ActionButton action="lk" label="LK" color="red" onAction={onAction} />
+        <ActionButton action="rk" label="RK" color="red" onAction={onAction} />
       </div>
     </div>
   );
@@ -262,7 +283,13 @@ const GameController1: React.FC<GameControllerProps> = ({
         <Pad1a
           handleDown={(action) => {
             console.log("pressed action", action);
-            if (action === "punch" || action === "kick" || action === "block") {
+            if (
+              action === "lp" ||
+              action === "rp" ||
+              action === "lk" ||
+              action === "rk" ||
+              action === "block"
+            ) {
               onPlayer1Action(action);
             }
           }}

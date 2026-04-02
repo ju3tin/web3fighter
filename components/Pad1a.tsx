@@ -117,7 +117,7 @@ const [pressed, setPressed] = useState(null);
         strokeWidth: 2.11618,
         cursor: "pointer",
       }}
-      onPointerDown={() => handleDown("top0")}
+      onPointerDown={() => handleDown("block")}
       onPointerUp={handleUp}
     />
     <ellipse
@@ -135,7 +135,10 @@ const [pressed, setPressed] = useState(null);
         strokeLinejoin: "round",
         cursor: "pointer",
       }}
-      onPointerDown={() => handleDown1("top1")}
+      onPointerDown={() => {
+        handleDown1("top1");
+        handleDown("lk");
+      }}
       onPointerUp={handleUp1}
     />
     <ellipse
@@ -155,8 +158,8 @@ const [pressed, setPressed] = useState(null);
         cursor: "pointer",
       }}
         onPointerDown={() => {
-        handleDown2("top2");    // your main function
-        handleDown("kick");   // your second function
+        handleDown2("top2");
+        handleDown("rk");
       }}
       onPointerUp={() => {
     handleUp && handleUp();
@@ -210,7 +213,10 @@ const [pressed, setPressed] = useState(null);
         strokeWidth: 2.31213,
         cursor: "pointer",
       }}
-      onPointerDown={() => handleDown5("top5")}
+      onPointerDown={() => {
+        handleDown5("top5");
+        handleDown("lp");
+      }}
       onPointerUp={handleUp5}
     />
     <rect
@@ -227,7 +233,10 @@ const [pressed, setPressed] = useState(null);
         strokeWidth: 2.31218,
         cursor: "pointer",
       }}
-      onPointerDown={() => handleDown6("top6")}
+      onPointerDown={() => {
+        handleDown6("top6");
+        handleDown("rp");
+      }}
       onPointerUp={handleUp6}
     />
     <ellipse

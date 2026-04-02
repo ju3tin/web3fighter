@@ -5,7 +5,7 @@ import { useState, useCallback, useEffect } from "react";
 import { GameScene } from "@/components/game-scene";
 import { GameUI } from "@/components/game-ui";
 import { GameController } from "@/components/game-controller";
-import { GameController1 } from "@/components/game-controller5c";
+import { GameController1, type Player1Action } from "@/components/game-controller5c";
 import { Button } from "@/components/ui/button";
 import { useSearchParams } from "next/navigation";
 
@@ -213,7 +213,7 @@ export default function TekkenGame({ selectedId }: Props) {
     defenderPos: [number, number, number],
     damageSetter: React.Dispatch<React.SetStateAction<number>>,
     eventName: string,
-    action: "punch" | "kick" | "block"
+    action: Player1Action
   ) => {
     if (gameState !== "playing" || action === "block") return;
 
@@ -223,14 +223,14 @@ export default function TekkenGame({ selectedId }: Props) {
     );
 
     if (distance < 1.5) {
-      const damage = action === "punch" ? 5 : 8;
+      const damage = action === "lp" || action === "rp" ? 5 : 8;
       damageSetter((hp) => Math.max(hp - damage, 0));
       window.dispatchEvent(new Event(eventName));
     }
   };
 
   const handlePlayer1Action = useCallback(
-    (a: "punch" | "kick" | "block") =>
+    (a: Player1Action) =>
       attack(
         player1Position,
         player2Position,
@@ -242,7 +242,7 @@ export default function TekkenGame({ selectedId }: Props) {
   );
 
   const handlePlayer2Action = useCallback(
-    (a: "punch" | "kick" | "block") =>
+    (a: Player1Action) =>
       attack(
         player2Position,
         player1Position,
