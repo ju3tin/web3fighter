@@ -9,6 +9,17 @@ interface Pad1bProps {
 
 export default function Pad1b({ buttonDown, buttonUp }: Pad1bProps) {
   const [pressed, setPressed] = useState(null);
+
+  const buttonDown1 = (id: any) => {
+    console.log("Pressed1:", id);
+    setPressed(id);
+  };
+
+  const buttonUp1 = () => {
+    setPressed(null);
+  };
+
+
   return (
  <svg xmlns="http://www.w3.org/2000/svg" width={128} height={128} opacity="0.5">
     <circle
@@ -35,6 +46,11 @@ export default function Pad1b({ buttonDown, buttonUp }: Pad1bProps) {
         fillRule: "evenodd",
         strokeWidth: 1.64111,
       }}
+      onPointerDown={() => {
+        buttonDown1("dir1");
+     //   handleDown("rk");
+      }}
+      onPointerUp={buttonUp1}
     />
     <path
       id="path2"
@@ -43,6 +59,11 @@ export default function Pad1b({ buttonDown, buttonUp }: Pad1bProps) {
         fill: "#28170b",
         strokeWidth: 2.46972,
       }}
+      onPointerDown={() => {
+        buttonDown1("dir2");
+     //   handleDown("rk");
+      }}
+      onPointerUp={buttonUp1}
     />
     <path
       id="path2"
@@ -51,6 +72,11 @@ export default function Pad1b({ buttonDown, buttonUp }: Pad1bProps) {
         fill: "#28170b",
         strokeWidth: 2.60214,
       }}
+      onPointerDown={() => {
+        buttonDown1("dir3");
+     //   handleDown("rk");
+      }}
+      onPointerUp={buttonUp1}
     />
     <path
       id="path3"
@@ -59,6 +85,11 @@ export default function Pad1b({ buttonDown, buttonUp }: Pad1bProps) {
         fill: "#28170b",
         strokeWidth: 2.60211,
       }}
+      onPointerDown={() => {
+        buttonDown1("dir4");
+     //   handleDown("rk");
+      }}
+      onPointerUp={buttonUp1}
     />
     <path
       id="path4"
@@ -67,6 +98,11 @@ export default function Pad1b({ buttonDown, buttonUp }: Pad1bProps) {
         fill: "#28170b",
         strokeWidth: 2.42764,
       }}
+      onPointerDown={() => {
+        buttonDown1("dir5");
+     //   handleDown("rk");
+      }}
+      onPointerUp={buttonUp1}
     />
     <path
       id="path5"
@@ -76,6 +112,11 @@ export default function Pad1b({ buttonDown, buttonUp }: Pad1bProps) {
         fillOpacity: 1,
         strokeWidth: 0.887608,
       }}
+      onPointerDown={() => {
+        buttonDown1("dir6");
+     //   handleDown("rk");
+      }}
+      onPointerUp={buttonUp1}
     />
     <path
       id="path6"
@@ -88,6 +129,11 @@ export default function Pad1b({ buttonDown, buttonUp }: Pad1bProps) {
         strokeLinecap: "round",
         strokeLinejoin: "round",
       }}
+      onPointerDown={() => {
+        buttonDown1("dir7");
+     //   handleDown("rk");
+      }}
+      onPointerUp={buttonUp1}
     />
     <path
       id="path7"
@@ -100,6 +146,11 @@ export default function Pad1b({ buttonDown, buttonUp }: Pad1bProps) {
         strokeLinecap: "round",
         strokeLinejoin: "round",
       }}
+      onPointerDown={() => {
+        buttonDown1("dir8");
+     //   handleDown("rk");
+      }}
+      onPointerUp={buttonUp1}
     />
     <path
       id="path8"
@@ -112,6 +163,11 @@ export default function Pad1b({ buttonDown, buttonUp }: Pad1bProps) {
         strokeLinecap: "round",
         strokeLinejoin: "round",
       }}
+      onPointerDown={() => {
+        buttonDown1("dir9");
+     //   handleDown("rk");
+      }}
+      onPointerUp={buttonUp1}
     />
     <path
       id="path9"
@@ -124,6 +180,11 @@ export default function Pad1b({ buttonDown, buttonUp }: Pad1bProps) {
         strokeLinecap: "round",
         strokeLinejoin: "round",
       }}
+      onPointerDown={() => {
+        buttonDown1("dir10");
+     //   handleDown("rk");
+      }}
+      onPointerUp={buttonUp1}
     />
     <path
       id="path10"
@@ -134,6 +195,11 @@ export default function Pad1b({ buttonDown, buttonUp }: Pad1bProps) {
         fillRule: "evenodd",
         strokeWidth: 0.929205,
       }}
+      onPointerDown={() => {
+        buttonDown1("dir11");
+     //   handleDown("rk");
+      }}
+      onPointerUp={buttonUp1}
     />
   </svg>
      );

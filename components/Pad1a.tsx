@@ -18,7 +18,7 @@ const [pressed, setPressed] = useState(null);
     setPressed(null);
   };
 */
-   const handleDown1 = (id) => {
+   const handleDown1 = (id: any) => {
     console.log("Pressed1:", id);
     setPressed(id);
   };
@@ -27,7 +27,7 @@ const [pressed, setPressed] = useState(null);
     setPressed(null);
   };
 
-  const handleDown2 = (id) => {
+  const handleDown2 = (id: any) => {
     console.log("Pressed2:", id);
     setPressed(id);
   };
@@ -35,7 +35,7 @@ const [pressed, setPressed] = useState(null);
   const handleUp2 = () => {
     setPressed(null);
   };
-  const handleDown3 = (id) => {
+  const handleDown3 = (id: any) => {
     console.log("Pressed3:", id);
     setPressed(id);
   };
@@ -44,7 +44,7 @@ const [pressed, setPressed] = useState(null);
     setPressed(null);
   };
 
-  const handleDown4 = (id) => {
+  const handleDown4 = (id: any) => {
     console.log("Pressed4:", id);
     setPressed(id);
   };
@@ -53,7 +53,7 @@ const [pressed, setPressed] = useState(null);
     setPressed(null);
   };
 
-  const handleDown5 = (id) => {
+  const handleDown5 = (id: any) => {
     console.log("Pressed5:", id);
     setPressed(id);
   };
@@ -62,7 +62,7 @@ const [pressed, setPressed] = useState(null);
     setPressed(null);
   };
 
-  const handleDown6 = (id) => {
+  const handleDown6 = (id: any) => {
     console.log("Pressed6:", id);
     setPressed(id);
   };
@@ -71,7 +71,7 @@ const [pressed, setPressed] = useState(null);
     setPressed(null);
   };
 
-  const handleDown7 = (id) => {
+  const handleDown7 = (id: any) => {
     console.log("Pressed7:", id);
     setPressed(id);
   };
@@ -80,7 +80,7 @@ const [pressed, setPressed] = useState(null);
     setPressed(null);
   };
 
-  const handleDown8 = (id) => {
+  const handleDown8 = (id: any) => {
     console.log("Pressed8:", id);
     setPressed(id);
   };
