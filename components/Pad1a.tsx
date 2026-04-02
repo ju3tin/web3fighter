@@ -182,7 +182,10 @@ const [pressed, setPressed] = useState(null);
         cursor: "pointer",
       }}
       transform="scale(-1)"
-      onPointerDown={() => handleDown3("top3")}
+        onPointerDown={() => {
+        handleDown6("top3");
+        handleDown("lp");
+      }}
       onPointerUp={handleUp3}
     />
     <ellipse
@@ -238,7 +241,7 @@ const [pressed, setPressed] = useState(null);
       }}
       onPointerDown={() => {
         handleDown6("top6");
-        handleDown("rp");
+        handleDown("lp");
       }}
       onPointerUp={handleUp6}
     />
