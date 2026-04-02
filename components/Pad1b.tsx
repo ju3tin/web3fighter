@@ -1,4 +1,14 @@
-export default function Pad1b() {
+
+import { useState } from "react";
+
+interface Pad1bProps {
+  buttonDown: (action: string) => void;
+  buttonUp?: () => void;
+}
+
+
+export default function Pad1b({ buttonDown, buttonUp }: Pad1bProps) {
+  const [pressed, setPressed] = useState(null);
   return (
  <svg xmlns="http://www.w3.org/2000/svg" width={128} height={128} opacity="0.5">
     <circle
