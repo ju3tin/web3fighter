@@ -201,7 +201,10 @@ const [pressed, setPressed] = useState(null);
         cursor: "pointer",
       }}
       transform="scale(-1)"
-      onPointerDown={() => handleDown4("top4")}
+       onPointerDown={() => {
+        handleDown1("top4");
+        handleDown("rk");
+      }}
       onPointerUp={handleUp4}
     />
     <path
@@ -254,7 +257,10 @@ const [pressed, setPressed] = useState(null);
         cursor: "pointer",
       }}
       transform="scale(-1)"
-      onPointerDown={() => handleDown7("top7")}
+       onPointerDown={() => {
+        handleDown1("top7");
+        handleDown("rk");
+      }}
       onPointerUp={handleUp7}
     />
     <path
