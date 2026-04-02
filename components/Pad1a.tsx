@@ -154,8 +154,14 @@ const [pressed, setPressed] = useState(null);
         strokeLinejoin: "round",
         cursor: "pointer",
       }}
-      onPointerDown={() => handleDown2("top2")}
-      onPointerUp={handleUp2}
+        onPointerDown={() => {
+        handleDown2("top2");    // your main function
+        handleDown("kick");   // your second function
+      }}
+      onPointerUp={() => {
+    handleUp && handleUp();
+    handleUp2 && handleUp2();
+  }}
     />
     <ellipse
       id="ellipse3a"
