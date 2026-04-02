@@ -8,12 +8,12 @@ interface Pad1bProps {
 
 export default function Pad1a({ handleDown, handleUp }: Pad1bProps) {
 const [pressed, setPressed] = useState(null);
-
+/*
   const handleDown = (id) => {
     console.log("Pressed0:", id);
     setPressed(id);
   };
-/*
+
   const handleUp = () => {
     setPressed(null);
   };
