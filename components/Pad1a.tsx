@@ -13,11 +13,11 @@ const [pressed, setPressed] = useState(null);
     console.log("Pressed0:", id);
     setPressed(id);
   };
-
+/*
   const handleUp = () => {
     setPressed(null);
   };
-
+*/
    const handleDown1 = (id) => {
     console.log("Pressed1:", id);
     setPressed(id);
