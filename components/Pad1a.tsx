@@ -1,12 +1,12 @@
 
 import { useState } from "react";
 
-interface Pad1bProps {
+interface Pad1aProps {
   handleDown: (action: string) => void;
   handleUp?: () => void;
 }
 
-export default function Pad1a({ handleDown, handleUp }: Pad1bProps) {
+export default function Pad1a({ handleDown, handleUp }: Pad1aProps) {
 const [pressed, setPressed] = useState(null);
 /*
   const handleDown = (id) => {
