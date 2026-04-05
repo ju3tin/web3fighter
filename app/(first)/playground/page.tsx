@@ -42,7 +42,7 @@ export default function AnimationPlayground() {
         <h2 className="text-xl font-bold">Animation Controls</h2>
 
         <div className="grid grid-cols-2 gap-2">
-          <Button onClick={() => setAction("Idle")}>Idle</Button>
+          <Button onClick={() => setAction("idle")}>Idle</Button>
           <Button onClick={() => setAction("walk")}>Walk</Button>
           <Button onClick={() => setAction("punch")}>Punch</Button>
           <Button onClick={() => setAction("kick")}>Kick</Button>
