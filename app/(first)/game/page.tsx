@@ -2,7 +2,7 @@
 "use client";
 
 import { Suspense } from "react";
-import TekkenGame from "@/components/TekkenGame1";
+import TekkenGame from "@/components/TekkenGame2";
 import { useEffect, useState } from "react";
 // Optional but recommended for real-time games
 export const dynamic = "force-dynamic";
