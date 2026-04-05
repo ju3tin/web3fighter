@@ -15,7 +15,7 @@ export default function WheelPicker({ items }: WheelPickerProps = {}) {
   const defaultRoutes = {
     "Start Game": "/select?mode=fight", 
     "Tutorial": "/select?mode=tutorial",
-    "Marketplace": "/marketplac3",
+    "Marketplace": "/marketplace",
     "Settings": "/settings",
     "Credits": "/credits",
     "Leaderboard": "/leaderboard",
