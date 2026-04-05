@@ -7,6 +7,7 @@
         {
           id: "1",
           name: "Flash Punch Combo",
+          anime: "ert.glb",
           command: ["1", "1", "2"],
           damage: 32,
           type: "high",
@@ -16,6 +17,7 @@
         {
           id: "2",
           name: "Rising Uppercut",
+          anime: "ert.glb",
           command: ["d/f", "2"],
           damage: 25,
           type: "mid",
@@ -25,6 +27,7 @@
         {
           id: "3",
           name: "Sweep Kick",
+          anime: "ert.glb",
           command: ["d", "3"],
           damage: 18,
           type: "low",
@@ -34,6 +37,7 @@
         {
           id: "4",
           name: "Power Slam",
+          anime: "ert.glb",
           command: ["1+3"],
           damage: 40,
           type: "throw",
@@ -43,6 +47,7 @@
         {
           id: "5",
           name: "Rage Drive",
+          anime: "ert.glb",
           command: ["d/f", "1+2"],
           damage: 55,
           type: "special",
@@ -52,6 +57,7 @@
         {
           id: "6",
           name: "Hellsweep",
+          anime: "ert.glb",
           command: ["f", "n", "d", "d/f", "4"],
           damage: 21,
           type: "low",
@@ -61,6 +67,7 @@
         {
           id: "7",
           name: "Electric Wind God Fist",
+          anime: "ert.glb",
           command: ["f", "n", "d", "d/f", "2"],
           damage: 30,
           type: "mid",
@@ -70,6 +77,7 @@
         {
           id: "8",
           name: "Dragon Uppercut",
+          anime: "ert.glb",
           command: ["f", "d", "d/f", "1"],
           damage: 28,
           type: "mid",
@@ -79,6 +87,7 @@
         {
           id: "9",
           name: "Spinning Demon",
+          anime: "ert.glb",
           command: ["4", "4", "4"],
           damage: 45,
           type: "high",
@@ -88,6 +97,7 @@
         {
           id: "10",
           name: "Tackle",
+          anime: "ert.glb",
           command: ["f", "f", "1+2"],
           damage: 35,
           type: "throw",
@@ -100,6 +110,7 @@
             {
               id: "1",
               name: "Flash Punch Combo",
+              anime: "ert.glb",
               command: ["1", "1", "2"],
               damage: 32,
               type: "high",
@@ -109,6 +120,7 @@
             {
               id: "2",
               name: "Rising Uppercut",
+              anime: "ert.glb",
               command: ["d/f", "2"],
               damage: 25,
               type: "mid",
@@ -118,6 +130,7 @@
             {
               id: "3",
               name: "Sweep Kick",
+              anime: "ert.glb",
               command: ["d", "3"],
               damage: 18,
               type: "low",
@@ -127,6 +140,7 @@
             {
               id: "4",
               name: "Power Slam",
+              anime: "ert.glb",
               command: ["1+3"],
               damage: 40,
               type: "throw",
@@ -136,6 +150,7 @@
             {
               id: "5",
               name: "Rage Drive",
+              anime: "ert.glb",
               command: ["d/f", "1+2"],
               damage: 55,
               type: "special",
@@ -145,6 +160,7 @@
             {
               id: "6",
               name: "Hellsweep",
+              anime: "ert.glb",
               command: ["f", "n", "d", "d/f", "4"],
               damage: 21,
               type: "low",
@@ -154,6 +170,7 @@
             {
               id: "7",
               name: "Electric Wind God Fist",
+              anime: "ert.glb",
               command: ["f", "n", "d", "d/f", "2"],
               damage: 30,
               type: "mid",
@@ -163,6 +180,7 @@
             {
               id: "8",
               name: "Dragon Uppercut",
+              anime: "ert.glb",
               command: ["f", "d", "d/f", "1"],
               damage: 28,
               type: "mid",
@@ -172,6 +190,7 @@
             {
               id: "9",
               name: "Spinning Demon",
+              anime: "ert.glb",
               command: ["4", "4", "4"],
               damage: 45,
               type: "high",
@@ -181,6 +200,7 @@
             {
               id: "10",
               name: "Tackle",
+              anime: "ert.glb",
               command: ["f", "f", "1+2"],
               damage: 35,
               type: "throw",
@@ -193,6 +213,7 @@
             {
               id: "1",
               name: "Flash Punch Combo",
+              anime: "ert.glb",
               command: ["1", "1", "2"],
               damage: 32,
               type: "high",
@@ -205,6 +226,7 @@
             {
               id: "1",
               name: "Flash Punch Combo",
+              anime: "ert.glb",
               command: ["1", "1", "2"],
               damage: 32,
               type: "high",
@@ -217,6 +239,7 @@
             {
               id: "1",
               name: "Flash Punch Combo",
+              anime: "ert.glb",
               command: ["1", "1", "2"],
               damage: 32,
               type: "high",
@@ -229,6 +252,7 @@
             {
               id: "1",
               name: "Flash Punch Combo",
+              anime: "ert.glb",
               command: ["1", "1", "2"],
               damage: 32,
               type: "high",
@@ -241,6 +265,7 @@
             {
               id: "1",
               name: "Flash Punch Combo",
+              anime: "ert.glb",
               command: ["1", "1", "2"],
               damage: 32,
               type: "high",
@@ -253,6 +278,7 @@
             {
               id: "1",
               name: "Flash Punch Combo",
+              anime: "ert.glb",
               command: ["1", "1", "2"],
               damage: 32,
               type: "high",
@@ -265,6 +291,7 @@
             {
               id: "1",
               name: "Flash Punch Combo",
+              anime: "ert.glb",
               type: "high",
               properties: ["combo", "quick"],
               description: "A rapid three-hit combo that catches opponents off-guard. Great for pressure.",
@@ -275,6 +302,7 @@
             {
               id: "1",
               name: "Flash Punch Combo",
+              anime: "ert.glb",
               command: ["1", "1", "2"],
               damage: 32,
               type: "high",
@@ -287,6 +315,7 @@
                 {
                   id: "1",
                   name: "Flash Punch Combo",
+                  anime: "ert.glb",
                   command: ["1", "1", "2"],
                   damage: 32,
                   type: "high",
@@ -299,6 +328,7 @@
             {
               id: "1",
               name: "Flash Punch Combo",
+              anime: "ert.glb",
               command: ["1", "1", "2"],
               damage: 32,
               type: "high",
