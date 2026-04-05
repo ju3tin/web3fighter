@@ -48,7 +48,7 @@ export function GameScene({ player1Position, player2Position, p1, model, animeli
         //color="#0066ff"
         name="Player 2"
         isPlayer1={false}
-        modelPath="/anime/1a.glb"
+        modelPath="/anime/1abc.glb"
         //animationPath="/anime/1a.glb"
         direction="stop"
         action="fightstance"
