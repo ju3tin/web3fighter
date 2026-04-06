@@ -55,15 +55,23 @@ export default function TekkenGame({ selectedId }: Props) {
   gameStateRef.current = gameState;
 
   /* ---------------- LOOK AT ROTATION ---------------- */
-  const getLookAtRotation = (
-    from: [number, number, number],
-    to: [number, number, number]
-  ): [number, number, number] => {
-    const dx = to[0] - from[0];
-    const dz = to[2] - from[2];
-    const angle = Math.atan2(dx, dz);
-    return [0, angle, 0];
-  };
+ /* ---------------- LOOK AT ROTATION (Improved) ---------------- */
+const getLookAtRotation = (
+  from: [number, number, number],
+  to: [number, number, number]
+): [number, number, number] => {
+  const dx = to[0] - from[0];
+  const dz = to[2] - from[2];
+  
+  // atan2(dz, dx) is often more intuitive for "forward" being +Z in many models
+  // Add Math.PI if your model is facing the wrong way by default
+  let angle = Math.atan2(dx, dz);   // Try this first
+  
+  // If fighters are facing away from each other, uncomment the line below:
+  // angle += Math.PI;
+
+  return [0, angle, 0];
+};
 
   /* ---------------- CHARACTER LOAD ---------------- */
   useEffect(() => {
