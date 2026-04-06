@@ -5,7 +5,7 @@ import * as THREE from "three"
 
 export type Direction = "left" | "right" | "forward" | "back" | "stop" | null
 export type FighterAction =
-  | "Idle"
+  | "idle"
   | "walk"
   | "punch"
   | "kick"
@@ -36,7 +36,7 @@ export function Fighter({
   const { actions, mixer } = useAnimations(animations, groupRef)
 
   /* ---------- STATE ---------- */
-  const [currentAction, setCurrentAction] = useState<FighterAction>("Idle")
+  const [currentAction, setCurrentAction] = useState<FighterAction>("idle")
 
   /* ---------- DEBUG: LOG AVAILABLE ACTIONS ---------- */
   useEffect(() => {
@@ -107,8 +107,8 @@ export function Fighter({
       case "fightstance":
         play("fightstance", THREE.LoopRepeat)
         break
-      case "Idle":
-        play("Idle", THREE.LoopRepeat)
+      case "idle":
+        play("idle", THREE.LoopRepeat)
         break
       case "walk":
         play("Walk", THREE.LoopRepeat)
@@ -133,7 +133,7 @@ export function Fighter({
   /* ---------- RENDER ---------- */
   useEffect(() => {
     if (actions && mixer && !currentAction) {
-      // Default to Idle animation on initial load
+      // Default to idle animation on initial load
       actions["fightstance"]
         ?.reset()
         .setLoop(THREE.LoopRepeat, Infinity)
@@ -143,7 +143,7 @@ export function Fighter({
     }
   }, [actions, mixer, currentAction])
 
-  /* ---------- RETURN TO Idle AFTER ONE-SHOTS ---------- */
+  /* ---------- RETURN TO idle AFTER ONE-SHOTS ---------- */
   useEffect(() => {
     if (!mixer) return
 
