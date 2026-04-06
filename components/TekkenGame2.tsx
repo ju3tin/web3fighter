@@ -9,14 +9,13 @@ import { Button } from "@/components/ui/button";
 import { useSearchParams } from "next/navigation";
 
 /* ---------------- TYPES ---------------- */
-
 type GameState = "playing" | "paused" | "round-end" | "game-over";
 
 type Character = {
   id: string;
   model: string;
-  animelist: string[];           // Fixed: should be array, not string
-  moveslist?: Array<string>;
+  animelist: string[];        // Fixed: should be array
+  moveslist?: string[];
 };
 
 type Direction = "left" | "right" | "forward" | "back" | null;
@@ -26,7 +25,6 @@ type Props = {
 };
 
 /* ---------------- COMPONENT ---------------- */
-
 export default function TekkenGame({ selectedId }: Props) {
   const searchParams = useSearchParams();
   const p1 = searchParams?.get("p1") ?? "ken";
@@ -52,15 +50,19 @@ export default function TekkenGame({ selectedId }: Props) {
   const [p1Dir, setP1Dir] = useState<Direction>(null);
   const [p2Dir, setP2Dir] = useState<Direction>(null);
 
-  /* ---------------- REFS (to avoid stale closures) ---------------- */
+  // Ref to prevent stale closures in attack callbacks
   const gameStateRef = useRef(gameState);
   gameStateRef.current = gameState;
 
-  const getLookAtRotation = (from: [number, number, number], to: [number, number, number]) => {
+  /* ---------------- LOOK AT ROTATION ---------------- */
+  const getLookAtRotation = (
+    from: [number, number, number],
+    to: [number, number, number]
+  ): [number, number, number] => {
     const dx = to[0] - from[0];
     const dz = to[2] - from[2];
     const angle = Math.atan2(dx, dz);
-    return [0, angle, 0] as [number, number, number];
+    return [0, angle, 0];
   };
 
   /* ---------------- CHARACTER LOAD ---------------- */
@@ -68,13 +70,11 @@ export default function TekkenGame({ selectedId }: Props) {
     async function fetchCharacter() {
       try {
         const res = await fetch("/api/chartactermovelist");
-        if (!res.ok) throw new Error("Failed to fetch characters");
-        
         const data: Character[] = await res.json();
         const result = data.find((item) => item.id === (selectedId ?? p1));
         setCharacter(result ?? null);
-      } catch (error) {
-        console.error("Failed to load character:", error);
+      } catch (err) {
+        console.error("Failed to fetch character data:", err);
       }
     }
 
@@ -85,12 +85,12 @@ export default function TekkenGame({ selectedId }: Props) {
   useEffect(() => {
     if (gameState !== "playing") return;
 
-    const interval = setInterval(() => {
+    const loop = setInterval(() => {
       if (p1Dir) movePlayer(setPlayer1Position, p1Dir);
       if (p2Dir) movePlayer(setPlayer2Position, p2Dir);
-    }, 16); // ~60 FPS
+    }, 16); // ~60fps
 
-    return () => clearInterval(interval);
+    return () => clearInterval(loop);
   }, [p1Dir, p2Dir, gameState]);
 
   /* ---------------- TIMER ---------------- */
@@ -114,7 +114,6 @@ export default function TekkenGame({ selectedId }: Props) {
   /* ---------------- KO CHECK ---------------- */
   useEffect(() => {
     if (gameState !== "playing") return;
-
     if (player1Health <= 0) endRound("Player 2");
     if (player2Health <= 0) endRound("Player 1");
   }, [player1Health, player2Health, gameState]);
@@ -176,7 +175,6 @@ export default function TekkenGame({ selectedId }: Props) {
     direction: Exclude<Direction, null>
   ) => {
     const speed = 0.1;
-
     setter(([x, y, z]) => {
       switch (direction) {
         case "left":
@@ -199,7 +197,7 @@ export default function TekkenGame({ selectedId }: Props) {
       attackerPos: [number, number, number],
       defenderPos: [number, number, number],
       damageSetter: React.Dispatch<React.SetStateAction<number>>,
-      hitEvent: string,
+      eventName: string,
       action: Player1Action
     ) => {
       if (gameStateRef.current !== "playing" || action === "block") return;
@@ -212,23 +210,21 @@ export default function TekkenGame({ selectedId }: Props) {
       if (distance < 1.5) {
         const damage = action === "lp" || action === "rp" ? 5 : 8;
         damageSetter((hp) => Math.max(hp - damage, 0));
-        window.dispatchEvent(new Event(hitEvent));
+        window.dispatchEvent(new Event(eventName));
       }
     },
     []
   );
 
   const handlePlayer1Action = useCallback(
-    (action: Player1Action) => {
-      performAttack(player1Position, player2Position, setPlayer2Health, "Player2-hit", action);
-    },
+    (a: Player1Action) =>
+      performAttack(player1Position, player2Position, setPlayer2Health, "Player2-hit", a),
     [player1Position, player2Position, performAttack]
   );
 
   const handlePlayer2Action = useCallback(
-    (action: Player1Action) => {
-      performAttack(player2Position, player1Position, setPlayer1Health, "Player1-hit", action);
-    },
+    (a: Player1Action) =>
+      performAttack(player2Position, player1Position, setPlayer1Health, "Player1-hit", a),
     [player2Position, player1Position, performAttack]
   );
 
@@ -245,7 +241,9 @@ export default function TekkenGame({ selectedId }: Props) {
           <GameScene
             p1={p1}
             model={character.model}
-            animelist={character.animelist}
+            animelist={character.animelist}           // now correctly typed as string[]
+            player1Position={player1Position}
+            player2Position={player2Position}
             player1Rotation={getLookAtRotation(player1Position, player2Position)}
             player2Rotation={getLookAtRotation(player2Position, player1Position)}
           />
@@ -307,7 +305,7 @@ export default function TekkenGame({ selectedId }: Props) {
         </div>
       )}
 
-      {/* Optional Start / Paused Screen */}
+      {/* Paused Screen */}
       {gameState === "paused" && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/70 z-50">
           <Button size="lg" onClick={startGame}>
