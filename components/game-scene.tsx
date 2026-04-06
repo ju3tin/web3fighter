@@ -1,7 +1,7 @@
 "use client";
 
 import { Environment, ContactShadows } from "@react-three/drei";
-import { Fighter } from "./fighter8";
+import { Fighter } from "./fighter9";
 import { Arena } from "./arena1";
 import { GameCamera } from "./game-camera";
 
