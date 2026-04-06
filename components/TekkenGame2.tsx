@@ -270,15 +270,21 @@ export default function TekkenGame({ selectedId }: Props) {
         gl={{ powerPreference: "high-performance" }}
         camera={{ position: [0, 2, 8], fov: 50 }}
       >
-        {character && (
-          <GameScene
-            p1={p1}
-            model={character.model}
-            animelist={character.animelist}
-            player1Rotation={getLookAtRotation(player1Position, player2Position)}
-            player2Rotation={getLookAtRotation(player2Position, player1Position)}
-          />
-        )}
+       {character ? (
+  <GameScene
+    p1={p1}
+    model={character.model}
+    animelist={character.animelist}
+    player1Rotation={getLookAtRotation(player1Position, player2Position)}
+    player2Rotation={getLookAtRotation(player2Position, player1Position)}
+  />
+) : (
+  // Optional: show a loading placeholder in the Canvas
+  <mesh>
+    <boxGeometry args={[1, 1, 1]} />
+    <meshStandardMaterial color="gray" />
+  </mesh>
+)}
       </Canvas>
   
       {/* ──────────────────────────────────────────────── */}
