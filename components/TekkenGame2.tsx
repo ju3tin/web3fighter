@@ -62,6 +62,13 @@ export default function TekkenGame({ selectedId }: Props) {
   const [p1Dir, setP1Dir] = useState<Direction>(null);
   const [p2Dir, setP2Dir] = useState<Direction>(null);
 
+  const getLookAtRotation = (from: [number, number, number], to: [number, number, number]) => {
+  const dx = to[0] - from[0];
+  const dz = to[2] - from[2];
+  const angle = Math.atan2(dx, dz); // Y-axis rotation
+  return [0, angle, 0]; // rotation in radians [x, y, z]
+};
+
   /* ---------------- CHARACTER LOAD ---------------- */
 
   useEffect(() => {
