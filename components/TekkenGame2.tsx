@@ -272,11 +272,11 @@ export default function TekkenGame({ selectedId }: Props) {
       >
         {character && (
           <GameScene
-            player1Position={player1Position}
-            player2Position={player2Position}
             p1={p1}
             model={character.model}
             animelist={character.animelist}
+            player1Rotation={getLookAtRotation(player1Position, player2Position)}
+            player2Rotation={getLookAtRotation(player2Position, player1Position)}
           />
         )}
       </Canvas>
