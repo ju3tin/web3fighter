@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
 import { useRouter } from 'next/router';
-import marked from 'marked';
+import { marked } from 'marked';
 
 export default function WikiPage() {
   const router = useRouter();
