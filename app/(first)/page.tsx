@@ -210,7 +210,7 @@ export default function TekkenGame() {
 
       {/* Main Menu */}
       {gameState === "menu" && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black/80 backdrop-blur-sm">
+        <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm">
            
           <div className="text-center space-y-8">
             <h1
