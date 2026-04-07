@@ -20,6 +20,7 @@ export default function WheelPicker({ items }: WheelPickerProps = {}) {
     "Credits": "/credits",
     "Leaderboard": "/leaderboard",
     "About": "/about",
+    "FAQs": "/faq",
     "wiki": "/wiki",
     "Build Your Fighter": "/mk3.html",
   };
