@@ -1,4 +1,4 @@
-{ id: 'xiaoyu', 
+[{ id: 'xiaoyu', 
         movelist: [
         {
           id: "1",
@@ -331,4 +331,4 @@
               properties: ["combo", "quick"],
               description: "A rapid three-hit combo that catches opponents off-guard. Great for pressure.",
             },
-          ]   }
+          ]   }]
