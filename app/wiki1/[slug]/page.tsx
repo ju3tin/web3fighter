@@ -1,7 +1,7 @@
 // app/wiki/[slug]/page.tsx
 import { notFound } from 'next/navigation';
-import marked from 'marked';
-import Layout from '../../../components/Layout';
+import { marked } from 'marked';
+import Layout from '@/components/Layout';
 
 interface WikiPageProps {
   params: {
@@ -32,13 +32,13 @@ export default async function WikiPage({ params }: WikiPageProps) {
     const content = marked(md);
 
     return (
-      <Layout>
+      <Layout params={params}>
         <article dangerouslySetInnerHTML={{ __html: content }} />
       </Layout>
     );
   } catch (err) {
     return (
-      <Layout>
+      <Layout params={params}>
         <p>Page not found.</p>
       </Layout>
     );
