@@ -198,7 +198,16 @@ export default function TekkenGame() {
       {/* Main Menu */}
       {gameState === "menu" && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/80 backdrop-blur-sm">
-         
+             <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="video-bg"
+      >
+        <source src="/video/video00.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
           <div className="text-center space-y-8">
             <h1
       className={`font-bold text-white tracking-wider mb-4 ${
