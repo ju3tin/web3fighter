@@ -1,5 +1,15 @@
-import Layout from '../../components/Layout';
+import fs from 'fs';
+import path from 'path';
+import Layout from '@/components/Layout';
 import { marked } from 'marked';
+
+const CACHE_DIR = path.join(process.cwd(), 'wiki-cache');
+const REVALIDATE_SECONDS = 60; // re-fetch every 60 seconds
+
+// Ensure cache directory exists
+if (!fs.existsSync(CACHE_DIR)) {
+  fs.mkdirSync(CACHE_DIR);
+}
 
 export default function WikiPage({ content, notFound }) {
   if (notFound) {
@@ -17,17 +27,39 @@ export default function WikiPage({ content, notFound }) {
   );
 }
 
-// Dynamic routes: no pre-built paths, generate pages on-demand
 export async function getStaticPaths() {
+  // No pre-rendered pages, generate on-demand
   return {
-    paths: [],          // no pages pre-rendered
-    fallback: 'blocking' // generate pages at request time
+    paths: [],
+    fallback: 'blocking',
   };
 }
 
-// Fetch the markdown content for the requested slug
-export async function getStaticProps({ params }) {
+export async function getStaticProps(context) {
+  const params = context?.params;
+
+  if (!params || !params.slug) {
+    return { props: { notFound: true } };
+  }
+
   const { slug } = params;
+  const cacheFile = path.join(CACHE_DIR, `${slug}.html`);
+
+  let content;
+
+  // Check if cached file exists
+  if (fs.existsSync(cacheFile)) {
+    const stats = fs.statSync(cacheFile);
+    const ageSeconds = (Date.now() - stats.mtimeMs) / 1000;
+
+    content = fs.readFileSync(cacheFile, 'utf-8');
+
+    // If cache is fresh enough, return it
+    if (ageSeconds < REVALIDATE_SECONDS) {
+      return { props: { content } };
+    }
+    // Otherwise, continue to fetch fresh content
+  }
 
   try {
     const res = await fetch(
@@ -39,7 +71,10 @@ export async function getStaticProps({ params }) {
     }
 
     const md = await res.text();
-    const content = marked(md);
+    content = marked(md);
+
+    // Save content to cache
+    fs.writeFileSync(cacheFile, content, 'utf-8');
 
     return { props: { content } };
   } catch (err) {
