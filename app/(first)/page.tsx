@@ -231,7 +231,7 @@ export default function TekkenGame() {
 
       {/* Round End Screen */}
       {gameState === "round-end" && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black/80 backdrop-blur-sm">
+        <div className="absolute inset-0 flex items-center justify-center bg-black/70">
           <div className="text-center space-y-8">
             <h2 className="text-6xl font-bold text-yellow-400 tracking-wider mb-4 animate-pulse">
               {winner?.toUpperCase()} WINS!
