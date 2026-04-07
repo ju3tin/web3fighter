@@ -169,6 +169,38 @@ export default function TekkenGame() {
     },
     [player1Position, player2Position, gameState],
   )
+  const styles: { [key: string]: React.CSSProperties } = {
+  container: {
+    position: "relative",
+    width: "100%",
+    height: "100vh",
+    overflow: "hidden",
+  },
+  video: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+    transform: "translate(-50%, -50%)",
+    zIndex: -2,
+  },
+  overlay: {
+    position: "absolute",
+    inset: 0,
+    background: "rgba(0,0,0,0.4)", // dark overlay
+    zIndex: -1,
+  },
+  content: {
+    position: "relative",
+    zIndex: 1,
+    color: "#fff",
+    textAlign: "center",
+    top: "40%",
+    transform: "translateY(-50%)",
+  },
+};
 
   return (
     <div className="w-full h-screen bg-black overflow-hidden relative">
@@ -281,38 +313,9 @@ export default function TekkenGame() {
         </div>
       )}
     </div>
+    
   )
+  
 }
 
-const styles: { [key: string]: React.CSSProperties } = {
-  container: {
-    position: "relative",
-    width: "100%",
-    height: "100vh",
-    overflow: "hidden",
-  },
-  video: {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    width: "100%",
-    height: "100%",
-    objectFit: "cover",
-    transform: "translate(-50%, -50%)",
-    zIndex: -2,
-  },
-  overlay: {
-    position: "absolute",
-    inset: 0,
-    background: "rgba(0,0,0,0.4)", // dark overlay
-    zIndex: -1,
-  },
-  content: {
-    position: "relative",
-    zIndex: 1,
-    color: "#fff",
-    textAlign: "center",
-    top: "40%",
-    transform: "translateY(-50%)",
-  },
-};
+
