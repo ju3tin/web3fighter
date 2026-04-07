@@ -17,22 +17,15 @@ export default function WikiPage({ content, notFound }) {
   );
 }
 
-// Define all possible slugs at build time
+// Dynamic routes: no pre-built paths, generate pages on-demand
 export async function getStaticPaths() {
-  // Example: fetch a list of slugs from GitHub
-  const res = await fetch(
-    'https://api.github.com/repos/YourGitHubUsername/Web3-Fighter/pages'
-  );
-  const pages = await res.json();
-
-  const paths = pages.map((page) => ({
-    params: { slug: page.name.replace('.md', '') },
-  }));
-
-  return { paths, fallback: false }; // only pre-render listed pages
+  return {
+    paths: [],          // no pages pre-rendered
+    fallback: 'blocking' // generate pages at request time
+  };
 }
 
-// Fetch content for each slug at build time
+// Fetch the markdown content for the requested slug
 export async function getStaticProps({ params }) {
   const { slug } = params;
 
@@ -40,6 +33,7 @@ export async function getStaticProps({ params }) {
     const res = await fetch(
       `https://raw.githubusercontent.com/wiki/YourGitHubUsername/Web3-Fighter/${slug}.md`
     );
+
     if (!res.ok) {
       return { props: { notFound: true } };
     }
