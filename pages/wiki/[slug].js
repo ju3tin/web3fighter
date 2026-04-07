@@ -1,4 +1,4 @@
-import Layout from '../../components/Layout';
+import Layout from '@/components/Layout';
 import { marked } from 'marked';
 
 export default function WikiPage({ content, notFound }) {
@@ -18,19 +18,18 @@ export default function WikiPage({ content, notFound }) {
 }
 
 export async function getStaticPaths() {
-  // No pre-rendered paths
   return {
     paths: [],
-    fallback: 'blocking', // generate pages on-demand
+    fallback: 'blocking',
   };
 }
 
 export async function getStaticProps({ params }) {
-  const slug = params?.slug;
-
-  if (!slug) {
+  if (!params || !params.slug || typeof params.slug !== 'string') {
     return { props: { notFound: true } };
   }
+
+  const slug = params.slug.trim().replace(/^\/+|\/+$/g, '');
 
   try {
     const res = await fetch(
@@ -46,7 +45,7 @@ export async function getStaticProps({ params }) {
 
     return {
       props: { content },
-      revalidate: 60, // ISR: refresh page every 60 seconds
+      revalidate: 60,
     };
   } catch (err) {
     return { props: { notFound: true } };
