@@ -19,7 +19,8 @@ export default function WheelPicker({ items }: WheelPickerProps = {}) {
     "Settings": "/settings",
     "Credits": "/credits",
     "Leaderboard": "/leaderboard",
-    "About": "/faq",
+    "About": "/about",
+    "wiki": "/wiki",
     "Build Your Fighter": "/mk3.html",
   };
 
