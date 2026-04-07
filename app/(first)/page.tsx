@@ -179,7 +179,16 @@ export default function TekkenGame() {
         loop
         playsInline
         className={styles.video}
-        style={{ zIndex: 0, position: "absolute" }}
+          style={{
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+    transform: "translate(-50%, -50%)",
+    zIndex: 0,
+  }}
       >
         <source src="/video/video00.mp4" type="video/mp4" />
         Your browser does not support the video tag.
