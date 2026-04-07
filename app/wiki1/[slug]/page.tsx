@@ -21,7 +21,7 @@ export default async function WikiPage({ params }: WikiPageProps) {
 
   try {
     const res = await fetch(
-      `https://raw.githubusercontent.com/wiki/YourGitHubUsername/Web3-Fighter/${slug}.md`
+      `https://raw.githubusercontent.com/wiki/ju3tin/web3fighter/${slug}.md`
     );
 
     if (!res.ok) {
