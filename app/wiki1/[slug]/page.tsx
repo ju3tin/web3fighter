@@ -27,7 +27,6 @@ export default async function WikiPage({ params }: Props) {
   }
 
   let content: string;
-  let pageTitle = rawSlug;
 
   try {
     const res = await fetch(
@@ -48,8 +47,10 @@ export default async function WikiPage({ params }: Props) {
     notFound();
   }
 
+  const layoutTitle = `${rawSlug.replace(/-/g, ' ')} - Wiki`;
+
   return (
-    <Layout params={{ slug: rawSlug }}>
+    <Layout title={layoutTitle}>
       <article
         dangerouslySetInnerHTML={{ __html: content }}
         style={{
