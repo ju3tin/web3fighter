@@ -172,6 +172,19 @@ export default function TekkenGame() {
 
   return (
     <div className="w-full h-screen bg-black overflow-hidden relative">
+
+  <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className={styles.video}
+        style={{ zIndex: -2, position: "absolute" }}
+      >
+        <source src="/video/video00.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      
        <TopBar />
       <Canvas shadows camera={{ position: [0, 2, 8], fov: 50 }} gl={{ antialias: true }}>
       </Canvas>
@@ -198,17 +211,7 @@ export default function TekkenGame() {
       {/* Main Menu */}
       {gameState === "menu" && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/80 backdrop-blur-sm">
-             <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className={styles.video}
-        style={{ zIndex: -2, position: "absolute" }}
-      >
-        <source src="/video/video00.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+           
           <div className="text-center space-y-8">
             <h1
       className={`font-bold text-white tracking-wider mb-4 ${
