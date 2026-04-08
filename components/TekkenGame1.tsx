@@ -1,13 +1,14 @@
 "use client";
 
 import { Canvas } from "@react-three/fiber";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { GameScene } from "@/components/game-scene";
 import { GameUI } from "@/components/game-ui";
 import { GameController } from "@/components/game-controller";
 import { GameController1 } from "@/components/game-controller5b";
 import { Button } from "@/components/ui/button";
 import { useSearchParams } from "next/navigation";
+import { Vector3 } from 'three';
 
 
 
