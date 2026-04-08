@@ -7,6 +7,7 @@ import { GameUI } from "@/components/game-ui";
 import { GameController1, type Player1Action } from "@/components/game-controller5c";
 import { Button } from "@/components/ui/button";
 import { useSearchParams } from "next/navigation";
+import CameraController from '@/components/CameraController';
 
 /* ---------------- TYPES ---------------- */
 type GameState = "playing" | "paused" | "round-end" | "game-over";
@@ -256,6 +257,10 @@ const getLookAtRotation = (
             player2Rotation={getLookAtRotation(player2Position, player1Position)}
           />
         )}
+        <CameraController
+    player1Position={player1Position}
+    player2Position={player2Position}
+  />
       </Canvas>
 
       {/* GAME HUD */}
