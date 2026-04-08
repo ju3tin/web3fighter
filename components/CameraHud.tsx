@@ -1,7 +1,7 @@
 import { useThree, useFrame } from '@react-three/fiber';
 import { useRef } from 'react';
 import { Group } from 'three';
-import GameUI from '@/GameUi';
+import GameUI from '@/components/GameUI';
 
 export default function CameraHUD(props) {
   const { camera } = useThree();
