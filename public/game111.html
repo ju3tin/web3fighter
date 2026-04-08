@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>3D Fighting Game Bars Behind Players</title>
+<style>
+  body { margin: 0; overflow: hidden; background: #000; }
+  canvas { display: block; }
+</style>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script>
+  const renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  document.body.appendChild(renderer.domElement);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 100);
+  camera.position.set(0, 5, 10);
+  camera.lookAt(0, 0, 0);
+
+  const light = new THREE.DirectionalLight(0xffffff, 1);
+  light.position.set(5, 10, 5);
+  scene.add(light);
+
+  // --- Players ---
+  const boxGeo = new THREE.BoxGeometry(1,2,1);
+  const player1 = new THREE.Mesh(boxGeo, new THREE.MeshStandardMaterial({ color: 0xff0000 }));
+  const player2 = new THREE.Mesh(boxGeo, new THREE.MeshStandardMaterial({ color: 0x0000ff }));
+  player1.position.x = -2;
+  player2.position.x = 2;
+  scene.add(player1, player2);
+
+  // --- Health/Stamina Bars Behind Players ---
+  function createBarMesh(color, width=2, height=0.3) {
+    const geo = new THREE.PlaneGeometry(width, height);
+    const mat = new THREE.MeshBasicMaterial({ color, side: THREE.DoubleSide });
+    return new THREE.Mesh(geo, mat);
+  }
+
+  // Bars slightly behind each player in Z
+  const player1Health = createBarMesh(0xff0000);
+  player1Health.position.set(player1.position.x, player1.position.y + 2.5, player1.position.z - 0.6);
+  const player1Stamina = createBarMesh(0x0000ff, 2, 0.2);
+  player1Stamina.position.set(player1.position.x, player1.position.y + 2.2, player1.position.z - 0.6);
+
+  const player2Health = createBarMesh(0xff0000);
+  player2Health.position.set(player2.position.x, player2.position.y + 2.5, player2.position.z - 0.6);
+  const player2Stamina = createBarMesh(0x0000ff, 2, 0.2);
+  player2Stamina.position.set(player2.position.x, player2.position.y + 2.2, player2.position.z - 0.6);
+
+  scene.add(player1Health, player1Stamina, player2Health, player2Stamina);
+
+  // --- Countdown Timer (simple DOM overlay for simplicity) ---
+  const timerDiv = document.createElement('div');
+  timerDiv.style.position = 'absolute';
+  timerDiv.style.top = '20px';
+  timerDiv.style.left = '50%';
+  timerDiv.style.transform = 'translateX(-50%)';
+  timerDiv.style.fontSize = '40px';
+  timerDiv.style.color = 'white';
+  timerDiv.style.fontFamily = 'Arial';
+  document.body.appendChild(timerDiv);
+
+  let countdown = 60;
+  timerDiv.innerText = countdown;
+  setInterval(() => {
+    countdown--;
+    if (countdown < 0) countdown = 0;
+    timerDiv.innerText = countdown;
+  }, 1000);
+
+  // --- Animate ---
+  function animate() {
+    requestAnimationFrame(animate);
+
+    // Rotate players for demo
+    player1.rotation.y += 0.01;
+    player2.rotation.y -= 0.01;
+
+    // Make bars face the camera
+    [player1Health, player1Stamina, player2Health, player2Stamina].forEach(bar => {
+      bar.lookAt(camera.position);
+    });
+
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  // --- Handle resize ---
+  window.addEventListener('resize', () => {
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+  });
+</script>
+</body>
+</html>
