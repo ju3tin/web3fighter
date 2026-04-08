@@ -35,7 +35,7 @@ export default function Layout({ children, title = 'Web3Fighter Wiki' }: LayoutP
                 All Pages
               </a>
               <a 
-                href="https://github.com/wiki/ju3tin/web3fighter" 
+                href="https://github.com/ju3tin/web3fighter" 
                 target="_blank"
                 className="hover:text-blue-400 transition-colors"
               >
@@ -56,7 +56,7 @@ export default function Layout({ children, title = 'Web3Fighter Wiki' }: LayoutP
             <p>
               Powered by GitHub • Data from{' '}
               <a 
-                href="https://github.com/wiki/ju3tin/web3fighter" 
+                href="https://github.com/ju3tin/web3fighter" 
                 target="_blank"
                 className="hover:text-gray-300"
               >
