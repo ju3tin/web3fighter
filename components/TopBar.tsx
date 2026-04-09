@@ -3,20 +3,21 @@
 import React from 'react';
 import styles from './TopBar.module.css';
 import { usePathname } from "next/navigation";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 
 // Define the types for the props if needed, for now, we'll just assume no props
 const TopBar: React.FC = () => {
 
-  const navigate = useNavigate();
   const pathname = usePathname();
+  
+const router = useRouter();
 
   const isHomePage = pathname === "/";
   
   return (
     <div className={styles.topBar}>
       {!isHomePage && (
-      <button onClick={() => navigate("/")} className={styles.backBtn}>Back</button>
+      <button onClick={() => router.push("/")} className={styles.backBtn}>Back</button>
        )}
       <button className={styles.loginBtn}>
         
