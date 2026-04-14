@@ -253,6 +253,7 @@ useEffect(() => {
         {character && (
           <GameScene
             p1={p1}
+            arena={arena}
             model={character.model}
             animelist={character.animelist}           // now correctly typed as string[]
             player1Position={player1Position}
