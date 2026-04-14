@@ -30,6 +30,7 @@ type Props = {
 export default function TekkenGame({ selectedId }: Props) {
   const searchParams = useSearchParams();
   const p1 = searchParams?.get("p1") ?? "ken";
+  const arena = searchParams?.get("arena") ?? "arena01";
 
   const [character, setCharacter] = useState<Character | null>(null);
   const [gameState, setGameState] = useState<GameState>("playing");
