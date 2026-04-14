@@ -11,6 +11,7 @@ interface GameSceneProps {
   player1Rotation: [number, number, number];   // ← Added
   player2Rotation: [number, number, number];   // ← Added
   p1: string;
+  arena: string;
   model: string;
   animelist: string[];                         // Fixed: should be array
 }
@@ -20,6 +21,7 @@ export function GameScene({
   player2Position,
   player1Rotation,
   player2Rotation,
+  arena,
   p1,
   model,
   animelist,
@@ -41,7 +43,9 @@ export function GameScene({
       <GameCamera />
 
       {/* Arena/Stage */}
-      <Arena />
+      <Arena 
+        arena={arena}
+        />
 
       {/* Fighters */}
       <Fighter
