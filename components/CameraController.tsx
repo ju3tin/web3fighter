@@ -8,31 +8,41 @@ export default function CameraController({ player1Position, player2Position }) {
   const currentPosition = useRef(new Vector3());
 
   useFrame(() => {
+    // Player positions as Vector3 for easier math
+    const p1 = new Vector3(...player1Position);
+    const p2 = new Vector3(...player2Position);
+
     // --- Step 1: Compute midpoint ---
-    const midpoint = new Vector3(
-      (player1Position[0] + player2Position[0]) / 2,
-      (player1Position[1] + player2Position[1]) / 2 + 1.0, // slightly above
-      (player1Position[2] + player2Position[2]) / 2
-    );
+    const midpoint = new Vector3()
+      .addVectors(p1, p2)
+      .multiplyScalar(0.5);
 
-    // --- Step 2: Compute distance for zoom ---
-    const dx = player1Position[0] - player2Position[0];
-    const dz = player1Position[2] - player2Position[2];
-    const distance = Math.sqrt(dx * dx + dz * dz);
+    // Add a little height offset so we're not looking exactly at ground level
+    midpoint.y += 1.0;
 
-    // --- Step 3: Set target camera position ---
-    // Camera behind the midpoint on z-axis and higher for better view
-    targetPosition.current.set(
-      midpoint.x,
-      midpoint.y + distance * 0.6, // height adjusts with distance
-      midpoint.z + distance * 1.2  // back off based on distance
-    );
+    // --- Step 2: Compute distance between players ---
+    const dx = p1.x - p2.x;
+    const dz = p1.z - p2.z;
+    const horizontalDistance = Math.sqrt(dx * dx + dz * dz);
 
-    // --- Step 4: Smoothly move camera ---
-    currentPosition.current.lerp(targetPosition.current, 0.1); // 0.1 = smooth factor
+    // --- Step 3: Get direction perpendicular to the line between players ---
+    // This gives us a side-view instead of top-down/back view
+    const direction = new Vector3(dx, 0, dz).normalize();
+    const perpendicular = new Vector3(-direction.z, 0, direction.x); // rotate 90° on Y axis
+
+    // --- Step 4: Set target camera position ---
+    const desiredDistance = Math.max(horizontalDistance * 1.1, 8); // minimum distance
+
+    targetPosition.current
+      .copy(midpoint)
+      .add(perpendicular.multiplyScalar(desiredDistance))   // move to the side
+      .add(new Vector3(0, desiredDistance * 0.55, 0));       // add height (adjust 0.55 as needed)
+
+    // --- Step 5: Smooth camera movement ---
+    currentPosition.current.lerp(targetPosition.current, 0.08); // 0.08–0.12 feels nice
     camera.position.copy(currentPosition.current);
 
-    // --- Step 5: Look at midpoint ---
+    // --- Step 6: Look at midpoint ---
     camera.lookAt(midpoint);
   });
 
