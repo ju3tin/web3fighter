@@ -5,7 +5,7 @@ import { useGLTF } from "@react-three/drei"
 import * as THREE from "three"
 
 export function Arena() {
-  const { scene } = useGLTF("/models/boxing_ring.glb")
+  const { scene } = useGLTF("/models/arena01.glb")
 
   // Clone so multiple renders don't mutate shared GLTF scene.
   const ring = useMemo(() => scene.clone(true), [scene])
