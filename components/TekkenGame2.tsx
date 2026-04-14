@@ -76,20 +76,22 @@ const getLookAtRotation = (
 };
 
   /* ---------------- CHARACTER LOAD ---------------- */
-  useEffect(() => {
-    async function fetchCharacter() {
-      try {
-        const res = await fetch("/api/chartactermovelist");
-        const data: Character[] = await res.json();
-        const result = data.find((item) => item.id === (selectedId ?? p1));
-        setCharacter(result ?? null);
-      } catch (err) {
-        console.error("Failed to fetch character data:", err);
-      }
-    }
+useEffect(() => {
+  async function fetchCharacter() {
+    try {
+      const id = selectedId ?? p1;
 
-    fetchCharacter();
-  }, [p1, selectedId]);
+      const res = await fetch(`/api/chartact?id=${id}`);
+      const data: Character = await res.json();
+
+      setCharacter(data);
+    } catch (err) {
+      console.error("Failed to fetch character data:", err);
+    }
+  }
+
+  fetchCharacter();
+}, [p1, selectedId]);
 
   /* ---------------- MOVEMENT LOOP ---------------- */
   useEffect(() => {
