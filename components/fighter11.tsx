@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import * as THREE from "three";
-import animationConfig from "./fighterAnimations.json"; // ← Import JSON
+import animationConfig from "./fighters.json"; // ← Import JSON
 
 export type Direction = "left" | "right" | "forward" | "back" | "stop" | null;
 export type FighterAction = keyof typeof animationConfig; // ← Auto type from JSON!
