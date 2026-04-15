@@ -1,4 +1,4 @@
-[{
+{
   "ryu": {
     "fightstance": { "animName": "Idle", "loop": "Repeat", "weight": 1.0, "priority": 0 },
     "walk":        { "animName": "Walk", "loop": "Repeat", "weight": 0.8, "priority": 1 },
@@ -18,4 +18,4 @@
     "fightstance": { "animName": "Idle_Chun", "loop": "Repeat", "weight": 1.0, "priority": 0 },
     "walk":        { "animName": "Walk_Chun", "loop": "Repeat", "weight": 0.75, "priority": 1 }
   }
-}]
+}
