@@ -57,6 +57,7 @@ export function GameScene({
         // animationPath={animelist}        // Uncomment & adjust if your Fighter supports it
         direction="stop"
         action="fightstance"
+        renderOrder={10}
       />
 
       <Fighter
@@ -68,6 +69,7 @@ export function GameScene({
         // animationPath="/anime/1a.glb"
         direction="stop"
         action="fightstance"
+        renderOrder={10}
       />
 
       {/* Ground Shadows */}
