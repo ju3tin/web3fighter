@@ -4,7 +4,7 @@ import { Environment, ContactShadows } from "@react-three/drei";
 import { Fighter } from "./fighter9";
 import  Arena  from "./arena";
 import { GameCamera } from "./game-camera";
-import GameHub from "./gamehub";   // ← import here
+//import GameHub from "./gamehub";   // ← import here
 
 interface GameSceneProps {
   player1Position: [number, number, number];
