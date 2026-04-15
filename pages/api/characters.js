@@ -12,7 +12,7 @@ export default function handler(req, res) {
   { id: 'xBot', name: 'xBot', portrait: '/characters/anna.png', model: '/models/sitting_talking.glb', animelist: '/anime/1.glb'  },
   { id: 'blanka', name: 'Blanka', portrait: '/characters/Super_Blanka.png', model: '/models/street_fighter_blanka.glb', animelist: '/anime/1a.glb'  },
   { id: 'heihachi', name: 'heihachi', portrait: '/characters/heihachi.png', model: '/models/heihachi.glb', animelist: '/anime/1a.glb'  },
-  { id: 'urbanninja', name: 'urbanninja', portrait: '/characters/urbanninja.png', model: '/models/urbanninja2.glb', animelist: '/models/west3.glb'  },
+  { id: 'urbanninja', name: 'urbanninja', portrait: '/characters/urbanninja.png', model: '/models/urbanninja2.glb', animelist: '/models/urbanninja2.glb'  },
   { id: 'ninja', name: 'ninja', portrait: '/characters/ninja1.png', model: '/models/ninja2a.glb', animelist: '/anime/1a.glb'  },
     ];
     
