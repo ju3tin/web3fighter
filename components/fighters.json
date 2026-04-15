@@ -1,0 +1,44 @@
+{
+  "fightstance": {
+    "animName": "fightstance",
+    "loop": "Repeat",
+    "clamp": false,
+    "fadeTime": 0.2
+  },
+  "idle": {
+    "animName": "idle",
+    "loop": "Repeat",
+    "clamp": false,
+    "fadeTime": 0.2
+  },
+  "walk": {
+    "animName": "Walk",
+    "loop": "Repeat",
+    "clamp": false,
+    "fadeTime": 0.2
+  },
+  "punch": {
+    "animName": "punch",
+    "loop": "Once",
+    "clamp": true,
+    "fadeTime": 0.2
+  },
+  "kick": {
+    "animName": "kick",
+    "loop": "Once",
+    "clamp": true,
+    "fadeTime": 0.2
+  },
+  "block": {
+    "animName": "Block",
+    "loop": "Repeat",
+    "clamp": false,
+    "fadeTime": 0.2
+  },
+  "hit": {
+    "animName": "Hit",
+    "loop": "Once",
+    "clamp": true,
+    "fadeTime": 0.2
+  }
+}
