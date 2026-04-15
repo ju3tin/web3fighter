@@ -72,7 +72,7 @@ export function GameScene({
         action="fightstance"
         renderOrder={10}
       />
-      {/* Game HUD - placed last so it renders on top of arena but under fighters */}
+      {/* Game HUD - placed last so it renders on top of arena but under fighters 
       <GameHub
         player1Health={30}
         player2Health={50}
@@ -83,7 +83,7 @@ export function GameScene({
         p1Name="KEN"     // you can make these dynamic later
         p2Name="PAUL"
       />
-
+*/}
       {/* Ground Shadows */}
       <ContactShadows
         position={[0, -0.01, 0]}
