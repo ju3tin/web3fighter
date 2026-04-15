@@ -74,12 +74,12 @@ export function GameScene({
       />
       {/* Game HUD - placed last so it renders on top of arena but under fighters */}
       <GameHub
-        player1Health={player1Health}
-        player2Health={player2Health}
-        gameTime={gameTime}
-        currentRound={currentRound}
-        player1Score={player1Score}
-        player2Score={player2Score}
+        player1Health={30}
+        player2Health={50}
+        gameTime={97}
+        currentRound={1}
+        player1Score={30}
+        player2Score={30}
         p1Name="KEN"     // you can make these dynamic later
         p2Name="PAUL"
       />
