@@ -7,6 +7,14 @@
     "block":       { "animName": "Block", "loop": "Repeat", "weight": 0.75, "priority": 3 }
   },
 
+   "urbanninja": {
+    "fightstance": { "animName": "Idle", "loop": "Repeat", "weight": 1.0, "priority": 0 },
+    "walk":        { "animName": "Walk", "loop": "Repeat", "weight": 0.8, "priority": 1 },
+    "punch":       { "animName": "Punch", "loop": "Once", "clamp": true, "fadeTime": 0.1, "weight": 0.9, "priority": 5 },
+    "kick":        { "animName": "Kick", "loop": "Once", "clamp": true, "fadeTime": 0.12, "weight": 0.85, "priority": 5 },
+    "block":       { "animName": "Block", "loop": "Repeat", "weight": 0.75, "priority": 3 }
+  },
+
   "ken": {
     "fightstance": { "animName": "Idle_Ken", "loop": "Repeat", "weight": 1.0, "priority": 0 },
     "walk":        { "animName": "Walk_Ken", "loop": "Repeat", "weight": 0.8, "priority": 1 },
