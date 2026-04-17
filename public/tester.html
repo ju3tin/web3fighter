@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>GLB Model + Animation Tester</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: #111;
+      font-family: sans-serif;
+    }
+    #info {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: white;
+      font-size: 14px;
+      z-index: 10;
+      background: rgba(0,0,0,0.5);
+      padding: 10px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="info">
+  GLB Model + Animation Test<br>
+  Check console for animation logs
+</div>
+
+<script type="module">
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160/build/three.module.js';
+import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.160/examples/jsm/loaders/GLTFLoader.js';
+
+let scene = new THREE.Scene();
+scene.background = new THREE.Color(0x222222);
+
+let camera = new THREE.PerspectiveCamera(
+  60,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  100
+);
+
+camera.position.set(0, 1.5, 3);
+
+let renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+// Lights
+const hemi = new THREE.HemisphereLight(0xffffff, 0x444444, 1);
+scene.add(hemi);
+
+const dirLight = new THREE.DirectionalLight(0xffffff, 1);
+dirLight.position.set(3, 5, 2);
+scene.add(dirLight);
+
+const loader = new GLTFLoader();
+
+let mixer;
+let clock = new THREE.Clock();
+let modelRoot;
+
+// =========================
+// LOAD MODEL
+// =========================
+loader.load(
+  '/models/1aa.glb',
+  (gltf) => {
+
+    modelRoot = gltf.scene;
+    scene.add(modelRoot);
+
+    console.log("Model loaded:", modelRoot);
+
+    // Optional: see if model already contains animations
+    console.log("Embedded animations:", gltf.animations);
+
+    // =========================
+    // LOAD SEPARATE ANIMATIONS
+    // =========================
+    loader.load(
+      './anime/unaimation1.glb',
+      (animGltf) => {
+
+        console.log("Animation file loaded");
+        console.log("Animations found:", animGltf.animations);
+
+        if (!animGltf.animations || animGltf.animations.length === 0) {
+          console.warn("No animations found in animations.glb");
+          return;
+        }
+
+        mixer = new THREE.AnimationMixer(modelRoot);
+
+        animGltf.animations.forEach((clip) => {
+          console.log("Playing clip:", clip.name);
+          const action = mixer.clipAction(clip);
+          action.play();
+        });
+
+      },
+      undefined,
+      (err) => console.error("Animation load error:", err)
+    );
+
+  },
+  undefined,
+  (err) => console.error("Model load error:", err)
+);
+
+// =========================
+// RENDER LOOP
+// =========================
+function animate() {
+  requestAnimationFrame(animate);
+
+  const delta = clock.getDelta();
+  if (mixer) mixer.update(delta);
+
+  renderer.render(scene, camera);
+}
+
+animate();
+
+// =========================
+// RESIZE HANDLER
+// =========================
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+</script>
+
+</body>
+</html>
