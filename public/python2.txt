@@ -1,0 +1,56 @@
+import bpy
+import os
+
+# =========================
+# OUTPUT PATH (MAC)
+# =========================
+output_dir = "/Users/yourusername/Desktop/blender_export"
+
+model_path = os.path.join(output_dir, "model_only.glb")
+anim_path  = os.path.join(output_dir, "nla_animation.glb")
+
+os.makedirs(output_dir, exist_ok=True)
+
+# =========================
+# 1. EXPORT MODEL ONLY
+# =========================
+
+bpy.ops.object.select_all(action='DESELECT')
+
+for obj in bpy.data.objects:
+    if obj.type == 'MESH':
+        obj.select_set(True)
+
+bpy.ops.export_scene.gltf(
+    filepath=model_path,
+    export_format='GLB',
+    use_selection=True,
+    export_animations=False,
+    export_skins=False
+)
+
+print("Model exported:", model_path)
+
+# =========================
+# 2. EXPORT NLA ANIMATION
+# =========================
+
+bpy.ops.object.select_all(action='DESELECT')
+
+for obj in bpy.data.objects:
+    if obj.type == 'ARMATURE':
+        obj.select_set(True)
+
+bpy.context.view_layer.update()
+
+bpy.ops.export_scene.gltf(
+    filepath=anim_path,
+    export_format='GLB',
+    use_selection=True,
+    export_animations=True,
+    export_skins=True,
+    export_nla_strips=True,
+    export_apply=True
+)
+
+print("NLA animation exported:", anim_path)
