@@ -3,70 +3,84 @@
 <head>
   <meta charset="UTF-8" />
   <title>GLB Model + Animation Tester</title>
+
+  <!-- REQUIRED: fixes "three" module error -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160/examples/jsm/"
+    }
+  }
+  </script>
+
   <style>
     body {
       margin: 0;
       overflow: hidden;
       background: #111;
-      font-family: sans-serif;
     }
     #info {
       position: absolute;
       top: 10px;
       left: 10px;
       color: white;
-      font-size: 14px;
-      z-index: 10;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0,0,0,0.6);
       padding: 10px;
+      font-size: 13px;
       border-radius: 6px;
+      z-index: 10;
     }
   </style>
 </head>
+
 <body>
 
 <div id="info">
-  GLB Model + Animation Test<br>
-  Check console for animation logs
+  Loading: model.glb + animations.glb
 </div>
 
 <script type="module">
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160/build/three.module.js';
-import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.160/examples/jsm/loaders/GLTFLoader.js';
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-let scene = new THREE.Scene();
+// ----------------------
+// SCENE SETUP
+// ----------------------
+const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x222222);
 
-let camera = new THREE.PerspectiveCamera(
+const camera = new THREE.PerspectiveCamera(
   60,
   window.innerWidth / window.innerHeight,
   0.1,
   100
 );
-
 camera.position.set(0, 1.5, 3);
 
-let renderer = new THREE.WebGLRenderer({ antialias: true });
+const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 // Lights
-const hemi = new THREE.HemisphereLight(0xffffff, 0x444444, 1);
-scene.add(hemi);
+scene.add(new THREE.HemisphereLight(0xffffff, 0x444444, 1));
 
 const dirLight = new THREE.DirectionalLight(0xffffff, 1);
 dirLight.position.set(3, 5, 2);
 scene.add(dirLight);
 
+// ----------------------
+// LOADER
+// ----------------------
 const loader = new GLTFLoader();
 
 let mixer;
-let clock = new THREE.Clock();
+const clock = new THREE.Clock();
 let modelRoot;
 
-// =========================
+// ----------------------
 // LOAD MODEL
-// =========================
+// ----------------------
 loader.load(
   '/models/1aa.glb',
   (gltf) => {
@@ -74,16 +88,14 @@ loader.load(
     modelRoot = gltf.scene;
     scene.add(modelRoot);
 
-    console.log("Model loaded:", modelRoot);
+    console.log("Model loaded");
+    console.log("Model embedded animations:", gltf.animations);
 
-    // Optional: see if model already contains animations
-    console.log("Embedded animations:", gltf.animations);
-
-    // =========================
+    // ----------------------
     // LOAD SEPARATE ANIMATIONS
-    // =========================
+    // ----------------------
     loader.load(
-      '/anime/unaimation1.glb',
+      './anime/unaimation1.glb',
       (animGltf) => {
 
         console.log("Animation file loaded");
@@ -98,8 +110,7 @@ loader.load(
 
         animGltf.animations.forEach((clip) => {
           console.log("Playing clip:", clip.name);
-          const action = mixer.clipAction(clip);
-          action.play();
+          mixer.clipAction(clip).play();
         });
 
       },
@@ -112,9 +123,9 @@ loader.load(
   (err) => console.error("Model load error:", err)
 );
 
-// =========================
-// RENDER LOOP
-// =========================
+// ----------------------
+// ANIMATION LOOP
+// ----------------------
 function animate() {
   requestAnimationFrame(animate);
 
@@ -126,9 +137,9 @@ function animate() {
 
 animate();
 
-// =========================
-// RESIZE HANDLER
-// =========================
+// ----------------------
+// RESIZE
+// ----------------------
 window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
