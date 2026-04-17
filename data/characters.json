@@ -73,8 +73,8 @@
     "id": "urbanninja",
     "name": "urbanninja",
     "portrait": "/characters/urbanninja.png",
-    "model": "/models/urbanninja2a.glb",
-    "animelist": "/models/urbanninja2.glb"
+    "model": "/models/1aa.glb",
+    "animelist": "/anime/unanimation1.glb"
   },
   {
     "id": "ninja",

@@ -17,6 +17,14 @@
       z-index: 10;
     }
   </style>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.160/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160/examples/jsm/"
+        }
+      }
+      </script>
 </head>
 <body>
 
@@ -26,8 +34,8 @@
 </div>
 
 <script type="module">
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160/build/three.module.js';
-import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.160/examples/jsm/loaders/GLTFLoader.js';
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 // =========================
 // GET URL VARIABLES
