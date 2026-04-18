@@ -2,7 +2,7 @@
 
 import { Environment, ContactShadows } from "@react-three/drei";
 import { Fighter } from "./fighter9";
-import { Fighter1 } from "./fighter12";
+import { Fighter1 } from "./fighter13";
 import  Arena  from "./arena";
 import { GameCamera } from "./game-camera";
 //import GameHub from "./gamehub";   // ← import here
