@@ -2,6 +2,7 @@
 
 import { Environment, ContactShadows } from "@react-three/drei";
 import { Fighter } from "./fighter9";
+import { Fighter1 } from "./fighter12";
 import  Arena  from "./arena";
 import { GameCamera } from "./game-camera";
 //import GameHub from "./gamehub";   // ← import here
@@ -49,7 +50,7 @@ export function GameScene({
         />
 
       {/* Fighters */}
-      <Fighter
+      <Fighter1
         position={player1Position}
         rotation={player1Rotation}           // ← This makes Player 1 face Player 2
         name="Player 1"
