@@ -1,77 +1,40 @@
 "use client";
 
-import React, { Suspense, useMemo } from "react";
+import React, { Suspense, useMemo, useState, useEffect, createContext, useContext } from "react";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 
 /* =========================================================
    ARENA STYLE CONFIG
 ========================================================= */
-const arenaStyles: Record<
-  string,
-  {
-    leftBorder: string;
-    rightBorder: string;
-    frontBackBorder: string;
-    floorColor: string;
-    floorMetalness?: number;
-    floorRoughness?: number;
-  }
-> = {
-  arena01: {
-    leftBorder: "#ff0000",
-    rightBorder: "#0066ff",
-    frontBackBorder: "#333333",
-    floorColor: "#1a1a1a",
-    floorMetalness: 0.3,
-    floorRoughness: 0.7,
-  },
-  boxing_ring: {
-    leftBorder: "#ffffff",
-    rightBorder: "#ffffff",
-    frontBackBorder: "#ffffff",
-    floorColor: "#222222",
-    floorMetalness: 0.1,
-    floorRoughness: 0.9,
-  },
-  mishima_dojo: {
-    leftBorder: "#880000",
-    rightBorder: "#008800",
-    frontBackBorder: "#444400",
-    floorColor: "#2b1a0b",
-  },
-  arena_of_embers: {
-    leftBorder: "#ff4500",
-    rightBorder: "#ff4500",
-    frontBackBorder: "#550000",
-    floorColor: "#3a1f1f",
-  },
-  tokyo_stadium: {
-    leftBorder: "#0077ff",
-    rightBorder: "#ff7700",
-    frontBackBorder: "#555555",
-    floorColor: "#1a1a1a",
-  },
+const arenaStyles: Record<string, {
+  leftBorder: string;
+  rightBorder: string;
+  frontBackBorder: string;
+  floorColor: string;
+  floorMetalness?: number;
+  floorRoughness?: number;
+}> = {
+  arena01: { leftBorder: "#ff0000", rightBorder: "#0066ff", frontBackBorder: "#333333", floorColor: "#1a1a1a", floorMetalness: 0.3, floorRoughness: 0.7 },
+  boxing_ring: { leftBorder: "#ffffff", rightBorder: "#ffffff", frontBackBorder: "#ffffff", floorColor: "#222222", floorMetalness: 0.1, floorRoughness: 0.9 },
+  mishima_dojo: { leftBorder: "#880000", rightBorder: "#008800", frontBackBorder: "#444400", floorColor: "#2b1a0b" },
+  arena_of_embers: { leftBorder: "#ff4500", rightBorder: "#ff4500", frontBackBorder: "#550000", floorColor: "#3a1f1f" },
+  tokyo_stadium: { leftBorder: "#0077ff", rightBorder: "#ff7700", frontBackBorder: "#555555", floorColor: "#1a1a1a" },
 };
 
 /* =========================================================
-   FALLBACK ARENA
+   CONTEXT FOR DIMENSIONS
 ========================================================= */
-type ArenaFallbackProps = {
-  width?: number;
-  depth?: number;
-  height?: number;
-  arena: string;
-};
+const ArenaDimensionsContext = createContext({ width: 10, depth: 6, height: 0.6 });
 
-function ArenaFallback({ 
-  width = 10, 
-  depth = 6, 
-  height = 0.6, 
-  arena 
-}: ArenaFallbackProps) {
-  
+/* =========================================================
+   FALLBACK ARENA (Dynamic Size)
+========================================================= */
+type ArenaFallbackProps = { arena: string };
+
+function ArenaFallback({ arena }: ArenaFallbackProps) {
   const style = arenaStyles[arena] || arenaStyles["arena01"];
+  const { width, depth, height } = useContext(ArenaDimensionsContext);
 
   const floorHeight = Math.max(0.2, height * 0.3);
   const borderHeight = height;
@@ -93,21 +56,13 @@ function ArenaFallback({
       {/* Left Border */}
       <mesh position={[-width / 2, borderHeight / 2, 0]}>
         <boxGeometry args={[borderThickness, borderHeight, depth]} />
-        <meshStandardMaterial 
-          color={style.leftBorder} 
-          emissive={style.leftBorder} 
-          emissiveIntensity={0.5} 
-        />
+        <meshStandardMaterial color={style.leftBorder} emissive={style.leftBorder} emissiveIntensity={0.5} />
       </mesh>
 
       {/* Right Border */}
       <mesh position={[width / 2, borderHeight / 2, 0]}>
         <boxGeometry args={[borderThickness, borderHeight, depth]} />
-        <meshStandardMaterial 
-          color={style.rightBorder} 
-          emissive={style.rightBorder} 
-          emissiveIntensity={0.5} 
-        />
+        <meshStandardMaterial color={style.rightBorder} emissive={style.rightBorder} emissiveIntensity={0.5} />
       </mesh>
 
       {/* Back Border */}
@@ -125,20 +80,19 @@ function ArenaFallback({
       {/* Center Line */}
       <mesh position={[0, 0.01, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[centerLineWidth, depth]} />
-        <meshStandardMaterial 
-          color="#ffffff" 
-          transparent 
-          opacity={0.3} 
-        />
+        <meshStandardMaterial color="#ffffff" transparent opacity={0.3} />
       </mesh>
     </group>
   );
 }
 
 /* =========================================================
-   GLB MODEL LOADER
+   GLB MODEL LOADER + DIMENSION EXTRACTOR
 ========================================================= */
-function ArenaModel({ path }: { path: string }) {
+function ArenaModel({ path, onDimensionsReady }: { 
+  path: string; 
+  onDimensionsReady: (dims: { width: number; depth: number; height: number }) => void;
+}) {
   const { scene } = useGLTF(path);
 
   const clonedScene = useMemo(() => {
@@ -151,6 +105,19 @@ function ArenaModel({ path }: { path: string }) {
     });
     return clone;
   }, [scene]);
+
+  // Extract real dimensions when model loads
+  useEffect(() => {
+    const box = new THREE.Box3().setFromObject(scene);
+    const size = new THREE.Vector3();
+    box.getSize(size);
+
+    onDimensionsReady({
+      width: size.x || 10,
+      depth: size.z || 6,
+      height: size.y || 0.6,
+    });
+  }, [scene, onDimensionsReady]);
 
   return <primitive object={clonedScene} />;
 }
@@ -177,14 +144,14 @@ class ErrorBoundary extends React.Component<
 
   render() {
     if (this.state.hasError) {
-      return <ArenaFallback width={10} depth={6} height={0.6} arena={this.props.arena} />;
+      return <ArenaFallback arena={this.props.arena} />;
     }
     return this.props.children;
   }
 }
 
 /* =========================================================
-   MAIN ARENA COMPONENT (Fixed)
+   MAIN ARENA COMPONENT (Dynamic Sizing)
 ========================================================= */
 type ArenaProps = {
   arena?: string;
@@ -192,24 +159,21 @@ type ArenaProps = {
 
 export default function Arena({ arena = "arena01" }: ArenaProps) {
   const modelPath = `/models/${arena}.glb`;
+  const [dimensions, setDimensions] = useState({ width: 10, depth: 6, height: 0.6 });
 
   return (
-    <group position={[0, -0.1, 0]} rotation={[0, Math.PI, 0]}>
-      <ErrorBoundary arena={arena}>
-        <Suspense
-          fallback={
-            <ArenaFallback 
-              width={10} 
-              depth={6} 
-              height={0.6} 
-              arena={arena} 
+    <ArenaDimensionsContext.Provider value={dimensions}>
+      <group position={[0, -0.1, 0]} rotation={[0, Math.PI, 0]}>
+        <ErrorBoundary arena={arena}>
+          <Suspense fallback={<ArenaFallback arena={arena} />}>
+            <ArenaModel 
+              path={modelPath} 
+              onDimensionsReady={setDimensions} 
             />
-          }
-        >
-          <ArenaModel path={modelPath} />
-        </Suspense>
-      </ErrorBoundary>
-    </group>
+          </Suspense>
+        </ErrorBoundary>
+      </group>
+    </ArenaDimensionsContext.Provider>
   );
 }
 
