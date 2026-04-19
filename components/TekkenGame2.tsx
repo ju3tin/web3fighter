@@ -248,7 +248,7 @@ useEffect(() => {
         shadows
         dpr={[1, 1.5]}
         gl={{ powerPreference: "high-performance" }}
-        camera={{ position: [0, 2, 8], fov: 50 }}
+        camera={{ position: [0, 2, 8], fov: 35 }}
       >
         {character && (
           <GameScene
