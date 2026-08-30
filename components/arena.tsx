@@ -182,6 +182,6 @@ export default function Arena({ arena = "arena01" }: ArenaProps) {
 ========================================================= */
 useGLTF.preload("/models/arena01.glb");
 useGLTF.preload("/models/boxing_ring.glb");
-useGLTF.preload("/models/mishima_dojo.glb");
-useGLTF.preload("/models/arena_of_embers.glb");
-useGLTF.preload("/models/tokyo_stadium.glb");
+useGLTF.preload("/models/arena3.glb");
+useGLTF.preload("/models/arena1.glb");
+useGLTF.preload("/models/arena2.glb");

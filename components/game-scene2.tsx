@@ -59,6 +59,7 @@ export function GameScene({
         direction="stop"
         action="fightstance"
         renderOrder={10}
+        fighterType={model}
       />
 
       <Fighter
@@ -66,6 +67,7 @@ export function GameScene({
         rotation={player2Rotation}           // ← This makes Player 2 face Player 1
         name="Player 2"
         isPlayer1={false}
+        fighterType={model}
         modelPath="/anime/1abc.glb"
         // animationPath="/anime/1a.glb"
         direction="stop"
