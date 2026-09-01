@@ -1,0 +1,18 @@
+{
+  "generatedAt": "2026-09-01T10:05:35.426Z",
+  "count": 2,
+  "pages": [
+    {
+      "slug": "Home",
+      "title": "Home",
+      "filename": "Home.md",
+      "content": "Welcome to the web3fighter wiki!\n"
+    },
+    {
+      "slug": "Getting-Started",
+      "title": "Getting Started",
+      "filename": "Getting-Started.md",
+      "content": "🎮 Getting Started – Web3 Fighter<br />\nWhat is Web3 Fighter?<br />\n\nWeb3 Fighter is a 3D fighting game inspired by classics like Tekken and Street Fighter, built using Three.js.\n\nPlayers control unique fighters in fast-paced battles, using combos, timing, and strategy to defeat opponents.\n\n🚀 Quick Start (Play the Game)<br />\n\nOpen the Game<br />\n\nVisit: [your game link]<br />\n\nLoad Your Fighter<br />\n\nChoose or spawn your character<br />\n\nLearn the Controls<br />\n\nMove: WASD or Arrow Keys<br />\n\nAttack: J / K / L (edit this to match your controls)<br />\n\nBlock: Shift<br />\n\nStart Fighting<br />\n\nEnter a match or practice mode<br />\n\n🧰 Requirements<br />\n\nModern browser (Chrome recommended)<br />\n\nKeyboard (controller support if you add it later)<br />\n \nStable internet connection"
+    }
+  ]
+}
