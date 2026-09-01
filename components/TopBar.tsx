@@ -4,6 +4,7 @@ import React from 'react';
 import styles from './TopBar.module.css';
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
+import LoginButton from '@/components/LoginButton';
 
 // Define the types for the props if needed, for now, we'll just assume no props
 const TopBar: React.FC = () => {
@@ -19,7 +20,7 @@ const router = useRouter();
       {!isHomePage && (
       <button onClick={() => router.push("/")} className={styles.backBtn}>Back</button>
        )}
-      <button className={styles.loginBtn}>Login</button>
+      <LoginButton />
     </div>
   );
 };
