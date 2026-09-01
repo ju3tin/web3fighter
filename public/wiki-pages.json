@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-01T10:17:32.258Z",
+  "generatedAt": "2026-09-01T10:26:51.410Z",
   "count": 3,
   "pages": [
     {
@@ -15,10 +15,10 @@
       "content": "🎮 Getting Started – Web3 Fighter<br />\nWhat is Web3 Fighter?<br />\n\nWeb3 Fighter is a 3D fighting game inspired by classics like Tekken and Street Fighter, built using Three.js.\n\nPlayers control unique fighters in fast-paced battles, using combos, timing, and strategy to defeat opponents.\n\n🚀 Quick Start (Play the Game)<br />\n\nOpen the Game<br />\n\nVisit: [your game link]<br />\n\nLoad Your Fighter<br />\n\nChoose or spawn your character<br />\n\nLearn the Controls<br />\n\nMove: WASD or Arrow Keys<br />\n\nAttack: J / K / L (edit this to match your controls)<br />\n\nBlock: Shift<br />\n\nStart Fighting<br />\n\nEnter a match or practice mode<br />\n\n🧰 Requirements<br />\n\nModern browser (Chrome recommended)<br />\n\nKeyboard (controller support if you add it later)<br />\n \nStable internet connection"
     },
     {
-      "slug": "sdfsdf",
-      "title": "Getting Started – Web3 Fighter",
-      "filename": "sdfsdf.md",
-      "content": "---\ntitle: Getting Startedsdfdsf\ncategory: Guides\ntags: [beginner, setup]\norder: 1\n---\n\n# Getting Started – Web3 Fighter\n\nWhat is Web3 Fighter?\n..."
+      "slug": "How-to-Play",
+      "title": "How to Play",
+      "filename": "How-to-Play.md",
+      "content": "---\ntitle: How to Play\ncategory: getting-started\norder: 1\n---\n\nYour content here..."
     }
   ]
 }
