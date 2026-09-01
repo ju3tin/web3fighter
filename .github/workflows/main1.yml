@@ -1,12 +1,9 @@
 name: Sync Wiki Pages
 
 on:
-  # Runs when anyone edits the wiki
   gollum:
-  # Also run every 6 hours as a backup
   schedule:
     - cron: '0 */6 * * *'
-  # Allow manual runs from the Actions tab
   workflow_dispatch:
 
 permissions:
@@ -18,8 +15,6 @@ jobs:
     steps:
       - name: Checkout main repository
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Clone the wiki repository
         run: |
@@ -31,60 +26,116 @@ jobs:
           const fs = require('fs');
           const path = require('path');
 
+          // Map the text people write → your website category ids
+          const CATEGORY_MAP = {
+            "getting started": "getting-started",
+            "fighters": "fighters",
+            "fighter": "fighters",
+            "combat moves": "combat-moves",
+            "combat": "combat-moves",
+            "moves": "combat-moves",
+            "elements": "elements",
+            "element": "elements",
+            "nft guide": "nft-guide",
+            "nft": "nft-guide",
+            "ranked": "ranked",
+            "ranked mode": "ranked"
+          };
+
+          const VALID_CATEGORIES = [
+            "getting-started",
+            "fighters",
+            "combat-moves",
+            "elements",
+            "nft-guide",
+            "ranked"
+          ];
+
           const wikiDir = './wiki-temp';
           const files = fs.readdirSync(wikiDir)
             .filter(f => f.endsWith('.md') && !f.startsWith('_'));
 
           const pages = files.map(file => {
             const slug = file.replace(/\.md$/, '');
-            const content = fs.readFileSync(path.join(wikiDir, file), 'utf8');
-            
-            // Extract title from first heading if possible
+            let content = fs.readFileSync(path.join(wikiDir, file), 'utf8');
+
+            // Extract title from first markdown heading
             const titleMatch = content.match(/^#\s+(.+)$/m);
-            const title = titleMatch 
-              ? titleMatch[1].trim() 
-              : slug.replace(/-/g, ' ');
+            const title = titleMatch ? titleMatch[1].trim() : slug.replace(/-/g, ' ');
+
+            // Look for <h2 class="category">...</h2>
+            const categoryMatch = content.match(/<h2\s+class=["']category["'][^>]*>(.*?)<\/h2>/i);
+            
+            let categories = [];
+
+            if (categoryMatch) {
+              // Split by comma and clean up
+              const rawCategories = categoryMatch[1].split(',').map(c => c.trim().toLowerCase());
+              
+              categories = rawCategories
+                .map(name => CATEGORY_MAP[name] || null)
+                .filter(id => id && VALID_CATEGORIES.includes(id));
+
+              // Remove the category tag from the content so it doesn't show on the page
+              content = content.replace(categoryMatch[0], '').trim();
+            }
+
+            // If no valid category found, put it in uncategorized
+            if (categories.length === 0) {
+              categories = ["uncategorized"];
+            }
 
             return {
               slug,
               title,
-              filename: file,
-              // Optional: include content (remove if you only want the list)
-              content: content
+              categories,          // array (can belong to multiple)
+              category: categories[0], // main category for convenience
+              content
             };
           });
 
-          // Sort alphabetically, put Home first
-          pages.sort((a, b) => {
-            if (a.slug === 'Home') return -1;
-            if (b.slug === 'Home') return 1;
-            return a.title.localeCompare(b.title);
+          // Group pages by category
+          const pagesByCategory = {};
+          VALID_CATEGORIES.forEach(cat => pagesByCategory[cat] = []);
+          pagesByCategory["uncategorized"] = [];
+
+          pages.forEach(page => {
+            page.categories.forEach(cat => {
+              if (pagesByCategory[cat]) {
+                pagesByCategory[cat].push(page);
+              }
+            });
           });
+
+          // Create the summary your frontend needs
+          const categories = VALID_CATEGORIES.map(id => ({
+            id,
+            articles: pagesByCategory[id].length,
+            pages: pagesByCategory[id]
+          }));
 
           const output = {
             generatedAt: new Date().toISOString(),
-            count: pages.length,
-            pages
+            categories,
+            pagesByCategory,
+            allPages: pages
           };
 
-          // Write to a public location so your website can fetch it
           fs.mkdirSync('public', { recursive: true });
           fs.writeFileSync('public/wiki-pages.json', JSON.stringify(output, null, 2));
-          
-          console.log(`Generated ${pages.length} pages:`);
-          pages.forEach(p => console.log(` - ${p.slug}`));
+
+          console.log("=== Categories ===");
+          categories.forEach(c => {
+            console.log(`${c.id}: ${c.articles} articles`);
+          });
           EOF
 
-      - name: Commit and push if changed
+      - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          
           git add public/wiki-pages.json
-          
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "docs: sync wiki pages ($(date -u +%Y-%m-%d))"
+          if ! git diff --staged --quiet; then
+            git commit -m "docs: sync wiki pages"
             git push
           fi
