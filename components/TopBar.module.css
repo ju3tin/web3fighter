@@ -10,7 +10,10 @@
   z-index: 10; /* Ensure it stays on top */
 }
 
-.backBtn, .loginBtn {
+.backBtn,.loginBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   padding: 10px 20px;
   font-size: 16px;
   background-color: #0070f3;
@@ -20,6 +23,32 @@
   cursor: pointer;
 }
 
-.backBtn:hover, .loginBtn:hover {
+.backBtn::before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background-image: url("/svg/back.svg");  /* path from public folder */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.loginBtn::before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background-image: url("/svg/login.svg");  /* path from public folder */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.backBtn:hover{
+  background-color: #005bb5;
+} 
+
+.loginBtn:hover {
   background-color: #005bb5;
 }

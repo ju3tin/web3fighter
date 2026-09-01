@@ -17,9 +17,9 @@ const arenaStyles: Record<string, {
 }> = {
   arena01: { leftBorder: "#ff0000", rightBorder: "#0066ff", frontBackBorder: "#333333", floorColor: "#1a1a1a", floorMetalness: 0.3, floorRoughness: 0.7 },
   boxing_ring: { leftBorder: "#ffffff", rightBorder: "#ffffff", frontBackBorder: "#ffffff", floorColor: "#222222", floorMetalness: 0.1, floorRoughness: 0.9 },
-  mishima_dojo: { leftBorder: "#880000", rightBorder: "#008800", frontBackBorder: "#444400", floorColor: "#2b1a0b" },
-  arena_of_embers: { leftBorder: "#ff4500", rightBorder: "#ff4500", frontBackBorder: "#550000", floorColor: "#3a1f1f" },
-  tokyo_stadium: { leftBorder: "#0077ff", rightBorder: "#ff7700", frontBackBorder: "#555555", floorColor: "#1a1a1a" },
+  arena3: { leftBorder: "#880000", rightBorder: "#008800", frontBackBorder: "#444400", floorColor: "#2b1a0b" },
+  arena1: { leftBorder: "#ff4500", rightBorder: "#ff4500", frontBackBorder: "#550000", floorColor: "#3a1f1f" },
+  arena2: { leftBorder: "#0077ff", rightBorder: "#ff7700", frontBackBorder: "#555555", floorColor: "#1a1a1a" },
 };
 
 /* =========================================================
