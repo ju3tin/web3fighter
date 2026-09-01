@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-01T10:26:51.410Z",
+  "generatedAt": "2026-09-01T10:28:59.985Z",
   "count": 3,
   "pages": [
     {
@@ -18,7 +18,7 @@
       "slug": "How-to-Play",
       "title": "How to Play",
       "filename": "How-to-Play.md",
-      "content": "---\ntitle: How to Play\ncategory: getting-started\norder: 1\n---\n\nYour content here..."
+      "content": "---\ntitle: How to Play\ncategory: getting-started\norder: 1\n---\n\n# How to Play\n\nWelcome to Web3Fighter!\n\nUse WASD to move and J/K/L to attack."
     }
   ]
 }
