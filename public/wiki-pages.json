@@ -1,24 +1,137 @@
 {
-  "generatedAt": "2026-09-01T10:41:10.782Z",
-  "count": 3,
-  "pages": [
+  "generatedAt": "2026-09-01T10:54:10.254Z",
+  "categories": [
     {
-      "slug": "Home",
-      "title": "Home",
-      "filename": "Home.md",
-      "content": "Welcome to the web3fighter wiki!\n"
+      "id": "getting-started",
+      "articles": 1,
+      "pages": [
+        {
+          "slug": "How-to-Play",
+          "title": "How to Play",
+          "categories": [
+            "getting-started",
+            "fighters"
+          ],
+          "category": "getting-started",
+          "content": "---\ntitle: How to Play\ncategory: getting-started\norder: 1\n---\n\n# How to Play\n\nWelcome to Web3Fighter!\n\nUse WASD to move and J/K/L to attack."
+        }
+      ]
     },
+    {
+      "id": "fighters",
+      "articles": 1,
+      "pages": [
+        {
+          "slug": "How-to-Play",
+          "title": "How to Play",
+          "categories": [
+            "getting-started",
+            "fighters"
+          ],
+          "category": "getting-started",
+          "content": "---\ntitle: How to Play\ncategory: getting-started\norder: 1\n---\n\n# How to Play\n\nWelcome to Web3Fighter!\n\nUse WASD to move and J/K/L to attack."
+        }
+      ]
+    },
+    {
+      "id": "combat-moves",
+      "articles": 0,
+      "pages": []
+    },
+    {
+      "id": "elements",
+      "articles": 0,
+      "pages": []
+    },
+    {
+      "id": "nft-guide",
+      "articles": 0,
+      "pages": []
+    },
+    {
+      "id": "ranked",
+      "articles": 0,
+      "pages": []
+    }
+  ],
+  "pagesByCategory": {
+    "getting-started": [
+      {
+        "slug": "How-to-Play",
+        "title": "How to Play",
+        "categories": [
+          "getting-started",
+          "fighters"
+        ],
+        "category": "getting-started",
+        "content": "---\ntitle: How to Play\ncategory: getting-started\norder: 1\n---\n\n# How to Play\n\nWelcome to Web3Fighter!\n\nUse WASD to move and J/K/L to attack."
+      }
+    ],
+    "fighters": [
+      {
+        "slug": "How-to-Play",
+        "title": "How to Play",
+        "categories": [
+          "getting-started",
+          "fighters"
+        ],
+        "category": "getting-started",
+        "content": "---\ntitle: How to Play\ncategory: getting-started\norder: 1\n---\n\n# How to Play\n\nWelcome to Web3Fighter!\n\nUse WASD to move and J/K/L to attack."
+      }
+    ],
+    "combat-moves": [],
+    "elements": [],
+    "nft-guide": [],
+    "ranked": [],
+    "uncategorized": [
+      {
+        "slug": "Getting-Started",
+        "title": "Getting Started",
+        "categories": [
+          "uncategorized"
+        ],
+        "category": "uncategorized",
+        "content": "🎮 Getting Started – Web3 Fighter<br />\nWhat is Web3 Fighter?<br />\n\nWeb3 Fighter is a 3D fighting game inspired by classics like Tekken and Street Fighter, built using Three.js.\n\nPlayers control unique fighters in fast-paced battles, using combos, timing, and strategy to defeat opponents.\n\n🚀 Quick Start (Play the Game)<br />\n\nOpen the Game<br />\n\nVisit: [your game link]<br />\n\nLoad Your Fighter<br />\n\nChoose or spawn your character<br />\n\nLearn the Controls<br />\n\nMove: WASD or Arrow Keys<br />\n\nAttack: J / K / L (edit this to match your controls)<br />\n\nBlock: Shift<br />\n\nStart Fighting<br />\n\nEnter a match or practice mode<br />\n\n🧰 Requirements<br />\n\nModern browser (Chrome recommended)<br />\n\nKeyboard (controller support if you add it later)<br />\n \nStable internet connection"
+      },
+      {
+        "slug": "Home",
+        "title": "Home",
+        "categories": [
+          "uncategorized"
+        ],
+        "category": "uncategorized",
+        "content": "Welcome to the web3fighter wiki!\n"
+      }
+    ]
+  },
+  "allPages": [
     {
       "slug": "Getting-Started",
       "title": "Getting Started",
-      "filename": "Getting-Started.md",
+      "categories": [
+        "uncategorized"
+      ],
+      "category": "uncategorized",
       "content": "🎮 Getting Started – Web3 Fighter<br />\nWhat is Web3 Fighter?<br />\n\nWeb3 Fighter is a 3D fighting game inspired by classics like Tekken and Street Fighter, built using Three.js.\n\nPlayers control unique fighters in fast-paced battles, using combos, timing, and strategy to defeat opponents.\n\n🚀 Quick Start (Play the Game)<br />\n\nOpen the Game<br />\n\nVisit: [your game link]<br />\n\nLoad Your Fighter<br />\n\nChoose or spawn your character<br />\n\nLearn the Controls<br />\n\nMove: WASD or Arrow Keys<br />\n\nAttack: J / K / L (edit this to match your controls)<br />\n\nBlock: Shift<br />\n\nStart Fighting<br />\n\nEnter a match or practice mode<br />\n\n🧰 Requirements<br />\n\nModern browser (Chrome recommended)<br />\n\nKeyboard (controller support if you add it later)<br />\n \nStable internet connection"
+    },
+    {
+      "slug": "Home",
+      "title": "Home",
+      "categories": [
+        "uncategorized"
+      ],
+      "category": "uncategorized",
+      "content": "Welcome to the web3fighter wiki!\n"
     },
     {
       "slug": "How-to-Play",
       "title": "How to Play",
-      "filename": "How-to-Play.md",
-      "content": "---\ntitle: How to Play\ncategory: getting-started\norder: 1\n---\n<h1 style=\"visibility: hidden\"> dfdfdsdfsdfsfsdfsd</h1>\n# How to Play\n\nWelcome to Web3Fighter!\n\nUse WASD to move and J/K/L to attack."
+      "categories": [
+        "getting-started",
+        "fighters"
+      ],
+      "category": "getting-started",
+      "content": "---\ntitle: How to Play\ncategory: getting-started\norder: 1\n---\n\n# How to Play\n\nWelcome to Web3Fighter!\n\nUse WASD to move and J/K/L to attack."
     }
   ]
 }
