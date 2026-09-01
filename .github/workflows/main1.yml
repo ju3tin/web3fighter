@@ -1,0 +1,4 @@
+- name: Build Wiki
+  # You may pin to the exact commit or the version.
+  # uses: Bilal2453/discordia-docgen-action@2997ebd11cd1f13f5ed668643856c18b9502b816
+  uses: Bilal2453/discordia-docgen-action@v0.0.1
