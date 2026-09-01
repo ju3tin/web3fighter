@@ -1,4 +1,90 @@
-- name: Build Wiki
-  # You may pin to the exact commit or the version.
-  # uses: Bilal2453/discordia-docgen-action@2997ebd11cd1f13f5ed668643856c18b9502b816
-  uses: Bilal2453/discordia-docgen-action@v0.0.1
+name: Sync Wiki Pages
+
+on:
+  # Runs when anyone edits the wiki
+  gollum:
+  # Also run every 6 hours as a backup
+  schedule:
+    - cron: '0 */6 * * *'
+  # Allow manual runs from the Actions tab
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync-wiki:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Clone the wiki repository
+        run: |
+          git clone --depth=1 https://github.com/${{ github.repository }}.wiki.git wiki-temp
+
+      - name: Generate wiki-pages.json
+        run: |
+          node << 'EOF'
+          const fs = require('fs');
+          const path = require('path');
+
+          const wikiDir = './wiki-temp';
+          const files = fs.readdirSync(wikiDir)
+            .filter(f => f.endsWith('.md') && !f.startsWith('_'));
+
+          const pages = files.map(file => {
+            const slug = file.replace(/\.md$/, '');
+            const content = fs.readFileSync(path.join(wikiDir, file), 'utf8');
+            
+            // Extract title from first heading if possible
+            const titleMatch = content.match(/^#\s+(.+)$/m);
+            const title = titleMatch 
+              ? titleMatch[1].trim() 
+              : slug.replace(/-/g, ' ');
+
+            return {
+              slug,
+              title,
+              filename: file,
+              // Optional: include content (remove if you only want the list)
+              content: content
+            };
+          });
+
+          // Sort alphabetically, put Home first
+          pages.sort((a, b) => {
+            if (a.slug === 'Home') return -1;
+            if (b.slug === 'Home') return 1;
+            return a.title.localeCompare(b.title);
+          });
+
+          const output = {
+            generatedAt: new Date().toISOString(),
+            count: pages.length,
+            pages
+          };
+
+          // Write to a public location so your website can fetch it
+          fs.mkdirSync('public', { recursive: true });
+          fs.writeFileSync('public/wiki-pages.json', JSON.stringify(output, null, 2));
+          
+          console.log(`Generated ${pages.length} pages:`);
+          pages.forEach(p => console.log(` - ${p.slug}`));
+          EOF
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          git add public/wiki-pages.json
+          
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "docs: sync wiki pages ($(date -u +%Y-%m-%d))"
+            git push
+          fi
